@@ -5,29 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54a9c657-1bf8-4626-b061-da67faef1798" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/explore.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/+not-found.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Collapsible.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ExternalLink.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/HapticTab.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/HelloWave.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ParallaxScrollView.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ThemedText.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ThemedView.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/__tests__/ThemedText-test.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/__tests__/__snapshots__/ThemedText-test.tsx.snap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/IconSymbol.ios.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/IconSymbol.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/TabBarBackground.ios.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/TabBarBackground.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants/Colors.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/useColorScheme.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/useColorScheme.web.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/useThemeColor.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/reset-project.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +21,9 @@
   "associatedIndex": 0
 }]]></component>
   <component name="ProjectId" id="2tg2a0QS5I5Ysc5izf7mv8cYxVW" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -75,11 +57,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1740759456601</updated>
-      <workItem from="1740759458608" duration="1176000" />
+      <workItem from="1740759458608" duration="3250000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app-example/app/(tabs)/index.tsx</url>
+          <line>3</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

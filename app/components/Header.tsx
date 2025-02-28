@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
     container: {
         height: '100%',
         display: 'flex',
-        flexDirection: 'column',
         justifyContent: 'center',
     },
     titleText: {

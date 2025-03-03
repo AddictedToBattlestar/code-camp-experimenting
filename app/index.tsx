@@ -1,29 +1,24 @@
 import {StyleSheet, View} from "react-native";
+import { Constants } from "@/constants/Constants";
 
 import {Body} from './components/Body';
 import {Footer} from './components/Footer';
 import {Header} from './components/Header';
 
-const HEADER_HEIGHT = 75;
-const FOOTER_HEIGHT = 75;
-const PADDING = 8;
+
 
 export default function Index() {
     return (
         <View
-            style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-            }}
+            style={styles.container}
         >
-            <View style={style.chatHeader}>
+            <View style={styles.chatHeader}>
                 <Header/>
             </View>
-            <View style={style.chatBody}>
+            <View style={styles.chatBody}>
                 <Body/>
             </View>
-            <View style={style.chatFooter}>
+            <View style={styles.chatFooter}>
                 <Footer/>
             </View>
 
@@ -31,23 +26,26 @@ export default function Index() {
     );
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
     chatHeader: {
-        height: HEADER_HEIGHT,
         width: '100%',
-        padding: PADDING,
+        padding: Constants.generic.padding,
         backgroundColor: 'lightblue',
     },
     chatBody: {
         flex: 1,
         width: '100%',
-        padding: PADDING,
+        padding: Constants.generic.padding,
         backgroundColor: 'lightgreen',
     },
     chatFooter: {
-        height: FOOTER_HEIGHT,
         width: '100%',
-        padding: PADDING,
+        padding: Constants.generic.padding,
         backgroundColor: 'lightblue',
     }
 });

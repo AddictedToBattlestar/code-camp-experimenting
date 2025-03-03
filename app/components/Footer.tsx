@@ -1,9 +1,10 @@
 import {Pressable, StyleSheet, TextInput, View} from "react-native";
 import {FontAwesome} from "@expo/vector-icons";
+import { Constants } from "@/constants/Constants";
 
 export function Footer() {
     return (
-        <View style={styles}>
+        <View style={styles.container}>
             <Pressable
                 style={styles.button}
                 onPress={() => console.log('You pressed a button.')}
@@ -11,34 +12,35 @@ export function Footer() {
                 <FontAwesome name="plus" size={18}/>
             </Pressable>
 
-            <View>
-                <TextInput
-                    style={styles.input}
-                    value={""}
-                    placeholder={"Message"}
-                    onChangeText={text => console.log(`Footer.TextInput.onChangeText: ${text}`)}
-                />
-            </View>
+            <TextInput
+                style={styles.input}
+                value={""}
+                placeholder={"Message"}
+                onChangeText={text => console.log(`Footer.TextInput.onChangeText: ${text}`)}
+            />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: Constants.generic.padding
+    },
     button: {
-        width: 30,
-        height: 30,
-        borderRadius: 14,
+        width: 35,
+        height: 35,
+        borderRadius: 17,
         borderWidth: 1,
-        marginHorizontal: 20,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        padding: 3,
     },
     input: {
+        flex: 1,
         borderWidth: 1,
-        borderRadius: 10,
-        padding: 6,
+        borderRadius: Constants.generic.borderRadius,
+        padding: Constants.generic.padding,
     }
 })

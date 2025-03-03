@@ -1,4 +1,5 @@
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, View} from "react-native";
+import { Constants } from "@/constants/Constants";
 
 import { ChatMessage } from "@/app/components/ChatMessage";
 
@@ -17,6 +18,6 @@ const styles = StyleSheet.create({
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        gap: 8
+        gap: Constants.generic.padding
     }
 });

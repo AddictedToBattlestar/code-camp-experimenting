@@ -10,8 +10,8 @@ export function Header() {
 
 const styles = StyleSheet.create({
     container: {
-        height: '100%',
         display: 'flex',
+        flexDirection: 'row',
         justifyContent: 'center',
     },
     titleText: {

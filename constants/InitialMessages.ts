@@ -27,5 +27,13 @@ export const InitialMessages = [
         "who": "moderator",
         "messageText": "Introduction to JSON. Remove hard-coded text in messages and substitute with data from a JSON object"
     },
+    {
+        "who": "moderator",
+        "messageText": "Setup routes where there is a \"real-time chat\" route for the existing work and a new \"profile\" route"
+    },
+    {
+        "who": "moderator",
+        "messageText": "Plan and setup the basic layout of the profile route.  This should provide the ability for someone to enter their user name and provide a picture"
+    },
 
 ]

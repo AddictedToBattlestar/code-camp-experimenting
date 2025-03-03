@@ -12,16 +12,9 @@ export default function Index() {
         <View
             style={styles.container}
         >
-            <View style={styles.chatHeader}>
-                <Header/>
-            </View>
-            <View style={styles.chatBody}>
-                <Body/>
-            </View>
-            <View style={styles.chatFooter}>
-                <Footer/>
-            </View>
-
+            <Header style={styles.chatHeader}/>
+            <Body style={styles.chatBody}/>
+            <Footer style={styles.chatFooter}/>
         </View>
     );
 }

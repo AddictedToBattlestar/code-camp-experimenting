@@ -1,11 +1,15 @@
-import {StyleSheet, TextInput, View} from "react-native";
+import {StyleSheet, TextInput, View, ViewStyle} from "react-native";
 import { Constants } from "@/constants/Constants";
 
 import { ButtonIcon } from "@/app/components/ButtonIcon";
 
-export function Footer() {
+type Props = {
+    style: ViewStyle;
+}
+
+export function Footer({style}: Props) {
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, style]}>
             <ButtonIcon/>
             <TextInput
                 style={styles.input}

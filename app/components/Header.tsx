@@ -1,20 +1,18 @@
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, View, ViewStyle} from "react-native";
 
-export function Header() {
+type Props = {
+    style: ViewStyle;
+}
+
+export function Header({style}: Props) {
     return (
-        <View style={styles.container}>
-            <Text style={styles.titleText}>Chat Title Message</Text>
-        </View>
+        <View style={[styles.container, style]}>Technology Camp</View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
-        flexDirection: 'row',
         justifyContent: 'center',
-    },
-    titleText: {
         textAlign: "center",
         fontSize: 24,
     }

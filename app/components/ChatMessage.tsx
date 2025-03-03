@@ -1,11 +1,15 @@
 import {StyleSheet, Text, View} from "react-native";
 import { Constants } from "@/constants/Constants";
 
-export function ChatMessage() {
+
+type Props = {
+    text: string;
+}
+
+
+export function ChatMessage({ text }: Props) {
     return (
-        <View style={styles.container}>
-            <Text>Chat Message</Text>
-        </View>
+        <Text style={styles.container}>{text}</Text>
     )
 }
 

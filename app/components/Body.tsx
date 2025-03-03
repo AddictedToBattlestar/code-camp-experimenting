@@ -1,13 +1,14 @@
 import {StyleSheet, View} from "react-native";
 import { Constants } from "@/constants/Constants";
+import { InitialMessages } from "@/constants/InitialMessages";
 
 import { ChatMessage } from "@/app/components/ChatMessage";
 
 export function Body() {
     return (
         <View style={styles.container}>
-            {Array.from({ length: 4 }).map((_, index) => (
-                <ChatMessage />
+            {InitialMessages.map((message) => (
+                <ChatMessage text={message.messageText} />
             ))}
         </View>
     )

@@ -1,9 +1,9 @@
 import {StyleSheet, View} from "react-native";
 import { Constants } from "@/constants/Constants";
 
-import {Body} from './components/Body';
-import {Footer} from './components/Footer';
-import {Header} from './components/Header';
+import {Body} from '@/app/components/Body';
+import {Footer} from '@/app/components/Footer';
+import {Header} from '@/app/components/Header';
 
 
 

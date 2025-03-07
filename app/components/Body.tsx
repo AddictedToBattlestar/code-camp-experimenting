@@ -1,4 +1,4 @@
-import {StyleSheet, View, ViewStyle} from "react-native";
+import {ScrollView, StyleSheet, ViewStyle} from "react-native";
 import { Constants } from "@/constants/Constants";
 import { InitialMessages } from "@/constants/InitialMessages";
 
@@ -10,19 +10,15 @@ type Props = {
 
 export function Body({style}: Props) {
     return (
-        <View style={[styles.container, style]}>
+        <ScrollView style={[styles.container, style]}>
             {InitialMessages.map((message) => (
                 <ChatMessage text={message.messageText} />
             ))}
-        </View>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: Constants.generic.padding
     }
 });

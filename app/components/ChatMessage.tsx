@@ -19,5 +19,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: Constants.generic.borderRadius,
         padding: Constants.generic.padding,
+        marginBottom: Constants.generic.padding
     }
 })

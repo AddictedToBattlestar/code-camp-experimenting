@@ -47,6 +47,11 @@ export const InitialMessages = [
     {
         "key": 10,
         "who": "moderator",
+        "messageText": "Update the messages so that you have a message that has your user name as the \"who\" value.  Display above each message who the message is from."
+    },
+    {
+        "key": 10,
+        "who": "moderator",
         "messageText": "Update the \"real-time chat\" route so that message that are from your own user name are shown differently that other messages in the chat"
     },
 

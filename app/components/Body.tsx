@@ -12,7 +12,7 @@ export function Body({style}: Props) {
     return (
         <ScrollView style={[styles.container, style]}>
             {InitialMessages.map((message) => (
-                <ChatMessage text={message.messageText} />
+                <ChatMessage text={message.messageText} who={message.who} />
             ))}
         </ScrollView>
     )

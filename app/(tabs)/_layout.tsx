@@ -1,39 +1,40 @@
 import {Tabs} from "expo-router";
 import Ionicons from '@expo/vector-icons/Ionicons';
+import {Colors} from "@/constants/Colors";
 
 export default function RootLayout() {
     return (
         <Tabs
             screenOptions={{
-                tabBarActiveTintColor: '#ffd33d',
+                tabBarActiveTintColor: Colors.default.tintColor,
                 headerStyle: {
-                    backgroundColor: '#25292e',
+                    backgroundColor: Colors.default.backgroundColor,
                 },
                 headerShadowVisible: false,
-                headerTintColor: '#fff',
+                headerTintColor: Colors.default.color,
                 tabBarStyle: {
-                    backgroundColor: '#25292e',
+                    backgroundColor: Colors.default.backgroundColor,
                 },
             }}
         >
             <Tabs.Screen
                 name="index"
                 options={{
-                    title: 'Home',
-                    tabBarIcon: ({ color, focused }) => (
-                        <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24} />
+                    headerShown: false,
+                    tabBarIcon: ({color, focused}) => (
+                        <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24}/>
                     ),
                 }}
             />
-            {/* <Tabs.Screen
-                name="about"
+            <Tabs.Screen
+                name="profile"
                 options={{
-                    title: 'About',
-                    tabBarIcon: ({ color, focused }) => (
-                        <Ionicons name={focused ? 'information-circle' : 'information-circle-outline'} color={color} size={24}/>
+                    headerShown: false,
+                    tabBarIcon: ({color, focused}) => (
+                        <Ionicons name={focused ? 'person' : 'person-outline'} color={color} size={24}/>
                     ),
                 }}
-            /> */}
+            />
         </Tabs>
     )
 }

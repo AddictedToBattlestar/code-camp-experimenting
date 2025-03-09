@@ -1,12 +1,14 @@
 import {StyleSheet, View, ViewStyle} from "react-native";
+import {Colors} from "@/constants/Colors";
 
 type Props = {
-    style: ViewStyle;
+    text: string;
+    style?: ViewStyle;
 }
 
-export function Header({style}: Props) {
+export function Header({text, style}: Props) {
     return (
-        <View style={[styles.container, style]}>Technology Camp</View>
+        <View style={[styles.container, style]}>{text}</View>
     )
 }
 
@@ -14,6 +16,6 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         textAlign: "center",
-        fontSize: 24,
+        fontSize: 24
     }
 });

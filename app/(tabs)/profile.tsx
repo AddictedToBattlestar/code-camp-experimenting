@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         padding: Constants.generic.padding,
     },
     inputText: {
-        color: Colors.default.color,
+        color: GreyScaleColorScheme[4],
         padding: Constants.generic.padding,
     },
     input: {

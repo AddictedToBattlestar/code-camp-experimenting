@@ -15,10 +15,9 @@ export default function Profile() {
         try {
             const value = await AsyncStorage.getItem('userName');
             if (value !== null) {
-                console.log(`getting userName: ${value}`);
                 setUserName(value);
             }
-        } catch (e) {
+        } catch (ignoredError) {
             // error reading value
         }
     };
@@ -29,10 +28,10 @@ export default function Profile() {
 
     const storeUserName = async (value: string) => {
         try {
-            console.log(`setting userName: ${value}`);
             await AsyncStorage.setItem('userName', value);
         } catch (e) {
-            // saving error
+            console.error(`There was a problem setting userName: ${userName}`, e);
+            alert(`There was a problem setting userName: ${userName}`);
         }
     };
 

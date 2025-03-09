@@ -2,9 +2,10 @@ import {ScrollView, StyleSheet, ViewStyle} from "react-native";
 import {InitialMessages} from "@/constants/InitialMessages";
 
 import ChatMessage from "@/app/components/ChatMessage";
-import {Fragment, useEffect, useState} from "react";
+import {Fragment, useCallback, useEffect, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ChatMessageFromSelf from "@/app/components/ChatMessageFromSelf";
+import {useFocusEffect} from "expo-router";
 
 type Props = {
     style: ViewStyle;
@@ -25,10 +26,18 @@ export default function Body({style}: Props) {
         }
     };
 
-    useEffect(() => {
-        getUserName();
-    }, []);
-
+    useFocusEffect(
+        useCallback(() => {
+            // Do something when the screen is focused
+            console.log('Hello, I\'m focused!');
+            getUserName();
+            return () => {
+                // Do something when the screen is unfocused
+                // Useful for cleanup functions
+                console.log('This route is now unfocused.');
+            };
+        }, [])
+    );
 
     return (
         <ScrollView style={[styles.container, style]}>

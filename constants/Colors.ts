@@ -27,7 +27,8 @@ const Colors = {
         backgroundColor: GreyScaleColorScheme[8],
         lighterBackgroundColor: GreyScaleColorScheme[7],
         color: GreyScaleColorScheme[0],
-        tintColor: PrimaryColorScheme[4],
+        tintColor: GreyScaleColorScheme[5],
+        highlightColor: PrimaryColorScheme[4],
     },
     dangerColor: '#D90429'
 };

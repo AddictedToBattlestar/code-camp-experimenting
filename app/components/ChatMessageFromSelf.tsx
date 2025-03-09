@@ -1,17 +1,16 @@
 import {StyleSheet, Text, View} from "react-native";
 import {Constants} from "@/constants/Constants";
-import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
+import {Colors} from "@/constants/Colors";
 
 type Props = {
     text: string;
     who: string;
 }
 
-export default function ChatMessage({text, who}: Props) {
+export default function ChatMessageFromSelf({text, who}: Props) {
     return (
         <View style={styles.container}>
             <View style={styles.messageContainer}>
-                <Text style={styles.whoText}>{who}</Text>
                 <Text style={styles.messageTextContainer}>
                     {text}
                 </Text>
@@ -24,18 +23,15 @@ const styles = StyleSheet.create({
     container: {
         marginBottom: Constants.generic.padding,
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "row-reverse",
     },
     messageContainer: {
         flexBasis: '80%',
     },
-    whoText: {
-        color: GreyScaleColorScheme[4]
-    },
     messageTextContainer: {
         borderRadius: Constants.generic.borderRadius,
         padding: Constants.generic.padding,
-        backgroundColor: Colors.default.tintColor,
+        backgroundColor: Colors.default.highlightColor,
         color: Colors.default.color
     }
 })

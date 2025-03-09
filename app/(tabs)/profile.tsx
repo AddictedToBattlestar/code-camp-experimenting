@@ -1,11 +1,33 @@
 import {StyleSheet, Text, TextInput, View} from "react-native";
-import {Header} from "@/app/components/Header";
+import Header from "@/app/components/Header";
 import React, {useState} from "react";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 
+// https://react-native-async-storage.github.io/async-storage/docs/usage/
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function Profile() {
     const [userName, setUserName] = useState<string>('');
+
+    const getUserName = async () => {
+        try {
+            const value = await AsyncStorage.getItem('userName');
+            if (value !== null) {
+                setUserName(value);
+            }
+        } catch (e) {
+            // error reading value
+        }
+    };
+
+    const storeUserName = async (value: string) => {
+        try {
+            await AsyncStorage.setItem('userName', value);
+        } catch (e) {
+            // saving error
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -17,7 +39,10 @@ export default function Profile() {
                     value={userName}
                     placeholder={"Enter your desired user name here"}
                     placeholderTextColor={GreyScaleColorScheme[4]}
-                    onChangeText={text => setUserName(text)}
+                    onChangeText={text => {
+                        setUserName(text);
+                        storeUserName(text);
+                    }}
                 />
             </View>
         </View>

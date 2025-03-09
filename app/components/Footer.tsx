@@ -1,7 +1,7 @@
 import {StyleSheet, TextInput, View, ViewStyle} from "react-native";
 import {Constants} from "@/constants/Constants";
 
-import {ButtonIcon} from "@/app/components/ButtonIcon";
+import ButtonIcon from "@/app/components/ButtonIcon";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {useState} from "react";
 
@@ -9,7 +9,7 @@ type Props = {
     style: ViewStyle;
 }
 
-export function Footer({style}: Props) {
+export default function Footer({style}: Props) {
     const [message, setMessage] = useState<string>('');
 
     return (

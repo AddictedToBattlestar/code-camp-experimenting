@@ -2,10 +2,9 @@ import {StyleSheet, View} from "react-native";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 
-import {Body} from '@/app/components/Body';
-import {Footer} from '@/app/components/Footer';
-import {Header} from '@/app/components/Header';
-
+import Body from '@/app/components/Body';
+import Footer from '@/app/components/Footer';
+import Header from '@/app/components/Header';
 
 export default function Index() {
     return (

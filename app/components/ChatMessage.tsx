@@ -7,7 +7,7 @@ type Props = {
     who: string;
 }
 
-export function ChatMessage({text, who}: Props) {
+export default function ChatMessage({text, who}: Props) {
     return (
         <View style={styles.container}>
             <Text style={styles.whoText}>{who}</Text>

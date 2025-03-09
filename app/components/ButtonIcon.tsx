@@ -2,7 +2,7 @@ import {Pressable, StyleSheet} from "react-native";
 import {FontAwesome} from "@expo/vector-icons";
 import {Colors} from "@/constants/Colors";
 
-export function ButtonIcon() {
+export default function ButtonIcon() {
     return (
         <Pressable
             style={styles.container}

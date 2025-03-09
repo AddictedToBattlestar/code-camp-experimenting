@@ -1,14 +1,13 @@
-import {StyleSheet, View, ViewStyle} from "react-native";
-import {Colors} from "@/constants/Colors";
+import {StyleSheet, Text, ViewStyle} from "react-native";
 
 type Props = {
     text: string;
     style?: ViewStyle;
 }
 
-export function Header({text, style}: Props) {
+export default function Header({text, style}: Props) {
     return (
-        <View style={[styles.container, style]}>{text}</View>
+        <Text style={[styles.container, style]}>{text}</Text>
     )
 }
 

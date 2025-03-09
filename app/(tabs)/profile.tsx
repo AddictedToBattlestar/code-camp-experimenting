@@ -4,7 +4,8 @@ import React, {useEffect, useState} from "react";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 
-// https://react-native-async-storage.github.io/async-storage/docs/usage/
+// https://docs.expo.dev/develop/user-interface/store-data/
+// --> https://react-native-async-storage.github.io/async-storage/docs/usage/
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Profile() {

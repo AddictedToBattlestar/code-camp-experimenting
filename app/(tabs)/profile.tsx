@@ -1,7 +1,7 @@
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import {Header} from "@/app/components/Header";
 import React, {useState} from "react";
-import {Colors} from "@/constants/Colors";
+import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 
 export default function Profile() {
@@ -11,11 +11,12 @@ export default function Profile() {
         <View style={styles.container}>
             <Header style={styles.header} text={"User Profile"}/>
             <View style={styles.body}>
-                <Text>User name</Text>
+                <Text style={styles.inputText}>User name</Text>
                 <TextInput
                     style={styles.input}
                     value={userName}
                     placeholder={"Enter your desired user name here"}
+                    placeholderTextColor={GreyScaleColorScheme[4]}
                     onChangeText={text => setUserName(text)}
                 />
             </View>
@@ -39,6 +40,10 @@ const styles = StyleSheet.create({
     body: {
         flex: 1,
         width: '100%',
+        padding: Constants.generic.padding,
+    },
+    inputText: {
+        color: Colors.default.color,
         padding: Constants.generic.padding,
     },
     input: {

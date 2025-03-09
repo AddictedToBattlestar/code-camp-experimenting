@@ -10,23 +10,27 @@ type Props = {
 export default function ChatMessage({text, who}: Props) {
     return (
         <View style={styles.container}>
-            <Text style={styles.whoText}>{who}</Text>
-            <Text style={styles.messageContainer}>
-                {text}
-            </Text>
+            <View style={styles.messageContainer}>
+                <Text style={styles.whoText}>{who}</Text>
+                <Text style={styles.messageTextContainer}>
+                    {text}
+                </Text>
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        width: '80%',
         marginBottom: Constants.generic.padding
+    },
+    messageContainer: {
+        width: '80%',
     },
     whoText: {
         color: GreyScaleColorScheme[4]
     },
-    messageContainer: {
+    messageTextContainer: {
         borderRadius: Constants.generic.borderRadius,
         padding: Constants.generic.padding,
         backgroundColor: Colors.default.tintColor,

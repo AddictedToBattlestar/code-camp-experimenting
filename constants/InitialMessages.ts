@@ -15,6 +15,11 @@ function buildMessages() {
         },
         {
             "key": getAndIncrement(),
+            "who": "Andy",
+            "messageText": "This is a test message from myself"
+        },
+        {
+            "key": getAndIncrement(),
             "who": "Moderator",
             "messageText": "The course curriculum we will be following will progress as described below:"
         },

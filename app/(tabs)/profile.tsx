@@ -1,6 +1,6 @@
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import Header from "@/app/components/Header";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 
@@ -14,6 +14,7 @@ export default function Profile() {
         try {
             const value = await AsyncStorage.getItem('userName');
             if (value !== null) {
+                console.log(`getting userName: ${value}`);
                 setUserName(value);
             }
         } catch (e) {
@@ -21,8 +22,13 @@ export default function Profile() {
         }
     };
 
+    useEffect(() => {
+        getUserName();
+    }, []);
+
     const storeUserName = async (value: string) => {
         try {
+            console.log(`setting userName: ${value}`);
             await AsyncStorage.setItem('userName', value);
         } catch (e) {
             // saving error

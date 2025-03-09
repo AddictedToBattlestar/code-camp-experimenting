@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     messageTextContainer: {
         borderRadius: Constants.generic.borderRadius,
         padding: Constants.generic.padding,
-        backgroundColor: Colors.default.highlightColor,
+        backgroundColor: Colors.default.primaryColor,
         color: Colors.default.color
     }
 })

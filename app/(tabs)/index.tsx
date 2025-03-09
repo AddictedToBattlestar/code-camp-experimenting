@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     chatHeader: {
         width: '100%',
         padding: Constants.generic.padding,
-        backgroundColor: Colors.default.lighterBackgroundColor
+        backgroundColor: Colors.default.primaryColor,
+        color: Colors.default.color
     },
     chatBody: {
         flex: 1,
@@ -39,6 +40,6 @@ const styles = StyleSheet.create({
     chatFooter: {
         width: '100%',
         padding: Constants.generic.padding,
-        backgroundColor: Colors.default.lighterBackgroundColor
+        backgroundColor: Colors.default.backgroundColor
     }
 });

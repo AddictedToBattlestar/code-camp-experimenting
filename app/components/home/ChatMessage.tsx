@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View} from "react-native";
 import {Constants} from "@/constants/Constants";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
+import MessageAvatarBubble from "@/app/components/home/MessageAvatarBubble";
 
 type Props = {
     text: string;
@@ -10,11 +11,7 @@ type Props = {
 export default function ChatMessage({text, who}: Props) {
     return (
         <View style={styles.container}>
-            <View style={styles.imageContainer}>
-                <View style={styles.imageBubble}>
-                    <Text style={styles.imageContainerText}>AR</Text>
-                </View>
-            </View>
+            <MessageAvatarBubble who={who}/>
             <View style={styles.messageContainer}>
                 <Text style={styles.whoText}>{who}</Text>
                 <Text style={styles.messageTextContainer}>
@@ -32,22 +29,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         gap: Constants.generic.padding,
     },
-    imageContainer: {
-        display: "flex",
-        flexDirection: "column-reverse",
-    },
-    imageBubble: {
-        width: 30,
-        height: 30,
-        borderRadius: 17,
-        backgroundColor: GreyScaleColorScheme[5],
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row'
-    },
-    imageContainerText: {
-        color: Colors.default.color,
-    },
     messageContainer: {
         flexBasis: '80%',
     },
@@ -60,4 +41,4 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.default.tintColor,
         color: Colors.default.color
     }
-})
+});

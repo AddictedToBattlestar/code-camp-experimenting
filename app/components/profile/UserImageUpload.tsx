@@ -38,7 +38,7 @@ export default function UserImageUpload() {
             </Pressable>
 
             <View style={styles.imageContainer}>
-                <Image source={selectedImage ? {uri: selectedImage} : PlaceholderImage} style={styles.image}/>
+                {selectedImage && <Image source={{uri: selectedImage}} style={styles.image}/>}
             </View>
         </View>
     );
@@ -55,16 +55,19 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.default.color,
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginBottom: Constants.generic.padding,
     },
     buttonIcon: {
-        paddingRight: 8,
+        paddingRight: Constants.generic.padding,
     },
     buttonText: {
         color: Colors.default.backgroundColor,
     },
     imageContainer: {
         flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     image: {
         width: 320,

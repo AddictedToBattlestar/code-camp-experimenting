@@ -8,8 +8,6 @@ import * as ImagePicker from 'expo-image-picker';
 import {Image} from 'expo-image';
 import {FontAwesome} from "@expo/vector-icons";
 
-const PlaceholderImage = require('@/assets/images/react-logo.png');
-
 export default function UserImageUpload() {
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
 

@@ -21,6 +21,7 @@ export default function RootLayout() {
                 name="index"
                 options={{
                     headerShown: false,
+                    tabBarLabel: "home",
                     tabBarIcon: ({color, focused}) => (
                         <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24}/>
                     ),

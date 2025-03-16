@@ -1,5 +1,6 @@
 import {ScrollView, StyleSheet, ViewStyle} from "react-native";
 import {InitialMessages} from "@/constants/InitialMessages";
+import {InitialUserImages} from "@/constants/InitialUserImages";
 
 import Message from "@/app/components/home/Message";
 import {Fragment, useCallback, useState} from "react";
@@ -44,7 +45,8 @@ export default function Body({style}: Props) {
                 <Fragment key={message.key}>
                     {(message.who === userName)
                         ? <MessageFromSelf text={message.messageText} who={message.who}/>
-                        : <Message text={message.messageText} who={message.who}/>
+                        : <Message text={message.messageText} who={message.who}
+                                   userImage={InitialUserImages.get(message.who)}/>
                     }
                 </Fragment>
             ))}

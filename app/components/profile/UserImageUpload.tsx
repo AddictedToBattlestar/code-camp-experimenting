@@ -31,7 +31,7 @@ export default function UserImageUpload() {
     const storeUserImage = async (value: string) => {
         try {
             await AsyncStorage.setItem('userImage', value);
-            console.log('userImage pushed to AsyncStorage');
+            console.log('userImage pushed to AsyncStorage', value);
         } catch (e) {
             console.error(`There was a problem setting userImage`, e);
             alert(`There was a problem setting userImage`);

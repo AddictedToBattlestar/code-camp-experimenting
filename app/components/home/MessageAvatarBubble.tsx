@@ -1,11 +1,14 @@
 import {StyleSheet, Text, View} from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
+import {Image, type ImageSource} from 'expo-image';
+import React from "react";
 
 type Props = {
     who: string;
+    userImage: ImageSource | null;
 }
 
-export default function MessageAvatarBubble({who}: Props) {
+export default function MessageAvatarBubble({who, userImage}: Props) {
     function findFirstTwoUpper(text: string) {
         const upperLetters = [];
         for (let i = 0; i < text.length; i++) {
@@ -24,7 +27,12 @@ export default function MessageAvatarBubble({who}: Props) {
     return (
         <View style={styles.container}>
             <View style={styles.bubble}>
-                <Text style={styles.text}>{initialsToDisplay}</Text>
+                {userImage ? (
+                    <Image source={userImage} style={styles.image}/>
+                ) : (
+                    <Text style={styles.text}>{initialsToDisplay}</Text>
+                )}
+
             </View>
         </View>
     );
@@ -46,5 +54,10 @@ const styles = StyleSheet.create({
     },
     text: {
         color: Colors.default.color,
+    },
+    image: {
+        width: 30,
+        height: 30,
+        borderRadius: 17,
     }
 });

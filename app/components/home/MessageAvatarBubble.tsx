@@ -6,10 +6,25 @@ type Props = {
 }
 
 export default function MessageAvatarBubble({who}: Props) {
+    function findFirstTwoUpper(text: string) {
+        const upperLetters = [];
+        for (let i = 0; i < text.length; i++) {
+            if (text[i] === text[i].toUpperCase() && text[i].match(/[A-Z]/)) {
+                upperLetters.push(text[i]);
+                if (upperLetters.length === 2) {
+                    break;
+                }
+            }
+        }
+        return upperLetters.length === 2 ? upperLetters : text[0];
+    }
+
+    const initialsToDisplay = findFirstTwoUpper(who);
+
     return (
         <View style={styles.container}>
             <View style={styles.bubble}>
-                <Text style={styles.text}>{who[0]}</Text>
+                <Text style={styles.text}>{initialsToDisplay}</Text>
             </View>
         </View>
     );

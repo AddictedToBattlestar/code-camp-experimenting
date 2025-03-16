@@ -1,10 +1,10 @@
 import {ScrollView, StyleSheet, ViewStyle} from "react-native";
 import {InitialMessages} from "@/constants/InitialMessages";
 
-import ChatMessage from "@/app/components/home/ChatMessage";
+import Message from "@/app/components/home/Message";
 import {Fragment, useCallback, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import ChatMessageFromSelf from "@/app/components/home/ChatMessageFromSelf";
+import MessageFromSelf from "@/app/components/home/MessageFromSelf";
 import {useFocusEffect} from "expo-router";
 
 type Props = {
@@ -43,8 +43,8 @@ export default function Body({style}: Props) {
             {InitialMessages.map((message) => (
                 <Fragment key={message.key}>
                     {(message.who === userName)
-                        ? <ChatMessageFromSelf text={message.messageText} who={message.who}/>
-                        : <ChatMessage text={message.messageText} who={message.who}/>
+                        ? <MessageFromSelf text={message.messageText} who={message.who}/>
+                        : <Message text={message.messageText} who={message.who}/>
                     }
                 </Fragment>
             ))}

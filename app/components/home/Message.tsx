@@ -8,7 +8,7 @@ type Props = {
     who: string;
 }
 
-export default function ChatMessage({text, who}: Props) {
+export default function Message({text, who}: Props) {
     return (
         <View style={styles.container}>
             <MessageAvatarBubble who={who}/>

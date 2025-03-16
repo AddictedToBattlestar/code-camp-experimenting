@@ -11,7 +11,7 @@ type Props = {
     style: ViewStyle;
 };
 
-export default function Body({style}: Props): string | null {
+export default function Body({style}: Props) {
     const [userName, setUserName] = useState<string>('');
 
     const getUserName = async () => {

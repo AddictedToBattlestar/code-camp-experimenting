@@ -5,13 +5,8 @@ import {Constants} from "@/constants/Constants";
 import Body from '@/app/components/Body';
 import Footer from '@/app/components/Footer';
 import Header from '@/app/components/Header';
-import {useFocusEffect} from 'expo-router';
-import {useCallback} from 'react';
 
 export default function Index() {
-
-
-
     return (
         <View
             style={styles.container}

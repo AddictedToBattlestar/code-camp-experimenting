@@ -29,7 +29,7 @@ export default function Body({style}: Props) {
             getUserName().then((value) => {
                 if (value !== null) {
                     setUserName(value);
-                    console.log(`userName: ${value}`);
+                    console.debug(`userName: ${value}`);
                 }
             });
             return () => {

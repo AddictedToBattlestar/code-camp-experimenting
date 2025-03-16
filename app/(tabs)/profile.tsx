@@ -13,17 +13,19 @@ export default function Profile() {
 
     const getUserName = async () => {
         try {
-            const value = await AsyncStorage.getItem('userName');
-            if (value !== null) {
-                setUserName(value);
-            }
+            return await AsyncStorage.getItem('userName');
         } catch (ignoredError) {
-            // error reading value
+            return null;
         }
     };
 
     useEffect(() => {
-        getUserName();
+        getUserName().then((value) => {
+            if (value !== null) {
+                setUserName(value);
+                console.debug(`userName: ${value}`);
+            }
+        });
     }, []);
 
     const storeUserName = async (value: string) => {

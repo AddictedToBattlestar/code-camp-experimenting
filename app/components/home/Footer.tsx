@@ -1,7 +1,7 @@
 import {StyleSheet, TextInput, View, ViewStyle} from "react-native";
 import {Constants} from "@/constants/Constants";
 
-import ButtonIcon from "@/app/components/ButtonIcon";
+import ButtonIcon from "@/app/components/home/ButtonIcon";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {useState} from "react";
 

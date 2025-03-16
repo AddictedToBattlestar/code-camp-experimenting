@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54a9c657-1bf8-4626-b061-da67faef1798" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/Body.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/home/Body.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/ButtonIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/home/ButtonIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/ChatMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/home/ChatMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/ChatMessageFromSelf.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/home/ChatMessageFromSelf.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/home/Footer.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

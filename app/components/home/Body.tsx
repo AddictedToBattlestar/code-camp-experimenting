@@ -1,10 +1,10 @@
 import {ScrollView, StyleSheet, ViewStyle} from "react-native";
 import {InitialMessages} from "@/constants/InitialMessages";
 
-import ChatMessage from "@/app/components/ChatMessage";
+import ChatMessage from "@/app/components/home/ChatMessage";
 import {Fragment, useCallback, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import ChatMessageFromSelf from "@/app/components/ChatMessageFromSelf";
+import ChatMessageFromSelf from "@/app/components/home/ChatMessageFromSelf";
 import {useFocusEffect} from "expo-router";
 
 type Props = {

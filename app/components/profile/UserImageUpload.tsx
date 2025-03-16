@@ -7,6 +7,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 import {Image} from 'expo-image';
 import {FontAwesome} from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function UserImageUpload() {
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
@@ -20,9 +21,20 @@ export default function UserImageUpload() {
 
         if (!result.canceled) {
             setSelectedImage(result.assets[0].uri);
+            storeUserImage(result.assets[0].uri);
             console.log(result);
         } else {
             alert('You did not select any image.');
+        }
+    };
+
+    const storeUserImage = async (value: string) => {
+        try {
+            await AsyncStorage.setItem('userImage', value);
+            console.log('userImage pushed to AsyncStorage');
+        } catch (e) {
+            console.error(`There was a problem setting userImage`, e);
+            alert(`There was a problem setting userImage`);
         }
     };
 

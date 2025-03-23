@@ -30,7 +30,7 @@ const MessageElement = ({userNameForSelf, message}: MessageElementProps) => (
 export default function Body({style, messages, userNameForSelf}: Props) {
     return (
         <FlatList
-            inverted // inverting this makes the Flatlist automatically scroll to the bottom of the messsages
+            inverted // inverting this makes the Flatlist automatically scroll to the bottom
             style={[styles.container, style]}
             data={messages}
             renderItem={({item}) =>

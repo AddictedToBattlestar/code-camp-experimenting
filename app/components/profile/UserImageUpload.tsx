@@ -43,8 +43,9 @@ export default function UserImageUpload() {
             <Pressable
                 style={styles.button} onPress={pickImageAsync}>
                 <FontAwesome name="picture-o" size={18} color="#25292e" style={styles.buttonIcon}/>
-                <Text
-                    style={styles.buttonText}>{selectedImage ? "Change your profile image" : "Choose a profile image"}</Text>
+                <Text style={styles.buttonText}>
+                    {selectedImage ? "Change your profile image" : "Choose a profile image"}
+                </Text>
             </Pressable>
 
             <View style={styles.imageContainer}>

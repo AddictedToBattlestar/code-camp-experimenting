@@ -38,13 +38,11 @@ export default function Index() {
         }, [])
     );
 
-
     const [messages, setMessages] = useState<MessageObject[]>(InitialMessages);
 
     const createNewMessage = (newMessageText: string) => {
         const newMessage = new MessageObject(crypto.randomUUID(), userName, newMessageText);
-        messages.push(newMessage);
-        setMessages(messages);
+        setMessages([newMessage, ...messages]);
     };
 
     return (

@@ -2,7 +2,7 @@ import {FlatList, StyleSheet, ViewStyle} from "react-native";
 import {InitialUserImages} from "@/constants/InitialUserImages";
 
 import Message from "@/app/components/home/Message";
-import {Fragment, useRef} from "react";
+import {Fragment} from "react";
 import MessageFromSelf from "@/app/components/home/MessageFromSelf";
 import MessageObject from "@/app/objects/MessageObject";
 
@@ -28,22 +28,15 @@ const MessageElement = ({userNameForSelf, message}: MessageElementProps) => (
 );
 
 export default function Body({style, messages, userNameForSelf}: Props) {
-    const flatListRef = useRef(null);
-
-    const scrollToBottom = () => {
-        flatListRef.current?.scrollToEnd({animated: false});
-    };
-
     return (
         <FlatList
-            ref={flatListRef}
+            inverted // inverting this makes the Flatlist automatically scroll to the bottom of the messsages
             style={[styles.container, style]}
             data={messages}
             renderItem={({item}) =>
                 <MessageElement userNameForSelf={userNameForSelf} message={item}/>
             }
             keyExtractor={(item) => item.key}
-            onContentSizeChange={() => scrollToBottom()}
         />
     )
 }

@@ -45,7 +45,6 @@ export default function Index() {
         const newMessage = new MessageObject(crypto.randomUUID(), userName, newMessageText);
         messages.push(newMessage);
         setMessages(messages);
-        console.debug('Message created', messages);
     };
 
     return (

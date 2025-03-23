@@ -1,3 +1,5 @@
+import MessageObject from "@/app/objects/MessageObject";
+
 function buildMessages() {
     let keyValue = 1;
 
@@ -7,7 +9,7 @@ function buildMessages() {
         return valueToReturn;
     }
 
-    return [
+    const rawMessages = [
         {
             "key": getAndIncrement(),
             "who": "Moderator",
@@ -69,6 +71,10 @@ function buildMessages() {
             "messageText": "Update the \"real-time chat\" route so that message that are from your own user name are shown differently that other messages in the chat"
         }
     ];
+
+    return rawMessages.map((message) => {
+        return new MessageObject(message.key, message.who, message.messageText);
+    })
 }
 
 export const InitialMessages = buildMessages();

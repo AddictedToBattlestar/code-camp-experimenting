@@ -5,14 +5,19 @@ import {Constants} from "@/constants/Constants";
 import Body from '@/app/components/home/Body';
 import Footer from '@/app/components/home/Footer';
 import Header from '@/app/components/Header';
+import {useState} from "react";
+import MessageObject from "@/app/objects/MessageObject";
+import {InitialMessages} from "@/constants/InitialMessages";
 
 export default function Index() {
+    const [messages, setMessages] = useState<MessageObject[]>(InitialMessages);
+
     return (
         <View
             style={styles.container}
         >
             <Header style={styles.chatHeader} text={"Technology Camp Chat"}/>
-            <Body style={styles.chatBody}/>
+            <Body style={styles.chatBody} messages={messages}/>
             <Footer style={styles.chatFooter}/>
         </View>
     );

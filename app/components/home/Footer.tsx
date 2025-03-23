@@ -1,4 +1,4 @@
-import {StyleSheet, TextInput, View, ViewStyle} from "react-native";
+import {NativeSyntheticEvent, StyleSheet, TextInput, TextInputKeyPressEventData, View, ViewStyle} from "react-native";
 import {Constants} from "@/constants/Constants";
 
 import ButtonIcon from "@/app/components/home/ButtonIcon";
@@ -7,10 +7,18 @@ import {useState} from "react";
 
 type Props = {
     style: ViewStyle;
+    createNewMessage: (messageText: string) => void;
 }
 
-export default function Footer({style}: Props) {
+export default function Footer({style, createNewMessage}: Props) {
     const [message, setMessage] = useState<string>('');
+
+    const handleKeyPress = (event: NativeSyntheticEvent<TextInputKeyPressEventData>)=> {
+        if (event.nativeEvent.key === "Enter") {
+            createNewMessage(message);
+            setMessage("");
+        }
+    }
 
     return (
         <View style={[styles.container, style]}>
@@ -21,6 +29,7 @@ export default function Footer({style}: Props) {
                 placeholder={"Aa"}
                 placeholderTextColor={GreyScaleColorScheme[4]}
                 onChangeText={text => setMessage(text)}
+                onKeyPress={handleKeyPress}
             />
         </View>
     )

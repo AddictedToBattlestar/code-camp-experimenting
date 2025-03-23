@@ -1,15 +1,15 @@
 export default class MessageObject {
-    private readonly _key: number;
+    private readonly _key: string;
     private readonly _who: string;
     private readonly _messageText: string;
 
-    constructor(key: number, who: string, messageText: string) {
+    constructor(key: string, who: string, messageText: string) {
         this._key = key;
         this._who = who;
         this._messageText = messageText;
     }
 
-    get key(): number {
+    get key(): string {
         return this._key;
     }
 

@@ -1,12 +1,9 @@
-import {FlatList, ScrollView, StyleSheet, ViewStyle} from "react-native";
-import {InitialMessages} from "@/constants/InitialMessages";
+import {FlatList, StyleSheet, ViewStyle} from "react-native";
 import {InitialUserImages} from "@/constants/InitialUserImages";
 
 import Message from "@/app/components/home/Message";
-import {Fragment, useCallback, useState} from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {Fragment, useRef} from "react";
 import MessageFromSelf from "@/app/components/home/MessageFromSelf";
-import {useFocusEffect} from "expo-router";
 import MessageObject from "@/app/objects/MessageObject";
 
 type Props = {
@@ -15,12 +12,12 @@ type Props = {
     messages: MessageObject[];
 };
 
-type ItemProps = {
+type MessageElementProps = {
     userNameForSelf: string;
     message: MessageObject;
 }
 
-const Item = ({userNameForSelf, message}: ItemProps) => (
+const MessageElement = ({userNameForSelf, message}: MessageElementProps) => (
     <Fragment key={message.key}>
         {(message.who === userNameForSelf)
             ? <MessageFromSelf text={message.messageText} who={message.who}/>
@@ -31,12 +28,22 @@ const Item = ({userNameForSelf, message}: ItemProps) => (
 );
 
 export default function Body({style, messages, userNameForSelf}: Props) {
+    const flatListRef = useRef(null);
+
+    const scrollToBottom = () => {
+        flatListRef.current?.scrollToEnd({animated: false});
+    };
+
     return (
         <FlatList
+            ref={flatListRef}
             style={[styles.container, style]}
             data={messages}
-            renderItem={({item}) => <Item userNameForSelf={userNameForSelf} message={item} />}
+            renderItem={({item}) =>
+                <MessageElement userNameForSelf={userNameForSelf} message={item}/>
+            }
             keyExtractor={(item) => item.key}
+            onContentSizeChange={() => scrollToBottom()}
         />
     )
 }

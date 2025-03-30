@@ -1,5 +1,5 @@
 import {StyleSheet, Text, TextInput, View} from "react-native";
-import {Colors, GreyScaleColorScheme} from "../../../constants/Colors";
+import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import React, {useEffect, useState} from "react";
 import {Constants} from "@/constants/Constants";
 

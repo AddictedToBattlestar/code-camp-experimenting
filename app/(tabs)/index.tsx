@@ -10,6 +10,7 @@ import MessageObject from "@/app/objects/MessageObject";
 import {InitialMessages} from "@/constants/InitialMessages";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useFocusEffect} from "expo-router";
+import MessageType from "@/app/objects/MessageType";
 
 export default function Index() {
     const [userName, setUserName] = useState<string>('');
@@ -41,7 +42,7 @@ export default function Index() {
     const [messages, setMessages] = useState<MessageObject[]>(InitialMessages);
 
     const createNewMessage = (newMessageText: string) => {
-        const newMessage = new MessageObject(crypto.randomUUID(), userName, newMessageText);
+        const newMessage = new MessageObject(crypto.randomUUID(), userName, newMessageText, MessageType.Text);
         setMessages([newMessage, ...messages]);
     };
 

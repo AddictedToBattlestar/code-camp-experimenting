@@ -1,4 +1,5 @@
 import MessageObject from "@/app/objects/MessageObject";
+import MessageType from "@/app/objects/MessageType";
 
 function buildMessages() {
     const rawMessages = [
@@ -65,7 +66,7 @@ function buildMessages() {
     ];
 
     return rawMessages.map((message) => {
-        return new MessageObject(message.key, message.who, message.messageText);
+        return new MessageObject(message.key, message.who, message.messageText, MessageType.Text);
     })
 }
 

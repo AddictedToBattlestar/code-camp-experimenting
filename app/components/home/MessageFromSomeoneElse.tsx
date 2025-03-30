@@ -10,7 +10,7 @@ type Props = {
     userImage: ImageSource | null;
 }
 
-export default function Message({text, who, userImage}: Props) {
+export default function MessageFromSomeoneElse({text, who, userImage}: Props) {
     return (
         <View style={styles.container}>
             <MessageAvatarBubble who={who} userImage={userImage}/>

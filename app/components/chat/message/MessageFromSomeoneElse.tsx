@@ -3,9 +3,11 @@ import {Constants} from "@/constants/Constants";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import MessageAvatarBubble from "@/app/components/chat/message/MessageAvatarBubble";
 import ImageData from "@/app/objects/ImageData";
+import MessageType from "@/app/objects/MessageType";
 
 type Props = {
     text: string;
+    type: MessageType;
     who: string;
     userImage: ImageData | undefined;
 }

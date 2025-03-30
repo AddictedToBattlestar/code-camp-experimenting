@@ -1,9 +1,11 @@
 import {StyleSheet, Text, View} from "react-native";
 import {Constants} from "@/constants/Constants";
 import {Colors} from "@/constants/Colors";
+import MessageType from "@/app/objects/MessageType";
 
 type Props = {
     text: string;
+    type: MessageType;
 }
 
 export default function MessageFromSelf({text}: Props) {

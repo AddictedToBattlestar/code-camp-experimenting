@@ -1,9 +1,9 @@
-import {StyleSheet, Text, View} from "react-native";
+import {Image, StyleSheet, Text, View} from "react-native";
 import {Constants} from "@/constants/Constants";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import MessageAvatarBubble from "@/app/components/chat/message/MessageAvatarBubble";
 import ImageData from "@/app/objects/ImageData";
-import MessageType from "@/app/objects/MessageType";
+import React from "react";
 
 type Props = {
     content: string;
@@ -11,15 +11,13 @@ type Props = {
     userImage: ImageData | undefined;
 }
 
-export default function MessageFromSomeoneElse({content, who, userImage}: Props) {
+export default function ImageFromSomeoneElse({content, who, userImage}: Props) {
     return (
         <View style={styles.container}>
             <MessageAvatarBubble who={who} userImage={userImage}/>
             <View style={styles.messageContainer}>
                 <Text style={styles.whoText}>{who}</Text>
-                <Text style={styles.messageTextContainer}>
-                    {content}
-                </Text>
+                <Image source={{uri: content}} style={[styles.messageTextContainer, styles.imageContainer]}/>
             </View>
         </View>
     )
@@ -43,5 +41,8 @@ const styles = StyleSheet.create({
         padding: Constants.generic.padding,
         backgroundColor: Colors.default.tintColor,
         color: Colors.default.color
+    },
+    imageContainer: {
+        height: 200,
     }
 });

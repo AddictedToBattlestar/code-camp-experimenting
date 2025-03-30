@@ -5,7 +5,7 @@ import React from "react";
 
 type Props = {
     who: string;
-    userImage: ImageSource | null;
+    userImage: ImageSource | undefined;
 }
 
 export default function MessageAvatarBubble({who, userImage}: Props) {

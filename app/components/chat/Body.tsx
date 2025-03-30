@@ -1,10 +1,10 @@
 import {FlatList, StyleSheet, ViewStyle} from "react-native";
-import {InitialUserImages} from "@/constants/InitialUserImages";
 
 import MessageFromSomeoneElse from "@/app/components/chat/MessageFromSomeoneElse";
 import {Fragment} from "react";
 import MessageFromSelf from "@/app/components/chat/MessageFromSelf";
 import MessageObject from "@/app/objects/MessageObject";
+import ImageData from "@/app/objects/ImageData";
 
 type MessageElementProps = {
     userNameForSelf: string;
@@ -17,7 +17,7 @@ const MessageElement = ({userNameForSelf, message, userImageForMessage}: Message
         {(message.who === userNameForSelf)
             ? <MessageFromSelf text={message.messageText} who={message.who}/>
             : <MessageFromSomeoneElse text={message.messageText} who={message.who}
-                                      userImage={InitialUserImages.get(message.who)}/>
+                                      userImage={userImageForMessage}/>
         }
     </Fragment>
 );

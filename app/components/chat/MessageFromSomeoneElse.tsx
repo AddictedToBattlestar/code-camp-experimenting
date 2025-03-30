@@ -2,12 +2,12 @@ import {StyleSheet, Text, View} from "react-native";
 import {Constants} from "@/constants/Constants";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import MessageAvatarBubble from "@/app/components/chat/MessageAvatarBubble";
-import {type ImageSource} from 'expo-image';
+import ImageData from "@/app/objects/ImageData";
 
 type Props = {
     text: string;
     who: string;
-    userImage: ImageSource | null;
+    userImage: ImageData | undefined;
 }
 
 export default function MessageFromSomeoneElse({text, who, userImage}: Props) {

@@ -5,13 +5,7 @@ function buildMessages() {
     const rawMessages = [
         {
             "key": crypto.randomUUID(),
-            "who": "Moderator",
-            "messageText": "Welcome to the session on building a real-time chat application using Expo Go with React Native!",
-            "messageType": "Text"
-        },
-        {
-            "key": crypto.randomUUID(),
-            "who": "Andy",
+            "who": "Andy Ryan",
             "messageText": "This is a test message from Andy",
             "messageType": "Text"
         },
@@ -73,6 +67,12 @@ function buildMessages() {
             "key": crypto.randomUUID(),
             "who": "Moderator",
             "messageText": "Update the \"real-time chat\" route so that message that are from your own user name are shown differently that other messages in the chat",
+            "messageType": "Text"
+        },
+        {
+            "key": crypto.randomUUID(),
+            "who": "Moderator",
+            "messageText": "Welcome to the session on building a real-time chat application using Expo Go with React Native!",
             "messageType": "Text"
         }
     ];

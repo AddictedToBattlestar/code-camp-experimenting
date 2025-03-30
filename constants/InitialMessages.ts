@@ -11,7 +11,7 @@ function buildMessages() {
         {
             "key": crypto.randomUUID(),
             "who": "Andy",
-            "messageText": "This is a test message from myself"
+            "messageText": "This is a test message from Andy"
         },
         {
             "key": crypto.randomUUID(),

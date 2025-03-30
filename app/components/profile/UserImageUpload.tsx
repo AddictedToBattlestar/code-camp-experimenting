@@ -2,6 +2,7 @@ import {Pressable, StyleSheet, Text, View} from "react-native";
 import React, {useState} from "react";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
+import { InitialUserImages } from "@/constants/InitialUserImages";
 
 import * as ImagePicker from 'expo-image-picker';
 
@@ -10,6 +11,8 @@ import {FontAwesome} from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function UserImageUpload() {
+    const [userImages, setUserImages] = useState<Map<string, ImageData>>(InitialUserImages);
+
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
 
     const pickImageAsync = async () => {

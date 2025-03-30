@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from "react-native";
+import {Image, StyleSheet, View} from "react-native";
 import {Constants} from "@/constants/Constants";
 import {Colors} from "@/constants/Colors";
 import React from "react";
@@ -11,9 +11,7 @@ export default function MessageFromSelf({content}: Props) {
     return (
         <View style={styles.container}>
             <View style={styles.messageContainer}>
-                <Text style={styles.messageTextContainer}>
-                    {content}
-                </Text>
+                <Image source={{uri: content}} style={[styles.messageTextContainer, styles.imageContainer]}/>
             </View>
         </View>
     )
@@ -33,5 +31,8 @@ const styles = StyleSheet.create({
         padding: Constants.generic.padding,
         backgroundColor: Colors.default.primaryColor,
         color: Colors.default.color
+    },
+    imageContainer: {
+        height: 200,
     }
 })

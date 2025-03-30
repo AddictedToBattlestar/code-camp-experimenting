@@ -1,7 +1,7 @@
 import {NativeSyntheticEvent, StyleSheet, TextInput, TextInputKeyPressEventData, View, ViewStyle} from "react-native";
 import {Constants} from "@/constants/Constants";
 
-import ButtonIcon from "@/app/components/chat/ButtonIcon";
+import PhotoButtonIcon from "@/app/components/chat/PhotoButtonIcon";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {useState} from "react";
 
@@ -22,7 +22,7 @@ export default function Footer({style, createNewMessage}: Props) {
 
     return (
         <View style={[styles.container, style]}>
-            <ButtonIcon/>
+            <PhotoButtonIcon createNewMessage={createNewMessage}/>
             <TextInput
                 style={styles.input}
                 value={message}

@@ -24,11 +24,11 @@ const GreyScaleColorScheme = [
 
 const Colors = {
     default: {
-        backgroundColor: GreyScaleColorScheme[8],
-        lighterBackgroundColor: GreyScaleColorScheme[7],
-        color: GreyScaleColorScheme[0],
-        tintColor: GreyScaleColorScheme[7],
-        primaryColor: PrimaryColorScheme[4],
+        backgroundColor: GreyScaleColorScheme[0],
+        lighterBackgroundColor: GreyScaleColorScheme[2],
+        color: GreyScaleColorScheme[8],
+        tintColor: GreyScaleColorScheme[2],
+        primaryColor: PrimaryColorScheme[5],
     },
     dangerColor: '#D90429'
 };

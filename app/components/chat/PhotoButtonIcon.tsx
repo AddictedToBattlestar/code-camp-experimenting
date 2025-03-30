@@ -2,9 +2,10 @@ import {Pressable, StyleSheet} from "react-native";
 import {FontAwesome} from "@expo/vector-icons";
 import {Colors} from "@/constants/Colors";
 import * as ImagePicker from "expo-image-picker";
+import MessageType from "@/app/objects/MessageType";
 
 type PhotoButtonIconProps = {
-    createNewMessage: (messageText: string) => void;
+    createNewMessage: (messageText: string, messageType: MessageType) => void;
 }
 
 export default function PhotoButtonIcon({createNewMessage}: PhotoButtonIconProps) {
@@ -17,7 +18,7 @@ export default function PhotoButtonIcon({createNewMessage}: PhotoButtonIconProps
 
         if (!result.canceled) {
             console.log(result);
-            createNewMessage(result.assets[0].uri);
+            createNewMessage(result.assets[0].uri, MessageType.Image);
         } else {
             alert('You did not select any image.');
         }

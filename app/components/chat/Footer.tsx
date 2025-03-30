@@ -4,10 +4,11 @@ import {Constants} from "@/constants/Constants";
 import PhotoButtonIcon from "@/app/components/chat/PhotoButtonIcon";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {useState} from "react";
+import MessageType from "@/app/objects/MessageType";
 
 type Props = {
     style: ViewStyle;
-    createNewMessage: (messageText: string) => void;
+    createNewMessage: (messageText: string, messageType: MessageType) => void;
 }
 
 export default function Footer({style, createNewMessage}: Props) {
@@ -15,7 +16,7 @@ export default function Footer({style, createNewMessage}: Props) {
 
     const handleKeyPress = (event: NativeSyntheticEvent<TextInputKeyPressEventData>)=> {
         if (event.nativeEvent.key === "Enter") {
-            createNewMessage(message);
+            createNewMessage(message, MessageType.Text);
             setMessage("");
         }
     }

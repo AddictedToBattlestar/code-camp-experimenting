@@ -8,10 +8,11 @@ import Header from '@/app/components/Header';
 import {useCallback, useState} from "react";
 import MessageObject from "@/app/objects/MessageObject";
 import {InitialMessages} from "@/constants/InitialMessages";
-import { InitialUserImages } from "@/constants/InitialUserImages";
+import {InitialUserImages} from "@/constants/InitialUserImages";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useFocusEffect} from "expo-router";
 import MessageType from "@/app/objects/MessageType";
+import ImageData from "@/app/objects/ImageData";
 
 export default function Index() {
     const [userName, setUserName] = useState<string>('');
@@ -42,8 +43,8 @@ export default function Index() {
 
     const [messages, setMessages] = useState<MessageObject[]>(InitialMessages);
 
-    const createNewMessage = (newMessageText: string) => {
-        const newMessage = new MessageObject(crypto.randomUUID(), userName, newMessageText, MessageType.Text);
+    const createNewMessage = (newMessageText: string, messageType: MessageType) => {
+        const newMessage = new MessageObject(crypto.randomUUID(), userName, newMessageText, messageType);
         setMessages([newMessage, ...messages]);
     };
 

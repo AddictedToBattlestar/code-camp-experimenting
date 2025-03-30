@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View} from "react-native";
 import {Constants} from "@/constants/Constants";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
-import MessageAvatarBubble from "@/app/components/chat/MessageAvatarBubble";
+import MessageAvatarBubble from "@/app/components/chat/message/MessageAvatarBubble";
 import ImageData from "@/app/objects/ImageData";
 
 type Props = {

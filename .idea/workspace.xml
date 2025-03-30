@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54a9c657-1bf8-4626-b061-da67faef1798" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/chat/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/chat/Footer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/chat/PhotoButtonIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/chat/PhotoButtonIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/chat/Body.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/chat/Body.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/chat/MessageAvatarBubble.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/chat/message/MessageAvatarBubble.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/chat/MessageFromSelf.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/chat/message/MessageFromSelf.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/chat/MessageFromSomeoneElse.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/chat/message/MessageFromSomeoneElse.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +55,7 @@
       <recent name="$PROJECT_DIR$/app/components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/components/chat/message" />
       <recent name="$PROJECT_DIR$/app/components/home" />
     </key>
   </component>

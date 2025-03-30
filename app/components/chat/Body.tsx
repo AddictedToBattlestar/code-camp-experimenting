@@ -1,26 +1,9 @@
 import {FlatList, StyleSheet, ViewStyle} from "react-native";
 
-import MessageFromSomeoneElse from "@/app/components/chat/MessageFromSomeoneElse";
 import {Fragment} from "react";
-import MessageFromSelf from "@/app/components/chat/MessageFromSelf";
 import MessageObject from "@/app/objects/MessageObject";
 import ImageData from "@/app/objects/ImageData";
-
-type MessageElementProps = {
-    userNameForSelf: string;
-    message: MessageObject;
-    userImageForMessage: ImageData | undefined;
-}
-
-const MessageElement = ({userNameForSelf, message, userImageForMessage}: MessageElementProps) => (
-    <Fragment key={message.key}>
-        {(message.who === userNameForSelf)
-            ? <MessageFromSelf text={message.messageText} who={message.who}/>
-            : <MessageFromSomeoneElse text={message.messageText} who={message.who}
-                                      userImage={userImageForMessage}/>
-        }
-    </Fragment>
-);
+import Message from "@/app/components/chat/Message";
 
 type Props = {
     style: ViewStyle;
@@ -36,11 +19,13 @@ export default function Body({style, messages, userNameForSelf, userImages}: Pro
             style={[styles.container, style]}
             data={messages}
             renderItem={({item}) =>
-                <MessageElement 
-                    userNameForSelf={userNameForSelf} 
-                    message={item}
-                    userImageForMessage={userImages.get(item.who)}
-                />
+                <Fragment key={item.key}>
+                    <Message
+                        userNameForSelf={userNameForSelf}
+                        message={item}
+                        userImageForMessage={userImages.get(item.who)}
+                    />
+                </Fragment>
             }
             keyExtractor={(item) => item.key}
         />

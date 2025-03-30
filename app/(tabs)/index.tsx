@@ -8,6 +8,7 @@ import Header from '@/app/components/Header';
 import {useCallback, useState} from "react";
 import MessageObject from "@/app/objects/MessageObject";
 import {InitialMessages} from "@/constants/InitialMessages";
+import { InitialUserImages } from "@/constants/InitialUserImages";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useFocusEffect} from "expo-router";
 import MessageType from "@/app/objects/MessageType";
@@ -46,12 +47,14 @@ export default function Index() {
         setMessages([newMessage, ...messages]);
     };
 
+    const [userImages] = useState<Map<string, ImageData>>(InitialUserImages);
+
     return (
         <View
             style={styles.container}
         >
             <Header style={styles.chatHeader} text={"Technology Camp Chat"}/>
-            <Body style={styles.chatBody} userNameForSelf={userName} messages={messages}/>
+            <Body style={styles.chatBody} userNameForSelf={userName} messages={messages} userImages={userImages}/>
             <Footer style={styles.chatFooter} createNewMessage={createNewMessage}/>
         </View>
     );

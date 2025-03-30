@@ -2,7 +2,7 @@ import {Pressable, StyleSheet, Text, View} from "react-native";
 import React, {useState} from "react";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
-import { InitialUserImages } from "@/constants/InitialUserImages";
+import {InitialUserImages} from "@/constants/InitialUserImages";
 
 import * as ImagePicker from 'expo-image-picker';
 
@@ -24,7 +24,7 @@ export default function UserImageUpload() {
 
         if (!result.canceled) {
             setSelectedImage(result.assets[0].uri);
-            storeUserImage(result.assets[0].uri);
+            await storeUserImage(result.assets[0].uri);
             console.log(result);
         } else {
             alert('You did not select any image.');

@@ -6,6 +6,8 @@ import {Colors} from "@/constants/Colors";
 Note: 
 The Expo Go <Ionicons/> built-in component uses icons found at:
 https://icons.expo.fyi/Index
+!!!FILTER ON "Ionicons"!!!
+
 Reference: https://docs.expo.dev/guides/icons/
 */
 export default function RootLayout() {

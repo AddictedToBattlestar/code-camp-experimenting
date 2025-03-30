@@ -11,7 +11,7 @@ type MessageProps = {
 
 export default function Message({userNameForSelf, message, userImageForMessage}: MessageProps) {
     if (message.who === userNameForSelf) {
-        return (<MessageFromSelf text={message.messageText} who={message.who}/>)
+        return (<MessageFromSelf text={message.messageText}/>)
     } else {
         return (
             <MessageFromSomeoneElse

@@ -4,10 +4,9 @@ import {Colors} from "@/constants/Colors";
 
 type Props = {
     text: string;
-    who: string;
 }
 
-export default function MessageFromSelf({text, who}: Props) {
+export default function MessageFromSelf({text}: Props) {
     return (
         <View style={styles.container}>
             <View style={styles.messageContainer}>

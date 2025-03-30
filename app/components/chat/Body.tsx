@@ -1,9 +1,9 @@
 import {FlatList, StyleSheet, ViewStyle} from "react-native";
 import {InitialUserImages} from "@/constants/InitialUserImages";
 
-import MessageFromSomeoneElse from "@/app/components/home/MessageFromSomeoneElse";
+import MessageFromSomeoneElse from "@/app/components/chat/MessageFromSomeoneElse";
 import {Fragment} from "react";
-import MessageFromSelf from "@/app/components/home/MessageFromSelf";
+import MessageFromSelf from "@/app/components/chat/MessageFromSelf";
 import MessageObject from "@/app/objects/MessageObject";
 
 type MessageElementProps = {

@@ -2,8 +2,8 @@ import {StyleSheet, View} from "react-native";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 
-import Body from '@/app/components/home/Body';
-import Footer from '@/app/components/home/Footer';
+import Body from '@/app/components/chat/Body';
+import Footer from '@/app/components/chat/Footer';
 import Header from '@/app/components/Header';
 import {useCallback, useState} from "react";
 import MessageObject from "@/app/objects/MessageObject";

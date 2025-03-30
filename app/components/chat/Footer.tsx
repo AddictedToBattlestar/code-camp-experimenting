@@ -1,7 +1,7 @@
 import {NativeSyntheticEvent, StyleSheet, TextInput, TextInputKeyPressEventData, View, ViewStyle} from "react-native";
 import {Constants} from "@/constants/Constants";
 
-import ButtonIcon from "@/app/components/home/ButtonIcon";
+import ButtonIcon from "@/app/components/chat/ButtonIcon";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {useState} from "react";
 

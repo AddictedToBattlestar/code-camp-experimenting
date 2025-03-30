@@ -2,6 +2,12 @@ import {Tabs} from "expo-router";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import {Colors} from "@/constants/Colors";
 
+/*
+Note: 
+The Expo Go <Ionicons/> built-in component uses icons found at:
+https://icons.expo.fyi/Index
+Reference: https://docs.expo.dev/guides/icons/
+*/
 export default function RootLayout() {
     return (
         <Tabs
@@ -21,9 +27,9 @@ export default function RootLayout() {
                 name="index"
                 options={{
                     headerShown: false,
-                    tabBarLabel: "home",
+                    tabBarLabel: "chat",
                     tabBarIcon: ({color, focused}) => (
-                        <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24}/>
+                        <Ionicons name={focused ? 'chatbubbles-sharp' : 'chatbubbles-outline'} color={color} size={24}/>
                     ),
                 }}
             />

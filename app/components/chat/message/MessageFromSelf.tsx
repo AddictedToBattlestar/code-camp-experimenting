@@ -4,20 +4,33 @@ import {Colors} from "@/constants/Colors";
 import MessageType from "@/app/objects/MessageType";
 
 type Props = {
-    text: string;
+    content: string;
     type: MessageType;
 }
 
-export default function MessageFromSelf({text}: Props) {
-    return (
-        <View style={styles.container}>
-            <View style={styles.messageContainer}>
-                <Text style={styles.messageTextContainer}>
-                    {text}
-                </Text>
+export default function MessageFromSelf({content, type}: Props) {
+    if (type === MessageType.Text) {
+        return (
+            <View style={styles.container}>
+                <View style={styles.messageContainer}>
+                    <Text style={styles.messageTextContainer}>
+                        {content}
+                    </Text>
+                </View>
             </View>
-        </View>
-    )
+        )
+    } else if (type === MessageType.Image) {
+        return (
+            <View style={styles.container}>
+                <View style={styles.messageContainer}>
+                    <Text style={styles.messageTextContainer}>
+                        (Insert image here)
+                    </Text>
+                    {/*<Image source={{uri: content}} style={styles.messageTextContainer}/>*/}
+                </View>
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({

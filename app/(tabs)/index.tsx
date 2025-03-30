@@ -44,6 +44,7 @@ export default function Index() {
     const [messages, setMessages] = useState<MessageObject[]>(InitialMessages);
 
     const createNewMessage = (newMessageText: string, messageType: MessageType) => {
+        console.debug(`Creating new message (messageType: ${messageType}, messageText: "${messageType === MessageType.Text ? newMessageText : "-"}")`);
         const newMessage = new MessageObject(crypto.randomUUID(), userName, newMessageText, messageType);
         setMessages([newMessage, ...messages]);
     };

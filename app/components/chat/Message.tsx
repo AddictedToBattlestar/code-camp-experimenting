@@ -11,11 +11,12 @@ type MessageProps = {
 
 export default function Message({userNameForSelf, message, userImageForMessage}: MessageProps) {
     if (message.who === userNameForSelf) {
-        return (<MessageFromSelf text={message.messageText}/>)
+        return (<MessageFromSelf content={message.messageText} type={message.messageType}/>)
     } else {
         return (
             <MessageFromSomeoneElse
-                text={message.messageText}
+                content={message.messageText}
+                type={message.messageType}
                 who={message.who}
                 userImage={userImageForMessage}
             />

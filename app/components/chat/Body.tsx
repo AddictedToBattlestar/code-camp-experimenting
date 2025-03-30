@@ -13,6 +13,7 @@ type Props = {
 };
 
 export default function Body({style, messages, userNameForSelf, userImages}: Props) {
+    console.debug(`messages length: ${messages.length}`);
     return (
         <FlatList
             inverted // inverting this makes the Flatlist automatically scroll to the bottom

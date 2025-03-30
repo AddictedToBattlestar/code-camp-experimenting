@@ -1,6 +1,6 @@
 const enum MessageType {
-    Text,
-    Image,
+    Text = "Text",
+    Image = "Image",
 }
 
 export default MessageType;

@@ -14,7 +14,7 @@ type Props = {
 export default function Footer({style, createNewMessage}: Props) {
     const [message, setMessage] = useState<string>('');
 
-    const handleKeyPress = (event: NativeSyntheticEvent<TextInputKeyPressEventData>)=> {
+    const handleKeyPress = (event: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
         if (event.nativeEvent.key === "Enter") {
             createNewMessage(message, MessageType.Text);
             setMessage("");

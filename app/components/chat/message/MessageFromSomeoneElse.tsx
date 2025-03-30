@@ -6,20 +6,20 @@ import ImageData from "@/app/objects/ImageData";
 import MessageType from "@/app/objects/MessageType";
 
 type Props = {
-    text: string;
+    content: string;
     type: MessageType;
     who: string;
     userImage: ImageData | undefined;
 }
 
-export default function MessageFromSomeoneElse({text, who, userImage}: Props) {
+export default function MessageFromSomeoneElse({content, who, userImage}: Props) {
     return (
         <View style={styles.container}>
             <MessageAvatarBubble who={who} userImage={userImage}/>
             <View style={styles.messageContainer}>
                 <Text style={styles.whoText}>{who}</Text>
                 <Text style={styles.messageTextContainer}>
-                    {text}
+                    {content}
                 </Text>
             </View>
         </View>

@@ -18,7 +18,7 @@ Reference: https://docs.expo.dev/guides/icons/
 type Props = {
     createNewMessage: (messageText: string, messageType: MessageType) => void;
 }
-export default function PhotoButtonIcon({createNewMessage}: Readonly<Props>) {
+export default function ImageButtonIcon({createNewMessage}: Readonly<Props>) {
     const pickImageAsync = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ['images'],

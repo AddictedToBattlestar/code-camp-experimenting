@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="54a9c657-1bf8-4626-b061-da67faef1798" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/take-photo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/take-photo.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/constants/InitialMessages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/InitialMessages.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants/InitialUserImages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/InitialUserImages.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +39,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "second-attempt",
+    "git-widget-placeholder": "take-picture",
     "last_opened_file_path": "/Users/andyryan/Projects/code-camp-experimenting/app/components/chat/message",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",

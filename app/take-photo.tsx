@@ -1,5 +1,5 @@
 import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
-import {useCallback, useState} from "react";
+import {useCallback, useRef, useState} from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import {useFocusEffect} from "expo-router";
 
@@ -8,6 +8,8 @@ import {useFocusEffect} from "expo-router";
 export default function Photo() {
     const [facing, setFacing] = useState<CameraType>('back');
     const [permission, requestPermission] = useCameraPermissions();
+    const ref = useRef<CameraView>(null);
+    const [uri, setUri] = useState<string | undefined>(undefined);
 
         useFocusEffect(
             useCallback(() => {
@@ -32,6 +34,12 @@ export default function Photo() {
         </View>
       );
     }
+
+    const takePicture = async () => {
+        const photo = await ref.current?.takePictureAsync();
+        setUri(photo?.uri);
+        console.log(photo);
+    };
   
     function toggleCameraFacing() {
       setFacing(current => (current === 'back' ? 'front' : 'back'));
@@ -39,8 +47,11 @@ export default function Photo() {
   
     return (
       <View style={styles.container}>
-        <CameraView style={styles.camera} facing={facing}>
+        <CameraView style={styles.camera} ref={ref} facing={facing}>
           <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.button} onPress={takePicture}>
+                  <Text style={styles.text}>Take Picture 2</Text>
+              </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
               <Text style={styles.text}>Flip Camera</Text>
             </TouchableOpacity>

@@ -13,7 +13,6 @@ export default function Profile() {
             <Header style={styles.header} text={"User Profile"}/>
             <View style={styles.body}>
                 <UserNameInput/>
-
                 <UserImageUpload/>
             </View>
         </View>

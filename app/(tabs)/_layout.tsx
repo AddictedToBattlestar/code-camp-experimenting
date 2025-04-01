@@ -1,15 +1,18 @@
 import {Tabs} from "expo-router";
-import Ionicons from '@expo/vector-icons/Ionicons';
 import {Colors} from "@/constants/Colors";
 
+import Ionicons from '@expo/vector-icons/Ionicons';
 /*
 Note: 
 The Expo Go <Ionicons/> built-in component uses icons found at:
-https://icons.expo.fyi/Index
-!!!FILTER ON "Ionicons"!!!
+https://icons.expo.fyi/Index (FILTER ON "Ionicons")
+
+The Expo Go <FontAwesome/> built-in component uses icons found at:
+https://icons.expo.fyi/Index (FILTER ON "FontAwesome")
 
 Reference: https://docs.expo.dev/guides/icons/
 */
+
 export default function RootLayout() {
     return (
         <Tabs

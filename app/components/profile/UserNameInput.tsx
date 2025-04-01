@@ -10,6 +10,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function UserNameInput() {
     const [userName, setUserName] = useState<string>('');
 
+    useEffect(() => {
+        getUserName().then((value) => {
+            if (value !== null) {
+                setUserName(value);
+            }
+        });
+    }, []);
+
     const getUserName = async () => {
         try {
             return await AsyncStorage.getItem('userName');
@@ -17,15 +25,6 @@ export default function UserNameInput() {
             return null;
         }
     };
-
-    useEffect(() => {
-        getUserName().then((value) => {
-            if (value !== null) {
-                setUserName(value);
-                console.debug(`userName: ${value}`);
-            }
-        });
-    }, []);
 
     const storeUserName = async (value: string) => {
         try {
@@ -43,7 +42,7 @@ export default function UserNameInput() {
                 style={styles.input}
                 value={userName}
                 placeholder={"Enter your desired user name here"}
-                placeholderTextColor={GreyScaleColorScheme[4]}
+                placeholderTextColor={styles.input.color}
                 onChangeText={text => {
                     setUserName(text);
                     storeUserName(text);

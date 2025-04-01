@@ -1,19 +1,54 @@
 import {Pressable, StyleSheet, Text, View} from "react-native";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
-import {InitialUserImages} from "@/constants/InitialUserImages";
-
 import * as ImagePicker from 'expo-image-picker';
-
 import {Image} from 'expo-image';
+
 import {FontAwesome} from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+/*
+Note: 
+The Expo Go <Ionicons/> built-in component uses icons found at:
+https://icons.expo.fyi/Index (FILTER ON "Ionicons")
+
+The Expo Go <FontAwesome/> built-in component uses icons found at:
+https://icons.expo.fyi/Index (FILTER ON "FontAwesome")
+
+Reference: https://docs.expo.dev/guides/icons/
+*/
+
+// https://docs.expo.dev/develop/user-interface/store-data/
+// --> https://react-native-async-storage.github.io/async-storage/docs/usage/
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function UserImageUpload() {
-    const [userImages, setUserImages] = useState<Map<string, ImageData>>(InitialUserImages);
-
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
+
+    useEffect(() => {
+        getUserImage().then((value) => {
+            if (value !== null) {
+                setSelectedImage(value);
+            }
+        });
+    }, []);
+
+    const getUserImage = async () => {
+        try {
+            return await AsyncStorage.getItem('userImage');
+        } catch (ignoredError) {
+            return null;
+        }
+    };
+
+    const storeUserImage = async (value: string) => {
+        try {
+            await AsyncStorage.setItem('userImage', value);
+            console.log('userImage pushed to AsyncStorage', value);
+        } catch (e) {
+            console.error(`There was a problem setting userImage`, e);
+            alert(`There was a problem setting userImage`);
+        }
+    };
 
     const pickImageAsync = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -28,16 +63,6 @@ export default function UserImageUpload() {
             console.log(result);
         } else {
             alert('You did not select any image.');
-        }
-    };
-
-    const storeUserImage = async (value: string) => {
-        try {
-            await AsyncStorage.setItem('userImage', value);
-            console.log('userImage pushed to AsyncStorage', value);
-        } catch (e) {
-            console.error(`There was a problem setting userImage`, e);
-            alert(`There was a problem setting userImage`);
         }
     };
 
@@ -60,7 +85,6 @@ export default function UserImageUpload() {
 
 const styles = StyleSheet.create({
     button: {
-        // width: 250,
         height: 35,
         borderWidth: 1,
         borderRadius: Constants.generic.borderRadius,
@@ -74,6 +98,7 @@ const styles = StyleSheet.create({
     },
     buttonIcon: {
         paddingRight: Constants.generic.padding,
+        color: Colors.default.backgroundColor
     },
     buttonText: {
         color: Colors.default.backgroundColor,

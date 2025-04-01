@@ -14,6 +14,8 @@ import {useFocusEffect} from "expo-router";
 import MessageType from "@/app/objects/MessageType";
 import ImageData from "@/app/objects/ImageData";
 
+// "Index" is a reserved name to indicate the default route to present in the application
+// This will be providing the main chat screen for this project.
 export default function Index() {
     const [userName, setUserName] = useState<string>('');
 
@@ -32,7 +34,6 @@ export default function Index() {
             getUserName().then((value) => {
                 if (value !== null) {
                     setUserName(value);
-                    console.debug(`userName: ${value}`);
                 }
             });
             return () => {

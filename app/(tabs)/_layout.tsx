@@ -29,6 +29,7 @@ export default function RootLayout() {
             }}
         >
             <Tabs.Screen
+                // "index" is a reserved name to indicate the default route to present in the application
                 name="index"
                 options={{
                     headerShown: false,

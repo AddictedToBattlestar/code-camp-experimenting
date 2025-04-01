@@ -1,7 +1,8 @@
-import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
+import {CameraType, CameraView, useCameraPermissions} from 'expo-camera';
 import {useCallback, useRef, useState} from "react";
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useFocusEffect} from "expo-router";
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 // npx expo install expo-camera
 
@@ -11,28 +12,28 @@ export default function Photo() {
     const ref = useRef<CameraView>(null);
     const [uri, setUri] = useState<string | undefined>(undefined);
 
-        useFocusEffect(
-            useCallback(() => {
-                console.debug('This route is now focused');
-                return () => {
-                    console.debug('This route is now unfocused.');
-                };
-            }, [])
-        );
-  
+    useFocusEffect(
+        useCallback(() => {
+            console.debug('This route is now focused');
+            return () => {
+                console.debug('This route is now unfocused.');
+            };
+        }, [])
+    );
+
     if (!permission) {
-      // Camera permissions are still loading.
-      return <View />;
+        // Camera permissions are still loading.
+        return <View/>;
     }
-  
+
     if (!permission.granted) {
-      // Camera permissions are not granted yet.
-      return (
-        <View style={styles.container}>
-          <Text style={styles.message}>We need your permission to show the camera</Text>
-          <Button onPress={requestPermission} title="grant permission" />
-        </View>
-      );
+        // Camera permissions are not granted yet.
+        return (
+            <View style={styles.container}>
+                <Text style={styles.message}>We need your permission to show the camera</Text>
+                <Button onPress={requestPermission} title="grant permission"/>
+            </View>
+        );
     }
 
     const takePicture = async () => {
@@ -40,53 +41,53 @@ export default function Photo() {
         setUri(photo?.uri);
         console.log(photo);
     };
-  
+
     function toggleCameraFacing() {
-      setFacing(current => (current === 'back' ? 'front' : 'back'));
+        setFacing(current => (current === 'back' ? 'front' : 'back'));
     }
-  
+
     return (
-      <View style={styles.container}>
-        <CameraView style={styles.camera} ref={ref} facing={facing}>
-          <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button} onPress={takePicture}>
-                  <Text style={styles.text}>Take Picture 2</Text>
-              </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-              <Text style={styles.text}>Flip Camera</Text>
-            </TouchableOpacity>
-          </View>
-        </CameraView>
-      </View>
+        <View style={styles.container}>
+            <CameraView style={styles.camera} ref={ref} facing={facing}>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.button} onPress={takePicture}>
+                        <FontAwesome6 name="camera" size={32} color="white"/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+                        <FontAwesome6 name="camera-rotate" size={32} color="white" />
+                    </TouchableOpacity>
+                </View>
+            </CameraView>
+        </View>
     );
-  }
-  
-  const styles = StyleSheet.create({
+}
+
+const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      justifyContent: 'center',
+        flex: 1,
+        justifyContent: 'center',
     },
     message: {
-      textAlign: 'center',
-      paddingBottom: 10,
+        textAlign: 'center',
+        paddingBottom: 10,
     },
     camera: {
-      flex: 1,
+        flex: 1,
     },
     buttonContainer: {
-      flex: 1,
-      flexDirection: 'row',
-      backgroundColor: 'transparent',
-      margin: 64,
+        flex: 1,
+        flexDirection: 'row',
+        backgroundColor: 'transparent',
+        margin: 64,
     },
     button: {
-      flex: 1,
-      alignSelf: 'flex-end',
-      alignItems: 'center',
+        flex: 1,
+        alignSelf: 'flex-end',
+        alignItems: 'center',
     },
     text: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      color: 'white',
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: 'white',
     },
-  });
+});

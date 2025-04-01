@@ -20,9 +20,9 @@ export default function PhotoButtonIcon() {
     return (
         <Pressable
             style={styles.container}
-            onPress={() => router.navigate('/take-photo')}
+            onPress={() => router.navigate('/photo')}
         >
-            <FontAwesome name="image" size={18} style={styles.icon}/>
+            <FontAwesome name="camera" size={18} style={styles.icon}/>
         </Pressable>
     );
 }

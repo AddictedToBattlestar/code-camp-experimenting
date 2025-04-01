@@ -10,8 +10,7 @@ type Props = {
     who: string;
     userImage: ImageData | undefined;
 }
-
-export default function ImageFromSomeoneElse({content, who, userImage}: Props) {
+export default function ImageFromSomeoneElse({content, who, userImage}: Readonly<Props>) {
     return (
         <View style={styles.container}>
             <MessageAvatarBubble who={who} userImage={userImage}/>

@@ -6,13 +6,12 @@ import MessageFromSomeoneElse from "@/app/components/chat/message/MessageFromSom
 import MessageType from "@/app/objects/MessageType";
 import ImageFromSomeoneElse from "@/app/components/chat/message/ImageFromSomeoneElse";
 
-type MessageProps = {
+type Props = {
     userNameForSelf: string;
     message: MessageObject;
     userImageForMessage: ImageData | undefined;
 }
-
-export default function Message({userNameForSelf, message, userImageForMessage}: MessageProps) {
+export default function Message({userNameForSelf, message, userImageForMessage}: Readonly<Props>) {
     if (message.who === userNameForSelf && message.messageType === MessageType.Text) {
         return (<MessageFromSelf content={message.messageText}/>)
     } else if (message.who === userNameForSelf && message.messageType === MessageType.Image) {

@@ -26,7 +26,14 @@ function buildMessages() {
     const imageMap = new Map();
     rawImageMap.forEach((rawObject, key) => {
         imageMap.set(key, new ImageData(
-            { uri: rawObject.uri, width: rawObject.width, height: rawObject.height, type: rawObject.type, mimetype: rawObject.mimeType, fileName: rawObject.fileName, fileSize: rawObject.fileSize }        ));
+            rawObject.uri,
+            rawObject.width,
+            rawObject.height,
+            rawObject.type,
+            rawObject.mimeType,
+            rawObject.fileName,
+            rawObject.fileSize
+        ));
     })
     return imageMap;
 }

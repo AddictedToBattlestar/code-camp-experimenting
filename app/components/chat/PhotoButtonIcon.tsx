@@ -15,10 +15,10 @@ https://icons.expo.fyi/Index (FILTER ON "FontAwesome")
 Reference: https://docs.expo.dev/guides/icons/
 */
 
-type PhotoButtonIconProps = {
+type Props = {
     createNewMessage: (messageText: string, messageType: MessageType) => void;
 }
-export default function PhotoButtonIcon({createNewMessage}: PhotoButtonIconProps) {
+export default function PhotoButtonIcon({createNewMessage}: Readonly<Props>) {
     const pickImageAsync = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ['images'],

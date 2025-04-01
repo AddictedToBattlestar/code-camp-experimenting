@@ -1,11 +1,11 @@
 export default class ImageData {
     constructor(
-        private readonly uri: string, 
-        private readonly width?: number, 
-        private readonly height?: number, 
-        private readonly type?: string, 
-        private readonly mimetype?: string, 
-        private readonly fileName?: string, 
-        private readonly fileSize?: number
+        public readonly uri: string, 
+        public readonly width?: number, 
+        public readonly height?: number, 
+        public readonly type?: string, 
+        public readonly mimetype?: string, 
+        public readonly fileName?: string, 
+        public readonly fileSize?: number
     ) {}
 }

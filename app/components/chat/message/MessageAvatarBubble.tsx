@@ -1,19 +1,19 @@
 import {StyleSheet, Text, View} from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
-import {Image, type ImageSource} from 'expo-image';
+import {Image} from 'expo-image';
+import ImageData from "@/app/objects/ImageData";
 import React from "react";
 
 type Props = {
     who: string;
-    userImage: ImageSource | undefined;
+    userImage: ImageData | undefined;
 }
-
-export default function MessageAvatarBubble({who, userImage}: Props) {
+export default function MessageAvatarBubble({who, userImage}: Readonly<Props>) {
     function findFirstTwoUpper(text: string) {
         const upperLetters = [];
-        for (let i = 0; i < text.length; i++) {
-            if (text[i] === text[i].toUpperCase() && text[i].match(/[A-Z]/)) {
-                upperLetters.push(text[i]);
+        for (const element of text) {
+            if (element === element.toUpperCase() && RegExp(/[A-Z]/).exec(element)) {
+                upperLetters.push(element);
                 if (upperLetters.length === 2) {
                     break;
                 }

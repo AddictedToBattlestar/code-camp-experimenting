@@ -6,8 +6,7 @@ import React from "react";
 type Props = {
     content: string;
 }
-
-export default function MessageFromSelf({content}: Props) {
+export default function MessageFromSelf({content}: Readonly<Props>) {
     return (
         <View style={styles.container}>
             <View style={styles.messageContainer}>

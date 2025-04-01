@@ -10,7 +10,7 @@ type Props = {
     style: ViewStyle;
     createNewMessage: (messageText: string, messageType: MessageType) => void;
 }
-export default function Footer({style, createNewMessage}: Props) {
+export default function Footer({style, createNewMessage}: Readonly<Props>) {
     const [message, setMessage] = useState<string>('');
 
     const handleKeyPress = (event: NativeSyntheticEvent<TextInputKeyPressEventData>) => {

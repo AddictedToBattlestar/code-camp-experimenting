@@ -10,7 +10,6 @@ type Props = {
     style: ViewStyle;
     createNewMessage: (messageText: string, messageType: MessageType) => void;
 }
-
 export default function Footer({style, createNewMessage}: Props) {
     const [message, setMessage] = useState<string>('');
 

@@ -11,8 +11,7 @@ type Props = {
     messages: MessageObject[];
     userImages: Map<string, ImageData>;
 };
-
-export default function Body({style, messages, userNameForSelf, userImages}: Props) {
+export default function Body({style, messages, userNameForSelf, userImages}: Readonly<Props>) {
     console.debug(`messages length: ${messages.length}`);
     return (
         <FlatList

@@ -5,7 +5,7 @@ type Props = {
     style?: ViewStyle;
 }
 
-export default function Header({text, style}: Props) {
+export default function Header({text, style}: Readonly<Props>) {
     return (
         <Text style={[styles.container, style]}>{text}</Text>
     )

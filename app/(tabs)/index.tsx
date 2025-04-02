@@ -1,4 +1,4 @@
-import {StyleSheet, View} from "react-native";
+import {KeyboardAvoidingView, Platform, StyleSheet} from "react-native";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 
@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useFocusEffect} from "expo-router";
 import MessageType from "@/app/objects/MessageType";
 import ImageData from "@/app/objects/ImageData";
+import uuid from 'react-native-uuid';
 
 // "Index" is a reserved name to indicate the default route to present in the application
 // This will be providing the main chat screen for this project.
@@ -45,19 +46,20 @@ export default function Index() {
 
     const createNewMessage = (newMessageText: string, messageType: MessageType) => {
         console.debug(`Creating new message (messageType: ${messageType}, messageText: "${messageType === MessageType.Text ? newMessageText : "-"}")`);
-        const newMessage = new MessageObject(crypto.randomUUID(), userName, newMessageText, messageType);
+        const newMessage = new MessageObject(uuid.v1().toString(), userName, newMessageText, messageType);
         setMessages([newMessage, ...messages]);
     };
 
     const [userImages] = useState<Map<string, ImageData>>(InitialUserImages);
 
     return (
-        <View
+        <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.container}
         >
             <Body style={styles.chatBody} userNameForSelf={userName} messages={messages} userImages={userImages}/>
             <Footer style={styles.chatFooter} createNewMessage={createNewMessage}/>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -70,7 +72,6 @@ const styles = StyleSheet.create({
         color: Colors.default.color
     },
     chatBody: {
-        flex: 1,
         width: '100%',
         padding: Constants.generic.padding,
     },

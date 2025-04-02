@@ -1,10 +1,19 @@
-import {NativeSyntheticEvent, StyleSheet, TextInput, TextInputKeyPressEventData, View, ViewStyle} from "react-native";
+import {
+    NativeSyntheticEvent,
+    Pressable,
+    StyleSheet,
+    TextInput,
+    TextInputKeyPressEventData,
+    View,
+    ViewStyle
+} from "react-native";
 import {Constants} from "@/constants/Constants";
 
 import PhotoButtonIcon from "@/app/components/chat/message/button-icons/PhotoButtonIcon";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {useState} from "react";
 import MessageType from "@/app/objects/MessageType";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 type Props = {
     style: ViewStyle;
@@ -20,17 +29,29 @@ export default function Footer({style, createNewMessage}: Readonly<Props>) {
         }
     }
 
+    const handleSubmit = () => {
+        createNewMessage(message, MessageType.Text);
+        setMessage("");
+    }
+
     return (
         <View style={[styles.container, style]}>
-            <PhotoButtonIcon />
-            <TextInput
-                style={styles.input}
-                value={message}
-                placeholder={"Aa"}
-                placeholderTextColor={GreyScaleColorScheme[4]}
-                onChangeText={text => setMessage(text)}
-                onKeyPress={handleKeyPress}
-            />
+            <View style={styles.actionButton}>
+                <PhotoButtonIcon/>
+            </View>
+            <View style={styles.inputContainer}>
+                <TextInput
+                    style={styles.input}
+                    value={message}
+                    placeholder={"Aa"}
+                    placeholderTextColor={GreyScaleColorScheme[4]}
+                    onChangeText={text => setMessage(text)}
+                    onKeyPress={handleKeyPress}
+                />
+                <Pressable style={styles.inputSubmitButton} onPress={handleSubmit}>
+                    <Ionicons name="arrow-up" size={18} style={styles.inputSubmitIcon}/>
+                </Pressable>
+            </View>
         </View>
     )
 }
@@ -41,12 +62,34 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: Constants.generic.padding
     },
-    input: {
+    actionButton: {
+        display: 'flex',
+        justifyContent: 'center',
+    },
+    inputContainer: {
         flex: 1,
         borderWidth: 1,
         borderRadius: Constants.generic.borderRadius,
         borderColor: Colors.default.color,
         color: Colors.default.color,
         padding: Constants.generic.padding,
+
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    input: {
+        flex: 1,
+    },
+    inputSubmitButton: {
+        width: 25,
+        height: 25,
+        borderRadius: 17,
+        backgroundColor: Colors.default.primaryColor,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row'
+    },
+    inputSubmitIcon: {
+        color: Colors.default.color
     }
 });

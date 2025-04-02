@@ -1,4 +1,4 @@
-import {KeyboardAvoidingView, Platform, StyleSheet} from "react-native";
+import {StyleSheet, View} from "react-native";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 
@@ -53,13 +53,12 @@ export default function Index() {
     const [userImages] = useState<Map<string, ImageData>>(InitialUserImages);
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
+        <View
             style={styles.container}
         >
             <Body style={styles.chatBody} userNameForSelf={userName} messages={messages} userImages={userImages}/>
             <Footer style={styles.chatFooter} createNewMessage={createNewMessage}/>
-        </KeyboardAvoidingView>
+        </View>
     );
 }
 

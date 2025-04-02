@@ -7,34 +7,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // https://docs.expo.dev/develop/user-interface/store-data/
 // --> https://react-native-async-storage.github.io/async-storage/docs/usage/
 
-export default function UserNameInput() {
-    const [userName, setUserName] = useState<string>('');
-
-    const getUserName = async () => {
-        try {
-            return await AsyncStorage.getItem('userName');
-        } catch (ignoredError) {
-            return null;
-        }
-    };
-
-    const storeUserName = async (value: string) => {
-        try {
-            await AsyncStorage.setItem('userName', value);
-        } catch (e) {
-            console.error(`There was a problem setting userName: ${userName}`, e);
-            alert(`There was a problem setting userName: ${userName}`);
-        }
-    };
-
-    useEffect(() => {
-        getUserName().then((value) => {
-            if (value !== null) {
-                setUserName(value);
-            }
-        });
-    }, []);
-
+type Props = {
+    userName: string;
+    setUserName: (value: string) => void;
+}
+export default function UserNameInput({userName, setUserName}: Readonly<Props>) {
     return (
         <View>
             <Text style={styles.inputText}>User name</Text>
@@ -43,9 +20,8 @@ export default function UserNameInput() {
                 value={userName}
                 placeholder={"Enter your desired user name here"}
                 placeholderTextColor={styles.input.color}
-                onChangeText={text => {
+                onChangeText={(text) => {
                     setUserName(text);
-                    storeUserName(text);
                 }}
             />
         </View>

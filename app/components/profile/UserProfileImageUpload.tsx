@@ -23,41 +23,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // https://docs.expo.dev/develop/user-interface/store-data/
 // --> https://react-native-async-storage.github.io/async-storage/docs/usage/
 
-export default function UserImageUpload() {
-    // userName: via AsyncStorage
-    const [userName, setUserName] = useState<string>('');
-    const getUserName = async () => {
-        try {
-            return await AsyncStorage.getItem('userName');
-        } catch (ignoredError) {
-            return null;
-        }
-    };
-
-    // userProfileImages: loaded from local data
-    const [userProfileImages, setUserProfileImages] = useState<Map<string, ImageData>>(InitialUserProfileImages);
-
-    const storeUserImage = async (value: string) => {
-        try {
-            await AsyncStorage.setItem('userImage', value);
-            console.log('userImage pushed to AsyncStorage', value);
-        } catch (e) {
-            console.error(`There was a problem setting userImage`, e);
-            alert(`There was a problem setting userImage`);
-        }
-    };
-
-    // currentUserProfileImage
-    const [currentUserProfileImage, setCurrentUserProfileImage] = useState<ImageData | null | undefined>(null);
-
-    const getUserProfileImage = (userName: string): ImageData | null | undefined => {
-        if (userName) {
-            return userProfileImages.get(userName);
-        } else {
-            return null;
-        }
-    };
-
+type Props = {
+    userProfileImage: string | undefined | null;
+    updateUserProfileImage: (value: string) => void;
+}
+export default function UserImageUpload({userProfileImage, updateUserProfileImage}: Readonly<Props>) {
     const pickImageAsync = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ['images'],
@@ -66,28 +36,18 @@ export default function UserImageUpload() {
         });
 
         if (!result.canceled) {
-            console.log(result.assets[0].uri);
-            const imageData = new ImageData(result.assets[0].uri);
-            setCurrentUserProfileImage(imageData);
-            userProfileImages.set(userName, imageData);
-            const temp: Map<string, ImageData> = userProfileImages;
-            setUserProfileImages(temp);
-            console.log('userProfileImages.size', userProfileImages.size);
+            console.log(`Pushing new profile image`);
+            updateUserProfileImage(result.assets[0].uri);
+
+            // const imageData = new ImageData(result.assets[0].uri);
+            // userProfileImages.set(userName, imageData);
+            // const temp: Map<string, ImageData> = userProfileImages;
+            // setUserProfileImages(temp);
+            // console.log('userProfileImages.size', userProfileImages.size);
         } else {
             alert('You did not select any image.');
         }
     };
-
-
-    useEffect(() => {
-        getUserName().then((userNameValue) => {
-            if (userNameValue !== null) {
-                setUserName(userNameValue);
-                const currentUserProfileImageValue = getUserProfileImage(userNameValue);
-                setCurrentUserProfileImage(currentUserProfileImageValue);
-            }
-        });
-    }, []);
 
     return (
         <View>
@@ -95,12 +55,12 @@ export default function UserImageUpload() {
                 style={styles.button} onPress={pickImageAsync}>
                 <FontAwesome name="picture-o" size={18} color="#25292e" style={styles.buttonIcon}/>
                 <Text style={styles.buttonText}>
-                    {currentUserProfileImage ? "Change your profile image" : "Choose a profile image"}
+                    {userProfileImage ? "Change your profile image" : "Choose a profile image"}
                 </Text>
             </Pressable>
 
             <View style={styles.imageContainer}>
-                {currentUserProfileImage && <Image source={{uri: currentUserProfileImage?.uri}} style={styles.image}/>}
+                {userProfileImage && <Image source={{uri: userProfileImage}} style={styles.image}/>}
             </View>
         </View>
     );

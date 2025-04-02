@@ -53,9 +53,7 @@ export default function Index() {
     const [userImages] = useState<Map<string, ImageData>>(InitialUserImages);
 
     return (
-        <View
-            style={styles.container}
-        >
+        <View style={styles.container}>
             <Body style={styles.chatBody} userNameForSelf={userName} messages={messages} userImages={userImages}/>
             <Footer style={styles.chatFooter} createNewMessage={createNewMessage}/>
         </View>
@@ -69,7 +67,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: Colors.default.backgroundColor,
         color: Colors.default.color,
-        marginBottom: 25
+        marginBottom: 30
     },
     chatBody: {
         width: '100%',

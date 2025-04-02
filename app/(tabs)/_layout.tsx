@@ -19,7 +19,7 @@ export default function RootLayout() {
             screenOptions={{
                 tabBarActiveTintColor: Colors.default.primaryColor,
                 headerStyle: {
-                    backgroundColor: Colors.default.backgroundColor,
+                    backgroundColor: Colors.default.primaryColor,
                 },
                 headerShadowVisible: false,
                 headerTintColor: Colors.default.color,

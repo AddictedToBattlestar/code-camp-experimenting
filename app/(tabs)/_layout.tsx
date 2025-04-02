@@ -43,6 +43,7 @@ export default function RootLayout() {
                 name="profile"
                 options={{
                     title: 'User Profile',
+                    tabBarLabel: "profile",
                     tabBarIcon: ({color, focused}) => (
                         <Ionicons name={focused ? 'person' : 'person-outline'} color={color} size={24}/>
                     ),

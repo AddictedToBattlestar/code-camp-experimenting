@@ -3,20 +3,12 @@ import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import React, {useEffect, useState} from "react";
 import {Constants} from "@/constants/Constants";
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // https://docs.expo.dev/develop/user-interface/store-data/
 // --> https://react-native-async-storage.github.io/async-storage/docs/usage/
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function UserNameInput() {
     const [userName, setUserName] = useState<string>('');
-
-    useEffect(() => {
-        getUserName().then((value) => {
-            if (value !== null) {
-                setUserName(value);
-            }
-        });
-    }, []);
 
     const getUserName = async () => {
         try {
@@ -34,6 +26,14 @@ export default function UserNameInput() {
             alert(`There was a problem setting userName: ${userName}`);
         }
     };
+
+    useEffect(() => {
+        getUserName().then((value) => {
+            if (value !== null) {
+                setUserName(value);
+            }
+        });
+    }, []);
 
     return (
         <View>

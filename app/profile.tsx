@@ -27,6 +27,9 @@ export default function Profile() {
     const localSetUserName = async (value: string) => {
         console.log(`setting user name: ${value}`);
         setUserName(value);
+        if (!userProfileImage) {
+            setUserProfileImageFromUserName(value);
+        }
         await storeUserName(value);
     }
 
@@ -43,30 +46,35 @@ export default function Profile() {
     // userProfileImages: loaded from local data
     const [userProfileImages, setUserProfileImages] = useState<Map<string, ImageData>>(InitialUserProfileImages);
 
+    // userProfileImage: profile image for the current user
+    const [userProfileImage, setUserProfileImage] = useState<string | undefined | null>(null);
+
     const updateUserProfileImage = (value: string) => {
         setUserProfileImage(value);
 
         const localUserProfileImage = new ImageData(value);
         const localUserProfileImages = userProfileImages.set(userName, localUserProfileImage);
         setUserProfileImages(localUserProfileImages);
-        console.log(`userProfileImages.keys:`, userProfileImages.keys);
+        console.log(`userProfileImages.keys:`, Array.from(userProfileImages.keys()));
     }
 
-    // userProfileImage: profile image for the current user
-    const [userProfileImage, setUserProfileImage] = useState<string | undefined | null>(null);
+    const setUserProfileImageFromUserName = (userName: string) => {
+        const currentUserProfileImageValue = userProfileImages.get(userName);
+        if (currentUserProfileImageValue) {
+            console.log(`userProfileImage located`);
+            setUserProfileImage(currentUserProfileImageValue.uri)
+        } else {
+            setUserProfileImage(null);
+        }
+    };
 
     useEffect(() => {
-        console.log(`userProfileImages.keys:`, userProfileImages.keys);
+        console.log(`userProfileImages.keys:`, Array.from(userProfileImages.keys()));
         getUserName().then((userNameValue) => {
             console.log(`userName: ${userNameValue}`);
             if (userNameValue !== null) {
                 setUserName(userNameValue);
-
-                const currentUserProfileImageValue = userProfileImages.get(userName);
-                if (currentUserProfileImageValue) {
-                    console.log(`userProfileImage located`);
-                    setUserProfileImage(currentUserProfileImageValue.uri)
-                }
+                setUserProfileImageFromUserName(userNameValue);
             }
         });
     }, []);

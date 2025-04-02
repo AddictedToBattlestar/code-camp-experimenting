@@ -33,7 +33,7 @@ export default function Footer({style, createNewMessage}: Readonly<Props>) {
         createNewMessage(message, MessageType.Text);
         setMessage("");
     }
-    
+
     return (
         <View style={[styles.container, style]}>
             <View style={styles.actionButton}>

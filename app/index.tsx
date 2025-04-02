@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: Colors.default.backgroundColor,
-        color: Colors.default.color
+        color: Colors.default.color,
+        marginBottom: 25
     },
     chatBody: {
         width: '100%',

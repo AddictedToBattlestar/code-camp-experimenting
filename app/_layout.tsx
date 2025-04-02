@@ -14,10 +14,8 @@ export default function RootLayout() {
                     headerTintColor: Colors.default.color
                 }}
             >
-                <Stack.Screen name="(tabs)" options={{
-                    headerShown: false,
-                    title: 'Home'
-                }}/>
+                <Stack.Screen name="index" options={{title: 'Technology Camp Chat'}}/>
+                <Stack.Screen name="profile" options={{title: 'User Profile'}}/>
                 <Stack.Screen name="+not-found"/>
                 <Stack.Screen name="take-photo" options={{title: 'Take Photo'}}/>
             </Stack>

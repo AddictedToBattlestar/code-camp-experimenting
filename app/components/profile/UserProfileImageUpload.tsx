@@ -70,6 +70,9 @@ export default function UserImageUpload() {
             const imageData = new ImageData(result.assets[0].uri);
             setCurrentUserProfileImage(imageData);
             userProfileImages.set(userName, imageData);
+            const temp: Map<string, ImageData> = userProfileImages;
+            setUserProfileImages(temp);
+            console.log('userProfileImages.size', userProfileImages.size);
         } else {
             alert('You did not select any image.');
         }

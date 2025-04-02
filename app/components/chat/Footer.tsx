@@ -34,6 +34,10 @@ export default function Footer({style, createNewMessage}: Readonly<Props>) {
         setMessage("");
     }
 
+    const isSubmitButtonVisible = () => {
+        return message.length > 0;
+    }
+
     return (
         <View style={[styles.container, style]}>
             <View style={styles.actionButton}>
@@ -48,9 +52,11 @@ export default function Footer({style, createNewMessage}: Readonly<Props>) {
                     onChangeText={text => setMessage(text)}
                     onKeyPress={handleKeyPress}
                 />
-                <Pressable style={styles.inputSubmitButton} onPress={handleSubmit}>
-                    <Ionicons name="arrow-up" size={18} style={styles.inputSubmitIcon}/>
-                </Pressable>
+                {message.length > 0 &&
+                    <Pressable style={styles.inputSubmitButton} onPress={handleSubmit}>
+                        <Ionicons name="arrow-up" size={18} style={styles.inputSubmitIcon}/>
+                    </Pressable>
+                }
             </View>
         </View>
     )

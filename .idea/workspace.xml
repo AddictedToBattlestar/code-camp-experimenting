@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="54a9c657-1bf8-4626-b061-da67faef1798" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/chat/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/chat/Footer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/chat/message/button-icons/ImageButtonIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/button-icons/ImageButtonIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/chat/message/button-icons/PhotoButtonIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/button-icons/PhotoButtonIcon.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +57,7 @@
       <recent name="$PROJECT_DIR$/app/components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/components" />
       <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/app/components/chat/message" />
       <recent name="$PROJECT_DIR$/app/components/home" />

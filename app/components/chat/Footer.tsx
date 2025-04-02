@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import {Constants} from "@/constants/Constants";
 
-import PhotoButtonIcon from "@/app/components/chat/message/button-icons/PhotoButtonIcon";
+import PhotoButtonIcon from "@/app/components/button-icons/PhotoButtonIcon";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {useState} from "react";
 import MessageType from "@/app/objects/MessageType";

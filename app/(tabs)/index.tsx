@@ -4,7 +4,6 @@ import {Constants} from "@/constants/Constants";
 
 import Body from '@/app/components/chat/Body';
 import Footer from '@/app/components/chat/Footer';
-import Header from '@/app/components/Header';
 import {useCallback, useState} from "react";
 import MessageObject from "@/app/objects/MessageObject";
 import {InitialMessages} from "@/constants/InitialMessages";
@@ -68,12 +67,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: Colors.default.backgroundColor,
-        color: Colors.default.color
-    },
-    chatHeader: {
-        width: '100%',
-        padding: Constants.generic.padding,
-        backgroundColor: Colors.default.primaryColor,
         color: Colors.default.color
     },
     chatBody: {

@@ -1,9 +1,9 @@
 import {CameraType, CameraView, useCameraPermissions} from 'expo-camera';
-import {useCallback, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {useFocusEffect} from "expo-router";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
+// https://docs.expo.dev/versions/latest/sdk/camera/
 // npx expo install expo-camera
 
 export default function Photo() {
@@ -11,15 +11,6 @@ export default function Photo() {
     const [permission, requestPermission] = useCameraPermissions();
     const ref = useRef<CameraView>(null);
     const [uri, setUri] = useState<string | undefined>(undefined);
-
-    useFocusEffect(
-        useCallback(() => {
-            console.debug('This route is now focused');
-            return () => {
-                console.debug('This route is now unfocused.');
-            };
-        }, [])
-    );
 
     if (!permission) {
         // Camera permissions are still loading.
@@ -54,7 +45,7 @@ export default function Photo() {
                         <FontAwesome6 name="camera" size={32} color="white"/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-                        <FontAwesome6 name="camera-rotate" size={32} color="white" />
+                        <FontAwesome6 name="camera-rotate" size={32} color="white"/>
                     </TouchableOpacity>
                 </View>
             </CameraView>

@@ -1,5 +1,4 @@
 import {StyleSheet, View} from "react-native";
-import Header from "@/app/components/Header";
 import React from "react";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
@@ -24,12 +23,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: Colors.default.backgroundColor,
-        color: Colors.default.color
-    },
-    header: {
-        width: '100%',
-        padding: Constants.generic.padding,
-        backgroundColor: Colors.default.primaryColor,
         color: Colors.default.color
     },
     body: {

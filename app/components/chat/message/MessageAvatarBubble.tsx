@@ -6,9 +6,9 @@ import React from "react";
 
 type Props = {
     who: string;
-    userImage: ImageData | undefined;
+    userProfileImage: ImageData | undefined;
 }
-export default function MessageAvatarBubble({who, userImage}: Readonly<Props>) {
+export default function MessageAvatarBubble({who, userProfileImage}: Readonly<Props>) {
     function findFirstTwoUpper(text: string) {
         const upperLetters = [];
         for (const element of text) {
@@ -27,8 +27,8 @@ export default function MessageAvatarBubble({who, userImage}: Readonly<Props>) {
     return (
         <View style={styles.container}>
             <View style={styles.bubble}>
-                {userImage ? (
-                    <Image source={userImage} style={styles.image}/>
+                {userProfileImage ? (
+                    <Image source={userProfileImage} style={styles.image}/>
                 ) : (
                     <Text style={styles.text}>{initialsToDisplay}</Text>
                 )}

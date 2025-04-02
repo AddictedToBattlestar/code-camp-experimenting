@@ -6,8 +6,8 @@ import Body from '@/app/components/chat/Body';
 import Footer from '@/app/components/chat/Footer';
 import React, {useCallback, useState} from "react";
 import MessageObject from "@/app/objects/MessageObject";
-import {InitialMessages} from "@/constants/InitialMessages";
-import {InitialUserImages} from "@/constants/InitialUserImages";
+import InitialMessages from "@/constants/InitialMessages";
+import InitialUserProfileImages from "@/constants/InitialUserProfileImages";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useFocusEffect, useNavigation, useRouter} from "expo-router";
 import MessageType from "@/app/objects/MessageType";
@@ -18,8 +18,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 // "Index" is a reserved name to indicate the default route to present in the application
 // This will be providing the main chat screen for this project.
 export default function Index() {
-    const navigation = useNavigation();
-    const router = useRouter();
+    // userName: via AsyncStorage
     const [userName, setUserName] = useState<string>('');
 
     const getUserName = async () => {
@@ -30,6 +29,20 @@ export default function Index() {
         }
     };
 
+    // messages: loaded from local data and kept in memory
+    const [messages, setMessages] = useState<MessageObject[]>(InitialMessages);
+
+    const createNewMessage = (newMessageText: string, messageType: MessageType) => {
+        console.debug(`Creating new message (messageType: ${messageType}, messageText: "${messageType === MessageType.Text ? newMessageText : "-"}")`);
+        const newMessage = new MessageObject(uuid.v1().toString(), userName, newMessageText, messageType);
+        setMessages([newMessage, ...messages]);
+    };
+
+    // userProfileImages: loaded from local data
+    const [userProfileImages] = useState<Map<string, ImageData>>(InitialUserProfileImages);
+
+    const navigation = useNavigation();
+    const router = useRouter();
     useFocusEffect(
         useCallback(() => {
             console.debug('This route is now focused');
@@ -53,19 +66,9 @@ export default function Index() {
         }, [navigation])
     );
 
-    const [messages, setMessages] = useState<MessageObject[]>(InitialMessages);
-
-    const createNewMessage = (newMessageText: string, messageType: MessageType) => {
-        console.debug(`Creating new message (messageType: ${messageType}, messageText: "${messageType === MessageType.Text ? newMessageText : "-"}")`);
-        const newMessage = new MessageObject(uuid.v1().toString(), userName, newMessageText, messageType);
-        setMessages([newMessage, ...messages]);
-    };
-
-    const [userImages] = useState<Map<string, ImageData>>(InitialUserImages);
-
     return (
         <View style={styles.container}>
-            <Body style={styles.chatBody} userNameForSelf={userName} messages={messages} userImages={userImages}/>
+            <Body style={styles.chatBody} userNameForSelf={userName} messages={messages} userProfileImages={userProfileImages}/>
             <Footer style={styles.chatFooter} createNewMessage={createNewMessage}/>
         </View>
     );

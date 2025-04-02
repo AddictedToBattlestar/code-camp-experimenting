@@ -4,14 +4,14 @@ import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 
 import UserNameInput from "@/app/components/profile/UserNameInput";
-import UserImageUpload from "@/app/components/profile/UserImageUpload";
+import UserProfileImageUpload from "@/app/components/profile/UserProfileImageUpload";
 
 export default function Profile() {
     return (
         <View style={styles.container}>
             <View style={styles.body}>
                 <UserNameInput/>
-                <UserImageUpload/>
+                <UserProfileImageUpload/>
             </View>
         </View>
     );

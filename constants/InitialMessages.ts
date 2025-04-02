@@ -83,4 +83,4 @@ function buildMessages() {
     })
 }
 
-export const InitialMessages = buildMessages();
+export default buildMessages();

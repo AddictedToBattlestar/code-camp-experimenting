@@ -8,12 +8,12 @@ import React from "react";
 type Props = {
     content: string;
     who: string;
-    userImage: ImageData | undefined;
+    userProfileImage: ImageData | undefined;
 }
-export default function ImageFromSomeoneElse({content, who, userImage}: Readonly<Props>) {
+export default function ImageFromSomeoneElse({content, who, userProfileImage}: Readonly<Props>) {
     return (
         <View style={styles.container}>
-            <MessageAvatarBubble who={who} userImage={userImage}/>
+            <MessageAvatarBubble who={who} userProfileImage={userProfileImage}/>
             <View style={styles.messageContainer}>
                 <Text style={styles.whoText}>{who}</Text>
                 <Image source={{uri: content}} style={[styles.messageTextContainer, styles.imageContainer]}/>

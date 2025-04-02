@@ -9,9 +9,9 @@ type Props = {
     style: ViewStyle;
     userNameForSelf: string;
     messages: MessageObject[];
-    userImages: Map<string, ImageData>;
+    userProfileImages: Map<string, ImageData>;
 };
-export default function Body({style, messages, userNameForSelf, userImages}: Readonly<Props>) {
+export default function Body({style, messages, userNameForSelf, userProfileImages}: Readonly<Props>) {
     console.debug(`messages length: ${messages.length}`);
     return (
         <FlatList
@@ -23,7 +23,7 @@ export default function Body({style, messages, userNameForSelf, userImages}: Rea
                     <Message
                         userNameForSelf={userNameForSelf}
                         message={item}
-                        userImageForMessage={userImages.get(item.who)}
+                        userProfileImage={userProfileImages.get(item.who)}
                     />
                 </Fragment>
             }

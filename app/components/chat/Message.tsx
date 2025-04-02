@@ -9,9 +9,9 @@ import ImageFromSomeoneElse from "@/app/components/chat/message/ImageFromSomeone
 type Props = {
     userNameForSelf: string;
     message: MessageObject;
-    userImageForMessage: ImageData | undefined;
+    userProfileImage: ImageData | undefined;
 }
-export default function Message({userNameForSelf, message, userImageForMessage}: Readonly<Props>) {
+export default function Message({userNameForSelf, message, userProfileImage}: Readonly<Props>) {
     if (message.who === userNameForSelf && message.messageType === MessageType.Text) {
         return (<MessageFromSelf content={message.messageText}/>)
     } else if (message.who === userNameForSelf && message.messageType === MessageType.Image) {
@@ -21,7 +21,7 @@ export default function Message({userNameForSelf, message, userImageForMessage}:
             <MessageFromSomeoneElse
                 content={message.messageText}
                 who={message.who}
-                userImage={userImageForMessage}
+                userProfileImage={userProfileImage}
             />
         )
     } else if (message.who !== userNameForSelf && message.messageType === MessageType.Image) {
@@ -29,7 +29,7 @@ export default function Message({userNameForSelf, message, userImageForMessage}:
             <ImageFromSomeoneElse
                 content={message.messageText}
                 who={message.who}
-                userImage={userImageForMessage}
+                userProfileImage={userProfileImage}
             />
         )
     }

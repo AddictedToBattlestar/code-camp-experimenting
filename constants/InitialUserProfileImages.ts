@@ -38,4 +38,4 @@ function buildMessages() {
     return imageMap;
 }
 
-export const InitialUserImages = buildMessages();
+export default buildMessages();

@@ -10,7 +10,6 @@ import UserImageUpload from "@/app/components/profile/UserImageUpload";
 export default function Profile() {
     return (
         <View style={styles.container}>
-            <Header style={styles.header} text={"User Profile"}/>
             <View style={styles.body}>
                 <UserNameInput/>
                 <UserImageUpload/>

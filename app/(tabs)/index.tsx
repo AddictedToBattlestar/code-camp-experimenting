@@ -56,7 +56,6 @@ export default function Index() {
         <View
             style={styles.container}
         >
-            <Header style={styles.chatHeader} text={"Technology Camp Chat"}/>
             <Body style={styles.chatBody} userNameForSelf={userName} messages={messages} userImages={userImages}/>
             <Footer style={styles.chatFooter} createNewMessage={createNewMessage}/>
         </View>

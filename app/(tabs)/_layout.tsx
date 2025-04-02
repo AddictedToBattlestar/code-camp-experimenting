@@ -32,7 +32,7 @@ export default function RootLayout() {
                 // "index" is a reserved name to indicate the default route to present in the application
                 name="index"
                 options={{
-                    headerShown: false,
+                    title: 'Technology Camp Chat',
                     tabBarLabel: "chat",
                     tabBarIcon: ({color, focused}) => (
                         <Ionicons name={focused ? 'chatbubbles-sharp' : 'chatbubbles-outline'} color={color} size={24}/>
@@ -42,7 +42,7 @@ export default function RootLayout() {
             <Tabs.Screen
                 name="profile"
                 options={{
-                    headerShown: false,
+                    title: 'User Profile',
                     tabBarIcon: ({color, focused}) => (
                         <Ionicons name={focused ? 'person' : 'person-outline'} color={color} size={24}/>
                     ),

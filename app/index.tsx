@@ -13,6 +13,7 @@ import {useFocusEffect, useNavigation, useRouter} from "expo-router";
 import MessageType from "@/app/objects/MessageType";
 import ImageData from "@/app/objects/ImageData";
 import uuid from 'react-native-uuid';
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 // "Index" is a reserved name to indicate the default route to present in the application
 // This will be providing the main chat screen for this project.
@@ -35,8 +36,8 @@ export default function Index() {
 
             navigation.setOptions({
                 headerRight: () => (
-                    <Pressable onPress={() => router.navigate('/profile')}>
-                        <Text>Profile</Text>
+                    <Pressable onPress={() => router.navigate('/profile')} style={styles.profileButton}>
+                        <Ionicons name="person" size={18}/>
                     </Pressable>
                 ),
             });
@@ -78,6 +79,16 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.default.backgroundColor,
         color: Colors.default.color,
         marginBottom: 30
+    },
+    profileButton: {
+        width: 35,
+        height: 35,
+        borderRadius: 17,
+        backgroundColor: Colors.default.backgroundColor,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        marginRight: 10
     },
     chatBody: {
         width: '100%',

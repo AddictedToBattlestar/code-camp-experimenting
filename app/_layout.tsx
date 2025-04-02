@@ -1,11 +1,8 @@
-import {Stack, useRouter} from "expo-router";
+import {Stack} from "expo-router";
 import {StatusBar} from "expo-status-bar";
 import {Colors} from "@/constants/Colors";
-import {Pressable} from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function RootLayout() {
-    const router = useRouter();
     return (
         <>
             <Stack

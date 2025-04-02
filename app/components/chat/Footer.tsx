@@ -33,11 +33,7 @@ export default function Footer({style, createNewMessage}: Readonly<Props>) {
         createNewMessage(message, MessageType.Text);
         setMessage("");
     }
-
-    const isSubmitButtonVisible = () => {
-        return message.length > 0;
-    }
-
+    
     return (
         <View style={[styles.container, style]}>
             <View style={styles.actionButton}>

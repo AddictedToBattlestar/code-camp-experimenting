@@ -43,11 +43,11 @@ export default function Index() {
 
     // Function to fetch data from the database
     const fetchData = () => {
-        // Listen for changes in the collection
+
         //TODO: need to look into .orderByChild("time").limitToLast(50)
+        // Listen for changes in the collection
         onValue(collectionRef, (snapshot) => {
           const dataItem = snapshot.val();
-          console.log('dataItem', dataItem);
 
           // Check if dataItem exists
           if (dataItem) {
@@ -55,11 +55,11 @@ export default function Index() {
             const rawMessages = Object.values(dataItem).reverse();
             const messages = rawMessages.map((rawMessage) => {
                 const message = new MessageObject(
-                    rawMessage._key,
-                    rawMessage._time,
-                    rawMessage._who,
-                    rawMessage._messageText,
-                    rawMessage._messageType
+                    rawMessage.key,
+                    rawMessage.time,
+                    rawMessage.who,
+                    rawMessage.messageText,
+                    rawMessage.messageType
                 );
                 return message;
             })
@@ -70,7 +70,9 @@ export default function Index() {
 
     const createNewMessageFirebase = (newMessageText: string, messageType: MessageType) => {
         console.debug(`Creating new message (messageType: ${messageType}, messageText: "${messageType === MessageType.Text ? newMessageText : "-"}")`);
+        debugger;
         const newMessage = new MessageObject(uuid.v1().toString(), Date.now(), userName, newMessageText, messageType);
+        console.debug('newMessage', newMessage);
         set(ref(database, `tech_camp_chat/${newMessage.key}`), newMessage);
     };
 

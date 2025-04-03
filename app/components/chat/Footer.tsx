@@ -39,21 +39,21 @@ export default function Footer({style, createNewMessage}: Readonly<Props>) {
             <View style={styles.actionButton}>
                 <PhotoButtonIcon/>
             </View>
-            <View style={styles.inputContainer}>
-                <TextInput
-                    style={styles.input}
-                    value={message}
-                    placeholder={"Aa"}
-                    placeholderTextColor={GreyScaleColorScheme[4]}
-                    onChangeText={text => setMessage(text)}
-                    onKeyPress={handleKeyPress}
-                />
-                {message.length > 0 &&
+            <TextInput
+                style={styles.input}
+                value={message}
+                placeholder={"Aa"}
+                placeholderTextColor={GreyScaleColorScheme[4]}
+                onChangeText={text => setMessage(text)}
+                onKeyPress={handleKeyPress}
+            />
+            {message.length > 0 &&
+                <View style={styles.inputSubmitButtonContainer}>
                     <Pressable style={styles.inputSubmitButton} onPress={handleSubmit}>
                         <Ionicons name="arrow-up" size={18} style={styles.inputSubmitIcon}/>
                     </Pressable>
-                }
-            </View>
+                </View>
+            }
         </View>
     )
 }
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
     },
-    inputContainer: {
+    input: {
         flex: 1,
         borderWidth: 1,
         borderRadius: Constants.generic.borderRadius,
@@ -79,12 +79,13 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
     },
-    input: {
-        flex: 1,
+    inputSubmitButtonContainer: {
+        display: 'flex',
+        justifyContent: 'center',
     },
     inputSubmitButton: {
-        width: 25,
-        height: 25,
+        width: 20,
+        height: 20,
         borderRadius: 17,
         backgroundColor: Colors.default.primaryColor,
         alignItems: 'center',

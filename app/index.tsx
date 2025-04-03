@@ -35,7 +35,6 @@ export default function Index() {
     // messages: loaded from local data and kept in memory
     const [messages, setMessages] = useState<MessageObject[]>([]);
 
-
     const database = getDatabase(app);
 
     // Reference to the specific collection in the database
@@ -69,10 +68,8 @@ export default function Index() {
       };
 
     const createNewMessageFirebase = (newMessageText: string, messageType: MessageType) => {
-        console.debug(`Creating new message (messageType: ${messageType}, messageText: "${messageType === MessageType.Text ? newMessageText : "-"}")`);
-        debugger;
         const newMessage = new MessageObject(uuid.v1().toString(), Date.now(), userName, newMessageText, messageType);
-        console.debug('newMessage', newMessage);
+        console.debug('Creating a new message', newMessage);
         set(ref(database, `tech_camp_chat/${newMessage.key}`), newMessage);
     };
 

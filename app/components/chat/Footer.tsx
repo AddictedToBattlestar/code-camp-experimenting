@@ -36,7 +36,7 @@ export default function Footer({style, createNewMessage}: Readonly<Props>) {
 
     return (
         <View style={[styles.container, style]}>
-            <View style={styles.actionButton}>
+            <View style={styles.actionButtonContainer}>
                 <PhotoButtonIcon/>
             </View>
             <TextInput
@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: Constants.generic.padding
     },
-    actionButton: {
+    actionButtonContainer: {
+        // vertically center the button contained here
         display: 'flex',
         justifyContent: 'center',
     },
@@ -80,6 +81,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     inputSubmitButtonContainer: {
+        // vertically center the button contained here
         display: 'flex',
         justifyContent: 'center',
     },

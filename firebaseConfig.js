@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app';
+import firebaseConfigSecrets from './firebaseConfigSecrets';
 
 // Optionally import the services that you want to use
 // import { getAuth } from "firebase/auth";
@@ -10,9 +11,7 @@ import { initializeApp } from 'firebase/app';
 console.log('Setting up Firebase database');
 
 // Initialize Firebase
-const firebaseConfig = {};
-
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfigSecrets);
 
 // const auth = getAuth(app);
 

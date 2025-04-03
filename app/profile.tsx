@@ -1,12 +1,14 @@
-import {StyleSheet, View} from "react-native";
+import {Pressable, StyleSheet, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
+import {useNavigation, useRouter} from "expo-router";
 
 import UserNameInput from "@/app/components/profile/UserNameInput";
 import UserProfileImageUpload from "@/app/components/profile/UserProfileImageUpload";
 import InitialUserProfileImages from "@/constants/InitialUserProfileImages";
 import ImageData from "@/app/objects/ImageData";
+import { Ionicons } from "@expo/vector-icons";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // https://docs.expo.dev/develop/user-interface/store-data/
@@ -68,6 +70,8 @@ export default function Profile() {
         }
     };
 
+    const navigation = useNavigation();
+    const router = useRouter();
     useEffect(() => {
         console.log(`userProfileImages.keys:`, Array.from(userProfileImages.keys()));
         getUserName().then((userNameValue) => {
@@ -77,7 +81,15 @@ export default function Profile() {
                 setUserProfileImageFromUserName(userNameValue);
             }
         });
-    }, []);
+
+        navigation.setOptions({
+            headerRight: () => (
+                <Pressable onPress={() => router.navigate('/')} style={styles.profileButton}>
+                    <Ionicons name="chatbubbles" size={18}/>
+                </Pressable>
+            ),
+        });
+    }, [navigation]);
 
     return (
         <View style={styles.container}>
@@ -117,5 +129,15 @@ const styles = StyleSheet.create({
     },
     imageUploadButtonText: {
         color: Colors.default.backgroundColor,
+    },
+    profileButton: {
+        width: 35,
+        height: 35,
+        borderRadius: 17,
+        backgroundColor: Colors.default.backgroundColor,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        marginRight: 10
     }
 });

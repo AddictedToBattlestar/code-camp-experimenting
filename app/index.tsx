@@ -32,6 +32,49 @@ export default function Index() {
         }
     };
 
+    const {messages, createNewMessage} = SetupMessages();
+
+    const localCreateNewMessage = (newMessageText: string, messageType: MessageType) => {
+        createNewMessage(userName, newMessageText, messageType);
+    };
+
+    // userProfileImages: loaded from local data
+    const [userProfileImages] = useState<Map<string, ImageData>>(InitialUserProfileImages);
+
+    const navigation = useNavigation();
+    const router = useRouter();
+    useFocusEffect(
+        useCallback(() => {
+            console.debug('This route is now focused');
+
+            navigation.setOptions({
+                headerRight: () => (
+                    <Pressable onPress={() => router.navigate('/profile')} style={styles.profileButton}>
+                        <Ionicons name="person" size={18}/>
+                    </Pressable>
+                ),
+            });
+
+            getUserName().then((value) => {
+                if (value !== null) {
+                    setUserName(value);
+                }
+            });
+            return () => {
+                console.debug('This route is now unfocused.');
+            };
+        }, [navigation])
+    );
+
+    return (
+        <View style={styles.container}>
+            <Body style={styles.chatBody} userNameForSelf={userName} messages={messages} userProfileImages={userProfileImages}/>
+            <Footer style={styles.chatFooter} createNewMessage={localCreateNewMessage}/>
+        </View>
+    );
+}
+
+function SetupMessages() {
     // messages: loaded from local data and kept in memory
     const [messages, setMessages] = useState<MessageObject[]>([]);
 
@@ -67,50 +110,23 @@ export default function Index() {
         });
       };
 
-    const createNewMessageFirebase = (newMessageText: string, messageType: MessageType) => {
+    const createNewMessage = (userName: string, newMessageText: string, messageType: MessageType) => {
         const newMessage = new MessageObject(uuid.v1().toString(), Date.now(), userName, newMessageText, messageType);
         console.debug('Creating a new message', newMessage);
         set(ref(database, `tech_camp_chat/${newMessage.key}`), newMessage);
     };
 
-
-    // userProfileImages: loaded from local data
-    const [userProfileImages] = useState<Map<string, ImageData>>(InitialUserProfileImages);
-
-    const navigation = useNavigation();
-    const router = useRouter();
     useFocusEffect(
         useCallback(() => {
-            console.debug('This route is now focused');
+            console.debug('Fetching messaging data');
 
             // Fetch data when the component mounts
             fetchData();
-
-            navigation.setOptions({
-                headerRight: () => (
-                    <Pressable onPress={() => router.navigate('/profile')} style={styles.profileButton}>
-                        <Ionicons name="person" size={18}/>
-                    </Pressable>
-                ),
-            });
-
-            getUserName().then((value) => {
-                if (value !== null) {
-                    setUserName(value);
-                }
-            });
-            return () => {
-                console.debug('This route is now unfocused.');
-            };
-        }, [navigation])
+            return () => {};
+        }, [])
     );
 
-    return (
-        <View style={styles.container}>
-            <Body style={styles.chatBody} userNameForSelf={userName} messages={messages} userProfileImages={userProfileImages}/>
-            <Footer style={styles.chatFooter} createNewMessage={createNewMessageFirebase}/>
-        </View>
-    );
+    return {messages, createNewMessage}
 }
 
 const styles = StyleSheet.create({

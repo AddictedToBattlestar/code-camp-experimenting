@@ -15,6 +15,9 @@ import ImageData from "@/app/objects/ImageData";
 import uuid from 'react-native-uuid';
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+import app from "@/firebaseConfig";
+import { getDatabase, ref, set, onValue } from "firebase/database";
+
 // "Index" is a reserved name to indicate the default route to present in the application
 // This will be providing the main chat screen for this project.
 export default function Index() {
@@ -30,13 +33,47 @@ export default function Index() {
     };
 
     // messages: loaded from local data and kept in memory
-    const [messages, setMessages] = useState<MessageObject[]>(InitialMessages);
+    const [messages, setMessages] = useState<MessageObject[]>([]);
 
-    const createNewMessage = (newMessageText: string, messageType: MessageType) => {
+
+    const database = getDatabase(app);
+
+    // Reference to the specific collection in the database
+    const collectionRef = ref(database, 'tech_camp_chat');
+
+    // Function to fetch data from the database
+    const fetchData = () => {
+        // Listen for changes in the collection
+        //TODO: need to look into .orderByChild("time").limitToLast(50)
+        onValue(collectionRef, (snapshot) => {
+          const dataItem = snapshot.val();
+          console.log('dataItem', dataItem);
+
+          // Check if dataItem exists
+          if (dataItem) {
+            // Convert the object values into an array
+            const rawMessages = Object.values(dataItem).reverse();
+            const messages = rawMessages.map((rawMessage) => {
+                const message = new MessageObject(
+                    rawMessage._key,
+                    rawMessage._time,
+                    rawMessage._who,
+                    rawMessage._messageText,
+                    rawMessage._messageType
+                );
+                return message;
+            })
+            setMessages(messages);
+          }
+        });
+      };
+
+    const createNewMessageFirebase = (newMessageText: string, messageType: MessageType) => {
         console.debug(`Creating new message (messageType: ${messageType}, messageText: "${messageType === MessageType.Text ? newMessageText : "-"}")`);
-        const newMessage = new MessageObject(uuid.v1().toString(), userName, newMessageText, messageType);
-        setMessages([newMessage, ...messages]);
+        const newMessage = new MessageObject(uuid.v1().toString(), Date.now(), userName, newMessageText, messageType);
+        set(ref(database, `tech_camp_chat/${newMessage.key}`), newMessage);
     };
+
 
     // userProfileImages: loaded from local data
     const [userProfileImages] = useState<Map<string, ImageData>>(InitialUserProfileImages);
@@ -46,6 +83,9 @@ export default function Index() {
     useFocusEffect(
         useCallback(() => {
             console.debug('This route is now focused');
+
+            // Fetch data when the component mounts
+            fetchData();
 
             navigation.setOptions({
                 headerRight: () => (
@@ -69,7 +109,7 @@ export default function Index() {
     return (
         <View style={styles.container}>
             <Body style={styles.chatBody} userNameForSelf={userName} messages={messages} userProfileImages={userProfileImages}/>
-            <Footer style={styles.chatFooter} createNewMessage={createNewMessage}/>
+            <Footer style={styles.chatFooter} createNewMessage={createNewMessageFirebase}/>
         </View>
     );
 }

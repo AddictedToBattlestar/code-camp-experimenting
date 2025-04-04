@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 import useFirebaseUserData from "./hooks/useFirebaseUserData";
 import useLocalUserKeyStorage from "./hooks/useLocalUserKeyStorage";
+import { useFocusEffect, useRouter } from "expo-router";
 
 
 export default function Index() {
+    const router = useRouter();
     const [localUserName, setLocalUserName] = useState<string>('');
     const {findByUserName, storeUserData} = useFirebaseUserData();
     const {localUserKey, storeLocalUserKey} = useLocalUserKeyStorage();
@@ -22,9 +24,18 @@ export default function Index() {
         }
     };
 
+    useFocusEffect(
+        useCallback(() => {
+            if (localUserKey) {
+                console.debug(`User already registered and has a user key of: ${localUserKey}`);
+            } else {
+                console.debug('User NOT setup with a user key');
+            }
+        }, [])
+    );
+
     return (
         <View style={styles.container}>
-            <Text>localUserKey: {localUserKey}</Text>
             <Text style={styles.welcomeText}>Welcome! Please enter a user name to proceed.</Text>
             <TextInput
                 style={styles.input}

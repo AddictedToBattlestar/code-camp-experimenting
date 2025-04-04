@@ -40,6 +40,5 @@ export default function useLocalUserKeyStorage() {
         }, [])
     );
 
-
     return {localUserKey, storeLocalUserKey};
 }

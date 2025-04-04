@@ -23,7 +23,7 @@ export default function Index() {
     const [currentUserData, setCurrentUserData] = useState<UserData>()
 
     const localCreateNewMessage = (newMessageText: string, messageType: MessageType) => {
-        storeMessage(userKeyFromLocalStorage, newMessageText, messageType);
+        storeMessage(currentUserData?.userName, newMessageText, messageType);
     };
 
     const navigation = useNavigation();

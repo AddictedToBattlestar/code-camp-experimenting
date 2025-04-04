@@ -19,6 +19,7 @@ export default function useFirebaseUserData() {
             const data = snapshot.val();
             // Check if dataItem exists
             if (data) {
+                console.debug(`useFirebaseUserData.fetchData: ${Object.entries(data).length} items being kept in memory`);
                 const result: Map<string, UserData> = new Map();
                 for (const [key, value] of Object.entries(data)) {
                     // @ts-ignore
@@ -67,7 +68,7 @@ export default function useFirebaseUserData() {
     };
 
     const storeUserData = async (userName: string, profileImage?: string | undefined) => {
-        console.debug(`useFirebaseUserData: Storing data for ${userName}`);
+        console.debug(`useFirebaseUserData.storeUserData: Storing data for ${userName}`);
         const newUserData = new UserData(uuid.v1().toString(), userName, profileImage);
         const stringifiedUserData = JSON.stringify(newUserData);
         await set(ref(database, `${pathName}/${newUserData.key}`), stringifiedUserData);

@@ -12,7 +12,7 @@ export default function useLocalUserKeyStorage() {
     const getLocalUserKey = async () => {
         try {
             const result = await AsyncStorage.getItem(storageKey);
-            console.debug(`useLocalUserKeyStorage: retrieved ${storageKey}: ${result}`);
+            console.debug(`useLocalUserKeyStorage.getLocalUserKey: retrieved ${storageKey}: ${result}`);
             return result;
         } catch (ignoredError) {
             return null;
@@ -21,12 +21,12 @@ export default function useLocalUserKeyStorage() {
 
     const storeLocalUserKey = async (value: string) => {
         setLocalUserKey(value);
-        console.debug(`useLocalUserKeyStorage: Storing ${storageKey}: ${value}`);
+        console.debug(`useLocalUserKeyStorage.storeLocalUserKey: Storing ${storageKey}: ${value}`);
         try {
             await AsyncStorage.setItem(storageKey, value);
         } catch (e) {
-            console.error(`useLocalUserKeyStorage: There was a problem setting localUserKey: ${localUserKey}`, e);
-            alert(`useLocalUserKeyStorage: There was a problem setting localUserKey: ${localUserKey}`);
+            console.error(`useLocalUserKeyStorage.storeLocalUserKey: There was a problem setting localUserKey: ${localUserKey}`, e);
+            alert(`useLocalUserKeyStorage.storeLocalUserKey: There was a problem setting localUserKey: ${localUserKey}`);
         }
     };
 

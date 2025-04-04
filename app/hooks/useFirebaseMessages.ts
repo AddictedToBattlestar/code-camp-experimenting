@@ -6,9 +6,9 @@ import uuid from 'react-native-uuid';
 import app from "@/firebaseConfig";
 import {getDatabase, onValue, ref, set} from "firebase/database";
 
-export default function useFirebase() {
+export default function useFirebaseMessages() {
     const pathName = 'messages';
-    // messages: loaded from local data and kept in memory
+    // in memory location for these messages
     const [messages, setMessages] = useState<MessageObject[]>([]);
 
     const database = getDatabase(app);
@@ -16,18 +16,17 @@ export default function useFirebase() {
     // Reference to the specific collection in the database
     const collectionRef = ref(database, pathName);
 
-    // Function to fetch data from the database
     const fetchData = () => {
-
         //TODO: need to look into .orderByChild("time").limitToLast(50)
         // Listen for changes in the collection
         onValue(collectionRef, (snapshot) => {
-            const dataItem = snapshot.val();
+            const data = snapshot.val();
 
             // Check if dataItem exists
-            if (dataItem) {
+            if (data) {
                 // Convert the object values into an array
-                const rawData = Object.values(dataItem).reverse();
+                console.debug(`useFirebaseMessages.fetchData: ${Object.entries(data).length} items being kept in memory`);
+                const rawData = Object.values(data).reverse();
                 const messages = rawData.map((rawItem) => {
                     return new MessageObject(
                         // @ts-ignore
@@ -49,7 +48,7 @@ export default function useFirebase() {
 
     const storeMessage = (userName: string, newMessageText: string, messageType: MessageType) => {
         const newMessage = new MessageObject(uuid.v1().toString(), Date.now(), userName, newMessageText, messageType);
-        console.debug(`Storing a message`, newMessage);
+        console.debug(`useFirebaseMessages.storeMessage:`, newMessage);
         set(ref(database, `${pathName}/${newMessage.key}`), newMessage);
     };
 

@@ -19,9 +19,9 @@ export default function useLocalUserKeyStorage() {
     };
 
     const storeLocalUserKey = async (value: string) => {
-        console.log(`useLocalUserKeyStorage.storeLocalUserKey Setting ${storageKey} to: ${value}`);
+        console.debug(`useLocalUserKeyStorage.storeLocalUserKey Setting ${storageKey} to: ${value}`);
         setLocalUserKey(value);
-        console.debug(`useLocalUserKeyStorage.storeLocalUserKey: Storing ${storageKey}: ${value}`);
+        console.debug(`useLocalUserKeyStorage.storeLocalUserKey: Storing ${storageKey} as: ${value}`);
         try {
             await AsyncStorage.setItem(storageKey, value);
         } catch (e) {
@@ -33,7 +33,7 @@ export default function useLocalUserKeyStorage() {
     useEffect(() => {
         getLocalUserKey().then((value) => {
             if (value !== null) {
-                console.log(`useLocalUserKeyStorage.useEffect Setting ${storageKey} to: ${value}`);
+                console.debug(`useLocalUserKeyStorage.useEffect Setting ${storageKey} to: ${value}`);
                 setLocalUserKey(value);
             }
         });

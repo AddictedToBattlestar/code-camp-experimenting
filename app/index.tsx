@@ -8,24 +8,21 @@ import useLocalUserKeyStorage from "./hooks/useLocalUserKeyStorage";
 
 export default function Index() {
     const [localUserName, setLocalUserName] = useState<string>('');
-    const {findByUserName, storeUserData} = useFirebaseUserData();
+    const {storeUserData} = useFirebaseUserData();
     const {localUserKey, storeLocalUserKey} = useLocalUserKeyStorage();
 
     const storeUserName = async () => {
-        const doesUserNameAlreadyExist = findByUserName(localUserName);
-        if (doesUserNameAlreadyExist) {
-            alert(`The user name of ${localUserName} is already taken.  Please enter a different user name.`);
-        } else {
-            const newUserData = await storeUserData(localUserName);
+        const newUserData = await storeUserData(localUserName);
+        if (newUserData) {
             storeLocalUserKey(newUserData.key);
         }
     };
 
     useEffect(() => {
         if (localUserKey) {
-            console.debug(`Index.useEffect: User already registered and has a user key of: ${localUserKey}`);
+            console.info(`Index.useEffect: User already registered and has a user key of: ${localUserKey}`);
         } else {
-            console.debug('Index.useEffect: User NOT setup with a user key');
+            console.info('Index.useEffect: User NOT setup with a user key');
         }
     }, [])
 

@@ -6,12 +6,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useFocusEffect} from "expo-router";
 
 export default function useLocalUserKeyStorage() {
+    const storageKey = 'localUserKey';
     const [localUserKey, setLocalUserKey] = useState<string | null>();
 
     const getLocalUserKey = async () => {
         try {
-            const result = await AsyncStorage.getItem('localUserKey');
-            console.debug(`useLocalUserKeyStorage: retrieved localUserKey: ${result}`);
+            const result = await AsyncStorage.getItem(storageKey);
+            console.debug(`useLocalUserKeyStorage: retrieved ${storageKey}: ${result}`);
             return result;
         } catch (ignoredError) {
             return null;
@@ -20,9 +21,9 @@ export default function useLocalUserKeyStorage() {
 
     const storeLocalUserKey = async (value: string) => {
         setLocalUserKey(value);
-        console.debug(`useLocalUserKeyStorage: Storing localUserKey: ${value}`);
+        console.debug(`useLocalUserKeyStorage: Storing ${storageKey}: ${value}`);
         try {
-            await AsyncStorage.setItem('userName', value);
+            await AsyncStorage.setItem(storageKey, value);
         } catch (e) {
             console.error(`useLocalUserKeyStorage: There was a problem setting localUserKey: ${localUserKey}`, e);
             alert(`useLocalUserKeyStorage: There was a problem setting localUserKey: ${localUserKey}`);

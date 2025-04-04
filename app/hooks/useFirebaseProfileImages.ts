@@ -3,14 +3,15 @@ import MessageObject from "@/app/objects/MessageObject";
 import {useFocusEffect} from "expo-router";
 import MessageType from "@/app/objects/MessageType";
 import uuid from 'react-native-uuid';
+import ImageData from "@/app/objects/ImageData";
 
 import app from "@/firebaseConfig";
 import {getDatabase, onValue, ref, set} from "firebase/database";
 
 export default function useFirebase() {
-    const pathName = 'messages';
+    const pathName = 'profile-images';
     // messages: loaded from local data and kept in memory
-    const [messages, setMessages] = useState<MessageObject[]>([]);
+    const [profileImages, setProfileImages] = useState<ImageData[]>([]);
 
     const database = getDatabase(app);
 
@@ -28,30 +29,31 @@ export default function useFirebase() {
             // Check if dataItem exists
             if (dataItem) {
                 // Convert the object values into an array
-                const rawMessages = Object.values(dataItem).reverse();
-                const messages = rawMessages.map((rawMessage) => {
-                    return new MessageObject(
+                const rawData = Object.values(dataItem).reverse();
+                const messages = rawData.map((rawItem) => {
+                    return new ImageData(
                         // @ts-ignore
-                        rawMessage.key,
+                        rawItem.uri,
                         // @ts-ignore
-                        rawMessage.time,
+                        rawItem?.width,
                         // @ts-ignore
-                        rawMessage.who,
+                        rawItem?.height,
                         // @ts-ignore
-                        rawMessage.messageText,
+                        rawItem?.type,
                         // @ts-ignore
-                        rawMessage.messageType
+                        rawItem?.mimetype,
+                        // @ts-ignore
+                        rawItem?.fileName,
                     );
                 })
-                setMessages(messages);
+                setProfileImages(messages);
             }
         });
     };
 
-    const createNewMessage = (userName: string, newMessageText: string, messageType: MessageType) => {
-        const newMessage = new MessageObject(uuid.v1().toString(), Date.now(), userName, newMessageText, messageType);
-        console.debug('Creating a new message', newMessage);
-        set(ref(database, `${pathName}/${newMessage.key}`), newMessage);
+    const storeProfileImage = (imageData: ImageData) => {
+        console.debug('Storing a profile image', ImageData);
+        set(ref(database, `${pathName}/${uuid.v1().toString()}`), ImageData);
     };
 
     useFocusEffect(
@@ -63,5 +65,5 @@ export default function useFirebase() {
         }, [])
     );
 
-    return {messages, createNewMessage}
+    return {profileImages, storeProfileImage}
 }

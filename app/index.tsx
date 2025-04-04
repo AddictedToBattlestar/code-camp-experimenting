@@ -12,7 +12,7 @@ import MessageType from "@/app/objects/MessageType";
 import ImageData from "@/app/objects/ImageData";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import useFirebase from "@/app/hooks/useFirebase";
+import useFirebase from "@/app/hooks/useFirebaseMessages";
 
 // "Index" is a reserved name to indicate the default route to present in the application
 // This will be providing the main chat screen for this project.
@@ -28,10 +28,10 @@ export default function Index() {
         }
     };
 
-    const {messages, createNewMessage} = useFirebase();
+    const {messages, storeMessage} = useFirebase();
 
     const localCreateNewMessage = (newMessageText: string, messageType: MessageType) => {
-        createNewMessage(userName, newMessageText, messageType);
+        storeMessage(userName, newMessageText, messageType);
     };
 
     // userProfileImages: loaded from local data

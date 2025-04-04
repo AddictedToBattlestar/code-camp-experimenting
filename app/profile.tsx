@@ -35,25 +35,14 @@ export default function Profile() {
         storeProfileImage(userName, value);
     }
 
-    // const setUserProfileImageFromUserName = async (userName: string) => {
-    //     const currentUserProfileImageValue = await findProfileImageByUserName(userName);
-    //     if (currentUserProfileImageValue) {
-    //         console.log(`userProfileImage located`);
-    //         setUserProfileImage(currentUserProfileImageValue.uri)
-    //     } else {
-    //         setUserProfileImage(null);
-    //     }
-    // };
-
     const navigation = useNavigation();
     const router = useRouter();
-    useEffect(() => {
-        // console.log(`userProfileImages.keys:`, Array.from(userProfileImages.keys()));
 
+    useEffect(() => {
+        //TODO: Need to address userName not having been resolved here during render
+        console.debug(`Setting user profile image for ${userName}`);
         findProfileImageByUserName(userName).then((result) => {
-            if (result) {
-                setUserProfileImage(result.uri);
-            }
+            setUserProfileImage(result);
         });
 
         navigation.setOptions({

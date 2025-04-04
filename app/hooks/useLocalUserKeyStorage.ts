@@ -1,13 +1,12 @@
-import {useCallback, useState} from "react";
+import {useEffect, useState} from "react";
 
 // https://docs.expo.dev/develop/user-interface/store-data/
 // --> https://react-native-async-storage.github.io/async-storage/docs/usage/
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {useFocusEffect} from "expo-router";
 
 export default function useLocalUserKeyStorage() {
     const storageKey = 'localUserKey';
-    const [localUserKey, setLocalUserKey] = useState<string | null>();
+    const [localUserKey, setLocalUserKey] = useState<string>();
 
     const getLocalUserKey = async () => {
         try {
@@ -20,6 +19,7 @@ export default function useLocalUserKeyStorage() {
     };
 
     const storeLocalUserKey = async (value: string) => {
+        console.log(`useLocalUserKeyStorage.storeLocalUserKey Setting ${storageKey} to: ${value}`);
         setLocalUserKey(value);
         console.debug(`useLocalUserKeyStorage.storeLocalUserKey: Storing ${storageKey}: ${value}`);
         try {
@@ -30,15 +30,14 @@ export default function useLocalUserKeyStorage() {
         }
     };
 
-    useFocusEffect(
-        useCallback(() => {
-            getLocalUserKey().then((value) => {
-                if (value !== null) {
-                    setLocalUserKey(value);
-                }
-            });
-        }, [])
-    );
+    useEffect(() => {
+        getLocalUserKey().then((value) => {
+            if (value !== null) {
+                console.log(`useLocalUserKeyStorage.useEffect Setting ${storageKey} to: ${value}`);
+                setLocalUserKey(value);
+            }
+        });
+    }, []);
 
     return {localUserKey, storeLocalUserKey};
 }

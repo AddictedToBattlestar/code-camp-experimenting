@@ -1,9 +1,8 @@
-import {useCallback, useState} from "react";
+import {useEffect, useState} from "react";
 
 // https://docs.expo.dev/develop/user-interface/store-data/
 // --> https://react-native-async-storage.github.io/async-storage/docs/usage/
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {useFocusEffect} from "expo-router";
 
 export default function useUserName() {
     const [userName, setUserName] = useState<string>('');
@@ -29,16 +28,13 @@ export default function useUserName() {
         }
     };
 
-    useFocusEffect(
-        useCallback(() => {
-            getUserName().then((userNameValue) => {
-                if (userNameValue !== null) {
-                    setUserName(userNameValue);
-                }
-            });
-        }, [])
-    );
-
+    useEffect(() => {
+        getUserName().then((userNameValue) => {
+            if (userNameValue !== null) {
+                setUserName(userNameValue);
+            }
+        });
+    }, []);
 
     return {userName, storeUserName};
 }

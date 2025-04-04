@@ -53,15 +53,6 @@ export default function useFirebase() {
         set(ref(database, `${pathName}/${newMessage.key}`), newMessage);
     };
 
-    // useFocusEffect(
-    //     useCallback(() => {
-    //         // Fetch data when the component mounts
-    //         fetchData();
-    //         return () => {
-    //         };
-    //     }, [])
-    // );
-
     useEffect(() => {
         fetchData();
     }, []);

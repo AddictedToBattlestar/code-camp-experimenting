@@ -12,7 +12,7 @@ import MessageType from "@/app/objects/MessageType";
 import ImageData from "@/app/objects/ImageData";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import SetupFirebaseMessages from "./utilities/SetupFirebaseMessages";
+import useFirebase from "@/app/hooks/useFirebase";
 
 // "Index" is a reserved name to indicate the default route to present in the application
 // This will be providing the main chat screen for this project.
@@ -28,7 +28,7 @@ export default function Index() {
         }
     };
 
-    const {messages, createNewMessage} = SetupFirebaseMessages();
+    const {messages, createNewMessage} = useFirebase();
 
     const localCreateNewMessage = (newMessageText: string, messageType: MessageType) => {
         createNewMessage(userName, newMessageText, messageType);
@@ -64,12 +64,12 @@ export default function Index() {
 
     return (
         <View style={styles.container}>
-            <Body style={styles.chatBody} userNameForSelf={userName} messages={messages} userProfileImages={userProfileImages}/>
+            <Body style={styles.chatBody} userNameForSelf={userName} messages={messages}
+                  userProfileImages={userProfileImages}/>
             <Footer style={styles.chatFooter} createNewMessage={localCreateNewMessage}/>
         </View>
     );
 }
-
 
 
 const styles = StyleSheet.create({

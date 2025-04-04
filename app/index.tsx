@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
     },
     chatBody: {
         width: '100%',
-        padding: Constants.generic.padding,
+        paddingLeft: Constants.generic.padding,
+        paddingRight: Constants.generic.padding,
     },
     chatFooter: {
         width: '100%',

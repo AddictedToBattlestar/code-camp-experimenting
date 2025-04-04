@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
         flexDirection: "column-reverse",
     },
     bubble: {
-        width: 30,
-        height: 30,
+        width: 35,
+        height: 35,
         borderRadius: 17,
-        backgroundColor: GreyScaleColorScheme[5],
+        backgroundColor: GreyScaleColorScheme[4],
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row'

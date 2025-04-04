@@ -11,7 +11,7 @@ export default function useUserName() {
     const getUserName = async () => {
         try {
             const result = await AsyncStorage.getItem('userName');
-            console.log(`retrieved userName: ${result}`);
+            console.debug(`retrieved userName: ${result}`);
             return result;
         } catch (ignoredError) {
             return null;

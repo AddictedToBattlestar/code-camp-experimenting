@@ -1,6 +1,6 @@
 export const Constants = {
     generic: {
-        padding: 8,
+        padding: 10,
         borderRadius: 10
     }
 }

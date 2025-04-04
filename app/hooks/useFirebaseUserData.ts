@@ -68,13 +68,6 @@ export default function useFirebaseUserData() {
 
     const storeUserData = async (userName: string, profileImage?: string | undefined) => {
         console.debug(`useFirebaseUserData.storeUserData: Attempting to store data for ${userName}`);
-
-        const doesUserNameAlreadyExist = findByUserName(userName);
-        if (doesUserNameAlreadyExist) {
-            alert(`The user name of ${userName} is already taken.  Please provide a different user name.`);
-            return null;
-        }
-
         const newUserData = new UserData(uuid.v1().toString(), userName, profileImage);
         const stringifiedUserData = JSON.stringify(newUserData);
         await set(ref(database, `${pathName}/${newUserData.key}`), stringifiedUserData);

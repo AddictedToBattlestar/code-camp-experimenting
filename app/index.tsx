@@ -1,30 +1,50 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 import useFirebaseUserData from "./hooks/useFirebaseUserData";
 import useLocalUserKeyStorage from "./hooks/useLocalUserKeyStorage";
+import { useFocusEffect, useRouter } from "expo-router";
 
 
 export default function Index() {
+    const router = useRouter();
     const [localUserName, setLocalUserName] = useState<string>('');
-    const {storeUserData} = useFirebaseUserData();
+    const {findByUserName, storeUserData} = useFirebaseUserData();
     const {localUserKey, storeLocalUserKey} = useLocalUserKeyStorage();
 
     const storeUserName = async () => {
-        const newUserData = await storeUserData(localUserName);
-        if (newUserData) {
-            storeLocalUserKey(newUserData.key);
+        const existingUserData = findByUserName(localUserName);
+        if (existingUserData) {
+            alert(`The user name ${localUserName} already exists.  Assuming identity of that user ().`);
+            await storeLocalUserKey(existingUserData.key);
+
+        } else {
+            const newUserData = await storeUserData(localUserName);
+            await storeLocalUserKey(newUserData.key);
         }
+        router.navigate('/home');
     };
 
     useEffect(() => {
         if (localUserKey) {
             console.info(`Index.useEffect: User already registered and has a user key of: ${localUserKey}`);
+            router.navigate('/home');
         } else {
             console.info('Index.useEffect: User NOT setup with a user key');
         }
     }, [])
+
+    useFocusEffect(
+        useCallback(() => {
+            if (localUserKey) {
+                console.info(`Index.useFocusEffect: User already registered and has a user key of: ${localUserKey}`);
+                router.navigate('/home');
+            } else {
+                console.info('Index.useFocusEffect: User NOT setup with a user key');
+            }
+        }, [])
+    );
 
     return (
         <View style={styles.container}>
@@ -76,3 +96,7 @@ const styles = StyleSheet.create({
 
     }
 });
+function userRouter() {
+    throw new Error("Function not implemented.");
+}
+

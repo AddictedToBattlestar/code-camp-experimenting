@@ -3,33 +3,35 @@ import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 import useFirebaseUserData from "./hooks/useFirebaseUserData";
-import useLocalUserKeyStorage from "./hooks/useLocalUserKeyStorage";
-import { useFocusEffect, useRouter } from "expo-router";
+import useUserKeyLocalStorage from "./hooks/useLocalUserKeyStorage";
+import {Href, useFocusEffect, useRouter} from "expo-router";
 
 
 export default function Index() {
     const router = useRouter();
-    const [localUserName, setLocalUserName] = useState<string>('');
-    const {findByUserName, storeUserData} = useFirebaseUserData();
-    const {localUserKey, storeLocalUserKey} = useLocalUserKeyStorage();
+    const [userName, setUserName] = useState<string>('');
+    const {findByUserNameInFirebase, storeUserDataInFirebase} = useFirebaseUserData();
+    const {userKeyFromLocalStorage, storeUserKeyInLocalStorage} = useUserKeyLocalStorage();
+    const homeRoute = "/home" as Href;
 
     const storeUserName = async () => {
-        const existingUserData = findByUserName(localUserName);
+        const existingUserData = findByUserNameInFirebase(userName);
         if (existingUserData) {
-            alert(`The user name ${localUserName} already exists.  Assuming identity of that user ().`);
-            await storeLocalUserKey(existingUserData.key);
+            // Something only to be done for demo/training situations
+            console.log(`The user name ${userName} already exists.  Assuming identity of that user.`);
+            await storeUserKeyInLocalStorage(existingUserData.key);
 
         } else {
-            const newUserData = await storeUserData(localUserName);
-            await storeLocalUserKey(newUserData.key);
+            const newUserData = await storeUserDataInFirebase(userName);
+            await storeUserKeyInLocalStorage(newUserData.key);
         }
-        router.replace('/home');
+        router.replace(homeRoute);
     };
 
     const checkIfLoggedIn = () => {
-        if (localUserKey) {
-            console.info(`Index.checkIfLoggedIn: User already registered and has a user key of: ${localUserKey}`);
-            router.replace('/home');
+        if (userKeyFromLocalStorage) {
+            console.info(`Index.checkIfLoggedIn: User already registered and has a user key of: ${userKeyFromLocalStorage}`);
+            router.replace(homeRoute);
         } else {
             console.info('Index.checkIfLoggedIn: User NOT setup with a user key');
         }
@@ -50,11 +52,11 @@ export default function Index() {
             <Text style={styles.welcomeText}>Welcome! Please enter a user name to proceed.</Text>
             <TextInput
                 style={styles.input}
-                value={localUserName}
+                value={userName}
                 placeholder={"Enter your desired user name here"}
                 placeholderTextColor={GreyScaleColorScheme[4]}
                 onChangeText={(text) => {
-                    setLocalUserName(text);
+                    setUserName(text);
                 }}
             />
             <Pressable

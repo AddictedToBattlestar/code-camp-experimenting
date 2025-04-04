@@ -54,7 +54,7 @@ export default function useFirebaseUserData() {
             if (userData.userName === userName) {
                 console.debug(`useFirebaseUserData.findByUserName: The userName of ${userName} was found`);
                 return true;
-            } 
+            }
         });
         return matchingUserData;
     };
@@ -74,5 +74,5 @@ export default function useFirebaseUserData() {
         return newUserData;
     };
 
-    return {userDataListing, findByUserName, findByKey, storeUserData}
+    return {userDataListing, findByUserNameInFirebase: findByUserName, findByKey, storeUserDataInFirebase: storeUserData}
 }

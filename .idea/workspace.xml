@@ -6,13 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="54a9c657-1bf8-4626-b061-da67faef1798" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/chat/Body.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/chat/Body.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/chat/Message.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/chat/Message.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/chat/message/ImageFromSomeoneElse.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/chat/message/ImageFromSomeoneElse.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/chat/message/MessageAvatarBubble.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/chat/message/MessageAvatarBubble.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/chat/message/MessageFromSomeoneElse.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/chat/message/MessageFromSomeoneElse.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/hooks/useFirebaseMessages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/hooks/useFirebaseMessages.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/hooks/useFirebaseProfileImages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/hooks/useFirebaseProfileImages.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/home/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hooks/useFirebaseUserData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/hooks/useFirebaseUserData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hooks/useLocalUserKeyStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/hooks/useLocalUserKeyStorage.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,6 +22,9 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/node_modules/@types/react/index.d.ts" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/node_modules/expo-router/build/useFocusEffect.d.ts" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -43,7 +42,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "take-picture",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/andyryan/Projects/code-camp-experimenting/app/hooks",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -51,7 +50,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "/Users/andyryan/Projects/code-camp-experimenting/node_modules/typescript/lib",
+    "ts.external.directory.path": "/Users/johnryan/Projects/code-camp-experimenting/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>

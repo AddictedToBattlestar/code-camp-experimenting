@@ -30,6 +30,10 @@ export default function useFirebaseProfileImages() {
         });
     };
 
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     const findProfileImageByUserName = async (userName: string) => {
         if (!userName) {
             return null;
@@ -49,10 +53,6 @@ export default function useFirebaseProfileImages() {
         console.debug(`Storing a profile image for ${userName}`);
         set(ref(database, `${pathName}/${userName}`), profileImage);
     };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
 
     return {profileImages, findProfileImageByUserName, storeProfileImage}
 }

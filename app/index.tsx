@@ -2,19 +2,29 @@ import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
-import useUserName from "@/app/hooks/useUserName";
+import useFirebaseUserData from "./hooks/useFirebaseUserData";
+import useLocalUserKeyStorage from "./hooks/useLocalUserKeyStorage";
 
 
 export default function Index() {
-    const {userName} = useUserName();
     const [localUserName, setLocalUserName] = useState<string>('');
+    const {findByUserName, storeUserData} = useFirebaseUserData();
+    const {localUserKey, storeLocalUserKey} = useLocalUserKeyStorage();
 
-    const storeUserName = () => {
-
+    const storeUserName = async () => {
+        debugger;
+        const doesUserNameAlreadyExist = findByUserName(localUserName);
+        if (doesUserNameAlreadyExist) {
+            alert(`The user name of ${localUserName} is already taken.  Please enter a different user name.`);
+        } else {
+            const newUserData = await storeUserData(localUserName);
+            storeLocalUserKey(newUserData.key);
+        }
     };
 
     return (
         <View style={styles.container}>
+            <Text>localUserKey: {localUserKey}</Text>
             <Text style={styles.welcomeText}>Welcome! Please enter a user name to proceed.</Text>
             <TextInput
                 style={styles.input}

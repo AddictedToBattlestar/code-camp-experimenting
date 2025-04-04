@@ -1,6 +1,5 @@
-import {useCallback, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import MessageObject from "@/app/objects/MessageObject";
-import {useFocusEffect} from "expo-router";
 import MessageType from "@/app/objects/MessageType";
 import uuid from 'react-native-uuid';
 

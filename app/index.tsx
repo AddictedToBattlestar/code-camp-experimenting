@@ -23,26 +23,25 @@ export default function Index() {
             const newUserData = await storeUserData(localUserName);
             await storeLocalUserKey(newUserData.key);
         }
-        router.navigate('/home');
+        router.replace('/home');
     };
 
-    useEffect(() => {
+    const checkIfLoggedIn = () => {
         if (localUserKey) {
-            console.info(`Index.useEffect: User already registered and has a user key of: ${localUserKey}`);
-            router.navigate('/home');
+            console.info(`Index.checkIfLoggedIn: User already registered and has a user key of: ${localUserKey}`);
+            router.replace('/home');
         } else {
-            console.info('Index.useEffect: User NOT setup with a user key');
+            console.info('Index.checkIfLoggedIn: User NOT setup with a user key');
         }
+    }
+
+    useEffect(() => {
+        checkIfLoggedIn();
     }, [])
 
     useFocusEffect(
         useCallback(() => {
-            if (localUserKey) {
-                console.info(`Index.useFocusEffect: User already registered and has a user key of: ${localUserKey}`);
-                router.navigate('/home');
-            } else {
-                console.info('Index.useFocusEffect: User NOT setup with a user key');
-            }
+            checkIfLoggedIn();
         }, [])
     );
 

@@ -8,42 +8,20 @@ import UserNameInput from "@/app/components/profile/UserNameInput";
 import UserProfileImageUpload from "@/app/components/profile/UserProfileImageUpload";
 import InitialUserProfileImages from "@/constants/InitialUserProfileImages";
 import ImageData from "@/app/objects/ImageData";
-import { Ionicons } from "@expo/vector-icons";
+import {Ionicons} from "@expo/vector-icons";
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-// https://docs.expo.dev/develop/user-interface/store-data/
-// --> https://react-native-async-storage.github.io/async-storage/docs/usage/
+import useUserName from "@/app/hooks/useUserName";
 
 export default function Profile() {
-    // userName: via AsyncStorage
-    const [userName, setUserName] = useState<string>('');
-
-    const getUserName = async () => {
-        try {
-            return await AsyncStorage.getItem('userName');
-        } catch (ignoredError) {
-            return null;
-        }
-    };
+    const {userName, storeUserName} = useUserName();
 
     const localSetUserName = async (value: string) => {
         console.log(`setting user name: ${value}`);
-        setUserName(value);
+        await storeUserName(value);
         if (!userProfileImage) {
             setUserProfileImageFromUserName(value);
         }
-        await storeUserName(value);
     }
-
-    const storeUserName = async (value: string) => {
-        setUserName(value);
-        try {
-            await AsyncStorage.setItem('userName', value);
-        } catch (e) {
-            console.error(`There was a problem setting userName: ${userName}`, e);
-            alert(`There was a problem setting userName: ${userName}`);
-        }
-    };
 
     // userProfileImages: loaded from local data
     const [userProfileImages, setUserProfileImages] = useState<Map<string, ImageData>>(InitialUserProfileImages);
@@ -74,13 +52,6 @@ export default function Profile() {
     const router = useRouter();
     useEffect(() => {
         console.log(`userProfileImages.keys:`, Array.from(userProfileImages.keys()));
-        getUserName().then((userNameValue) => {
-            console.log(`userName: ${userNameValue}`);
-            if (userNameValue !== null) {
-                setUserName(userNameValue);
-                setUserProfileImageFromUserName(userNameValue);
-            }
-        });
 
         navigation.setOptions({
             headerRight: () => (
@@ -95,7 +66,8 @@ export default function Profile() {
         <View style={styles.container}>
             <View style={styles.body}>
                 <UserNameInput userName={userName} setUserName={localSetUserName}/>
-                <UserProfileImageUpload userProfileImage={userProfileImage} updateUserProfileImage={updateUserProfileImage}/>
+                <UserProfileImageUpload userProfileImage={userProfileImage}
+                                        updateUserProfileImage={updateUserProfileImage}/>
             </View>
         </View>
     );

@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, View} from "react-native";
+import {Pressable, StyleSheet, Text, View} from "react-native";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 
@@ -6,27 +6,18 @@ import Body from '@/app/components/chat/Body';
 import Footer from '@/app/components/chat/Footer';
 import React, {useCallback, useState} from "react";
 import InitialUserProfileImages from "@/constants/InitialUserProfileImages";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useFocusEffect, useNavigation, useRouter} from "expo-router";
 import MessageType from "@/app/objects/MessageType";
 import ImageData from "@/app/objects/ImageData";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+import useUserName from "@/app/hooks/useUserName";
 import useFirebase from "@/app/hooks/useFirebaseMessages";
 
 // "Index" is a reserved name to indicate the default route to present in the application
 // This will be providing the main chat screen for this project.
 export default function Index() {
-    // userName: via AsyncStorage
-    const [userName, setUserName] = useState<string>('');
-
-    const getUserName = async () => {
-        try {
-            return await AsyncStorage.getItem('userName');
-        } catch (ignoredError) {
-            return null;
-        }
-    };
+    const {userName} = useUserName();
 
     const {messages, storeMessage} = useFirebase();
 
@@ -41,8 +32,6 @@ export default function Index() {
     const router = useRouter();
     useFocusEffect(
         useCallback(() => {
-            console.debug('This route is now focused');
-
             navigation.setOptions({
                 headerRight: () => (
                     <Pressable onPress={() => router.navigate('/profile')} style={styles.profileButton}>
@@ -50,20 +39,14 @@ export default function Index() {
                     </Pressable>
                 ),
             });
-
-            getUserName().then((value) => {
-                if (value !== null) {
-                    setUserName(value);
-                }
-            });
-            return () => {
-                console.debug('This route is now unfocused.');
-            };
         }, [navigation])
     );
 
     return (
         <View style={styles.container}>
+            <View>
+                <Text>userName: {userName}</Text>
+            </View>
             <Body style={styles.chatBody} userNameForSelf={userName} messages={messages}
                   userProfileImages={userProfileImages}/>
             <Footer style={styles.chatFooter} createNewMessage={localCreateNewMessage}/>

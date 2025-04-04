@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 import useFirebaseUserData from "./hooks/useFirebaseUserData";
 import useLocalUserKeyStorage from "./hooks/useLocalUserKeyStorage";
-import { useFocusEffect } from "expo-router";
 
 
 export default function Index() {
@@ -13,7 +12,6 @@ export default function Index() {
     const {localUserKey, storeLocalUserKey} = useLocalUserKeyStorage();
 
     const storeUserName = async () => {
-        debugger;
         const doesUserNameAlreadyExist = findByUserName(localUserName);
         if (doesUserNameAlreadyExist) {
             alert(`The user name of ${localUserName} is already taken.  Please enter a different user name.`);

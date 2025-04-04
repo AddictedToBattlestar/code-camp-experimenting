@@ -1,7 +1,4 @@
-import {useCallback, useState} from "react";
-import MessageObject from "@/app/objects/MessageObject";
-import {useFocusEffect} from "expo-router";
-import MessageType from "@/app/objects/MessageType";
+import {useEffect, useState} from "react";
 import uuid from 'react-native-uuid';
 import ImageData from "@/app/objects/ImageData";
 
@@ -56,14 +53,10 @@ export default function useFirebase() {
         set(ref(database, `${pathName}/${uuid.v1().toString()}`), ImageData);
     };
 
-    useFocusEffect(
-        useCallback(() => {
-            // Fetch data when the component mounts
-            fetchData();
-            return () => {
-            };
-        }, [])
-    );
+    useEffect(() => {
+        // Fetch data when the component mounts
+        fetchData();
+    }, []);
 
     return {profileImages, storeProfileImage}
 }

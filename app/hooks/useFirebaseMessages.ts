@@ -1,4 +1,4 @@
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import MessageObject from "@/app/objects/MessageObject";
 import {useFocusEffect} from "expo-router";
 import MessageType from "@/app/objects/MessageType";
@@ -62,6 +62,11 @@ export default function useFirebase() {
             };
         }, [])
     );
+
+    useEffect(() => {
+        // Fetch data when the component mounts
+        fetchData();
+    }, []);
 
     return {messages, storeMessage}
 }

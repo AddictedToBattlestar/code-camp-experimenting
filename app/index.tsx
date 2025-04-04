@@ -1,5 +1,5 @@
 import {Pressable, StyleSheet, Text, View} from "react-native";
-import {Colors} from "@/constants/Colors";
+import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 
 import Body from '@/app/components/chat/Body';
@@ -45,7 +45,7 @@ export default function Index() {
     return (
         <View style={styles.container}>
             <View>
-                <Text>userName: {userName}</Text>
+                <Text style={{color: GreyScaleColorScheme[4]}}>Username: {userName}</Text>
             </View>
             <Body style={styles.chatBody} userNameForSelf={userName} messages={messages}
                   userProfileImages={userProfileImages}/>

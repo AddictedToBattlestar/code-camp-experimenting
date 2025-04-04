@@ -1,9 +1,7 @@
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Constants} from "@/constants/Constants";
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
 // https://docs.expo.dev/develop/user-interface/store-data/
 // --> https://react-native-async-storage.github.io/async-storage/docs/usage/
 
@@ -14,7 +12,7 @@ type Props = {
 export default function UserNameInput({userName, setUserName}: Readonly<Props>) {
     return (
         <View>
-            <Text style={styles.inputText}>User name</Text>
+            <Text style={styles.inputText}>Username</Text>
             <TextInput
                 style={styles.input}
                 value={userName}

@@ -1,9 +1,34 @@
 import app from "@/firebaseConfig";
-import {child, get, getDatabase, ref, set} from "firebase/database";
+import {child, get, getDatabase, onValue, ref, set} from "firebase/database";
+import {useEffect, useState} from "react";
 
 export default function useFirebaseProfileImages() {
     const pathName = 'profile-images';
+    const [profileImages, setProfileImages] = useState<Map<string, string>>(new Map());
+
     const database = getDatabase(app);
+
+    // Reference to the specific collection in the database
+    const collectionRef = ref(database, pathName);
+
+    // Function to fetch data from the database
+    const fetchData = () => {
+        onValue(collectionRef, (snapshot) => {
+            const data = snapshot.val();
+            console.debug(`profile images`, data);
+            // Check if dataItem exists
+            if (data) {
+                const result: Map<string, string> = new Map();
+                for (const [key, value] of Object.entries(data)) {
+                    // @ts-ignore
+                    result.set(key, value)
+                }
+                setProfileImages(result);
+            } else {
+                setProfileImages(new Map());
+            }
+        });
+    };
 
     const findProfileImageByUserName = async (userName: string) => {
         if (!userName) {
@@ -25,5 +50,9 @@ export default function useFirebaseProfileImages() {
         set(ref(database, `${pathName}/${userName}`), profileImage);
     };
 
-    return {findProfileImageByUserName, storeProfileImage}
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    return {profileImages, findProfileImageByUserName, storeProfileImage}
 }

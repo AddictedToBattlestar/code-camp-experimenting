@@ -8,7 +8,7 @@ import React from "react";
 type Props = {
     content: string;
     who: string;
-    userProfileImage: ImageData | undefined;
+    userProfileImage: string | undefined;
 }
 export default function ImageFromSomeoneElse({content, who, userProfileImage}: Readonly<Props>) {
     return (

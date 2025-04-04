@@ -1,12 +1,11 @@
 import {StyleSheet, Text, View} from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Image} from 'expo-image';
-import ImageData from "@/app/objects/ImageData";
 import React from "react";
 
 type Props = {
     who: string;
-    userProfileImage: ImageData | undefined;
+    userProfileImage: string | undefined;
 }
 export default function MessageAvatarBubble({who, userProfileImage}: Readonly<Props>) {
     function findFirstTwoUpper(text: string) {
@@ -28,7 +27,7 @@ export default function MessageAvatarBubble({who, userProfileImage}: Readonly<Pr
         <View style={styles.container}>
             <View style={styles.bubble}>
                 {userProfileImage ? (
-                    <Image source={userProfileImage} style={styles.image}/>
+                    <Image source={{uri: userProfileImage}} style={styles.image}/>
                 ) : (
                     <Text style={styles.text}>{initialsToDisplay}</Text>
                 )}

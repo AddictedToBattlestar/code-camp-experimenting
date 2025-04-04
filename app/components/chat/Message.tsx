@@ -9,7 +9,7 @@ import ImageFromSomeoneElse from "@/app/components/chat/message/ImageFromSomeone
 type Props = {
     userNameForSelf: string;
     message: MessageObject;
-    userProfileImage: ImageData | undefined;
+    userProfileImage: string | undefined;
 }
 export default function Message({userNameForSelf, message, userProfileImage}: Readonly<Props>) {
     if (message.who === userNameForSelf && message.messageType === MessageType.Text) {

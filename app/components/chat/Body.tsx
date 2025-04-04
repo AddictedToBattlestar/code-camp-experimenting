@@ -9,7 +9,7 @@ type Props = {
     style: ViewStyle;
     userNameForSelf: string;
     messages: MessageObject[];
-    userProfileImages: Map<string, ImageData>;
+    userProfileImages: Map<string, string>;
 };
 export default function Body({style, messages, userNameForSelf, userProfileImages}: Readonly<Props>) {
     console.debug(`messages length: ${messages.length}`);

@@ -4,15 +4,14 @@ import {Constants} from "@/constants/Constants";
 
 import Body from '@/app/components/chat/Body';
 import Footer from '@/app/components/chat/Footer';
-import React, {useCallback, useState} from "react";
-import InitialUserProfileImages from "@/constants/InitialUserProfileImages";
+import React, {useCallback} from "react";
 import {useFocusEffect, useNavigation, useRouter} from "expo-router";
 import MessageType from "@/app/objects/MessageType";
-import ImageData from "@/app/objects/ImageData";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import useUserName from "@/app/hooks/useUserName";
 import useFirebaseMessages from "@/app/hooks/useFirebaseMessages";
+import useFirebaseProfileImages from "@/app/hooks/useFirebaseProfileImages";
 
 // "Index" is a reserved name to indicate the default route to present in the application
 // This will be providing the main chat screen for this project.
@@ -25,8 +24,7 @@ export default function Index() {
         storeMessage(userName, newMessageText, messageType);
     };
 
-    // userProfileImages: loaded from local data
-    const [userProfileImages] = useState<Map<string, ImageData>>(InitialUserProfileImages);
+    const {profileImages} = useFirebaseProfileImages();
 
     const navigation = useNavigation();
     const router = useRouter();
@@ -48,7 +46,7 @@ export default function Index() {
                 <Text style={{color: GreyScaleColorScheme[4]}}>Username: {userName}</Text>
             </View>
             <Body style={styles.chatBody} userNameForSelf={userName} messages={messages}
-                  userProfileImages={userProfileImages}/>
+                  userProfileImages={profileImages}/>
             <Footer style={styles.chatFooter} createNewMessage={localCreateNewMessage}/>
         </View>
     );

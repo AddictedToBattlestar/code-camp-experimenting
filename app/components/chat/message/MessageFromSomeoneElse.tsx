@@ -7,7 +7,7 @@ import ImageData from "@/app/objects/ImageData";
 type Props = {
     content: string;
     who: string;
-    userProfileImage: ImageData | undefined;
+    userProfileImage: string | undefined;
 }
 export default function MessageFromSomeoneElse({content, who, userProfileImage}: Readonly<Props>) {
     return (

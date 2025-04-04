@@ -15,11 +15,14 @@ export default function RootLayout() {
                 }}
             >
                 <Stack.Screen name="index" options={{
-                    title: 'Setup User Account'
+                    title: 'Technology Camp Chat'
                 }}/>
+                <Stack.Screen name="profile" options={{title: 'User Profile'}}/>
                 <Stack.Screen name="+not-found"/>
+                <Stack.Screen name="take-photo" options={{title: 'Take Photo'}}/>
             </Stack>
             <StatusBar style="light"/>
         </>
+
     );
 }

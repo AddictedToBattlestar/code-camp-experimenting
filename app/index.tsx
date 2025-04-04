@@ -1,85 +1,65 @@
-import {Pressable, StyleSheet, Text, View} from "react-native";
+import { useState } from "react";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
-
-import Body from '@/app/components/chat/Body';
-import Footer from '@/app/components/chat/Footer';
-import React, {useCallback} from "react";
-import {useFocusEffect, useNavigation, useRouter} from "expo-router";
-import MessageType from "@/app/objects/MessageType";
-import Ionicons from "@expo/vector-icons/Ionicons";
-
 import useUserName from "@/app/hooks/useUserName";
-import useFirebaseMessages from "@/app/hooks/useFirebaseMessages";
-import useFirebaseProfileImages from "@/app/hooks/useFirebaseProfileImages";
 
-// "Index" is a reserved name to indicate the default route to present in the application
-// This will be providing the main chat screen for this project.
+
 export default function Index() {
     const {userName} = useUserName();
+    const [localUserName, setLocalUserName] = useState<string>('');
 
-    const {messages, storeMessage} = useFirebaseMessages();
+    const storeUserName = () => {
 
-    const localCreateNewMessage = (newMessageText: string, messageType: MessageType) => {
-        storeMessage(userName, newMessageText, messageType);
     };
-
-    const {profileImages} = useFirebaseProfileImages();
-
-    const navigation = useNavigation();
-    const router = useRouter();
-    useFocusEffect(
-        useCallback(() => {
-            navigation.setOptions({
-                headerRight: () => (
-                    <Pressable onPress={() => router.navigate('/profile')} style={styles.profileButton}>
-                        <Ionicons name="person" size={18}/>
-                    </Pressable>
-                ),
-            });
-        }, [navigation])
-    );
 
     return (
         <View style={styles.container}>
-            <View>
-                <Text style={{color: GreyScaleColorScheme[4]}}>Username: {userName}</Text>
-            </View>
-            <Body style={styles.chatBody} userNameForSelf={userName} messages={messages}
-                  userProfileImages={profileImages}/>
-            <Footer style={styles.chatFooter} createNewMessage={localCreateNewMessage}/>
+            <Text style={styles.welcomeText}>Welcome! Please enter a user name to proceed.</Text>
+            <TextInput
+                style={styles.input}
+                value={localUserName}
+                placeholder={"Enter your desired user name here"}
+                placeholderTextColor={GreyScaleColorScheme[4]}
+                onChangeText={(text) => {
+                    setLocalUserName(text);
+                }}
+            />
+            <Pressable
+                style={styles.continueButton}
+                onPress={storeUserName}
+            >
+                <Text>Continue</Text>
+            </Pressable>
         </View>
-    );
+    )
 }
-
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: Colors.default.backgroundColor,
-        color: Colors.default.color,
-        marginBottom: 30
-    },
-    profileButton: {
-        width: 35,
-        height: 35,
-        borderRadius: 17,
-        backgroundColor: Colors.default.backgroundColor,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
-        marginRight: 10
-    },
-    chatBody: {
-        width: '100%',
-        paddingLeft: Constants.generic.padding,
-        paddingRight: Constants.generic.padding,
-    },
-    chatFooter: {
-        width: '100%',
         padding: Constants.generic.padding,
-        backgroundColor: Colors.default.backgroundColor
+        gap: 25
+    },
+    welcomeText: {
+        paddingTop: 25,
+        textAlign: "center"
+    },
+    input: {
+        width: "100%",
+        borderWidth: 1,
+        borderRadius: Constants.generic.borderRadius,
+        padding: Constants.generic.padding,
+    },
+    continueButton: {
+        width: "100%",
+        backgroundColor: Colors.default.primaryColor,
+        borderRadius: Constants.generic.borderRadius,
+        borderColor: Colors.default.color,
+        color: Colors.default.color,
+        padding: Constants.generic.padding,
+        display: "flex",
+        alignItems: "center",
+
     }
 });

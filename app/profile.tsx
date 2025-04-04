@@ -6,11 +6,11 @@ import {useNavigation, useRouter} from "expo-router";
 
 import UserNameInput from "@/app/components/profile/UserNameInput";
 import UserProfileImageUpload from "@/app/components/profile/UserProfileImageUpload";
-import InitialUserProfileImages from "@/constants/InitialUserProfileImages";
 import ImageData from "@/app/objects/ImageData";
 import {Ionicons} from "@expo/vector-icons";
 
 import useUserName from "@/app/hooks/useUserName";
+import useFirebaseProfileImages from "@/app/hooks/useFirebaseProfileImages";
 
 export default function Profile() {
     const {userName, storeUserName} = useUserName();
@@ -18,40 +18,43 @@ export default function Profile() {
     const localSetUserName = async (value: string) => {
         console.log(`setting user name: ${value}`);
         await storeUserName(value);
-        if (!userProfileImage) {
-            setUserProfileImageFromUserName(value);
-        }
+        // if (!userProfileImage) {
+        //     setUserProfileImageFromUserName(value);
+        // }
     }
 
-    // userProfileImages: loaded from local data
-    const [userProfileImages, setUserProfileImages] = useState<Map<string, ImageData>>(InitialUserProfileImages);
+    const {findProfileImageByUserName, storeProfileImage} = useFirebaseProfileImages();
 
     // userProfileImage: profile image for the current user
     const [userProfileImage, setUserProfileImage] = useState<string | undefined | null>(null);
 
     const updateUserProfileImage = (value: string) => {
         setUserProfileImage(value);
-
         const localUserProfileImage = new ImageData(value);
-        const localUserProfileImages = userProfileImages.set(userName, localUserProfileImage);
-        setUserProfileImages(localUserProfileImages);
-        console.log(`userProfileImages.keys:`, Array.from(userProfileImages.keys()));
+        debugger;
+        storeProfileImage(userName, value);
     }
 
-    const setUserProfileImageFromUserName = (userName: string) => {
-        const currentUserProfileImageValue = userProfileImages.get(userName);
-        if (currentUserProfileImageValue) {
-            console.log(`userProfileImage located`);
-            setUserProfileImage(currentUserProfileImageValue.uri)
-        } else {
-            setUserProfileImage(null);
-        }
-    };
+    // const setUserProfileImageFromUserName = async (userName: string) => {
+    //     const currentUserProfileImageValue = await findProfileImageByUserName(userName);
+    //     if (currentUserProfileImageValue) {
+    //         console.log(`userProfileImage located`);
+    //         setUserProfileImage(currentUserProfileImageValue.uri)
+    //     } else {
+    //         setUserProfileImage(null);
+    //     }
+    // };
 
     const navigation = useNavigation();
     const router = useRouter();
     useEffect(() => {
-        console.log(`userProfileImages.keys:`, Array.from(userProfileImages.keys()));
+        // console.log(`userProfileImages.keys:`, Array.from(userProfileImages.keys()));
+
+        findProfileImageByUserName(userName).then((result) => {
+            if (result) {
+                setUserProfileImage(result.uri);
+            }
+        });
 
         navigation.setOptions({
             headerRight: () => (

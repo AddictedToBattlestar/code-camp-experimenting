@@ -12,14 +12,14 @@ import ImageData from "@/app/objects/ImageData";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import useUserName from "@/app/hooks/useUserName";
-import useFirebase from "@/app/hooks/useFirebaseMessages";
+import useFirebaseMessages from "@/app/hooks/useFirebaseMessages";
 
 // "Index" is a reserved name to indicate the default route to present in the application
 // This will be providing the main chat screen for this project.
 export default function Index() {
     const {userName} = useUserName();
 
-    const {messages, storeMessage} = useFirebase();
+    const {messages, storeMessage} = useFirebaseMessages();
 
     const localCreateNewMessage = (newMessageText: string, messageType: MessageType) => {
         storeMessage(userName, newMessageText, messageType);

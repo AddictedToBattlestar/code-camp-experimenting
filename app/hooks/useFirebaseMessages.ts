@@ -50,7 +50,7 @@ export default function useFirebase() {
 
     const storeMessage = (userName: string, newMessageText: string, messageType: MessageType) => {
         const newMessage = new MessageObject(uuid.v1().toString(), Date.now(), userName, newMessageText, messageType);
-        console.debug('Storing a message', newMessage);
+        console.debug(`Storing a message`, newMessage);
         set(ref(database, `${pathName}/${newMessage.key}`), newMessage);
     };
 

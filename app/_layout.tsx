@@ -17,6 +17,7 @@ export default function RootLayout() {
                 <Stack.Screen name="index" options={{
                     title: 'Setup User Account'
                 }}/>
+                <Stack.Screen name="home"/>
                 <Stack.Screen name="+not-found"/>
             </Stack>
             <StatusBar style="light"/>

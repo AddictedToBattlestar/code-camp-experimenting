@@ -46,10 +46,14 @@ export default function useFirebaseMessages() {
         });
     };
 
-    const storeMessage = (userName: string, newMessageText: string, messageType: MessageType) => {
-        const newMessage = new MessageObject(uuid.v1().toString(), Date.now(), userName, newMessageText, messageType);
-        console.debug(`useFirebaseMessages.storeMessage:`, newMessage);
-        set(ref(database, `${pathName}/${newMessage.key}`), newMessage);
+    const storeMessage = (userKey: string | null | undefined, newMessageText: string, messageType: MessageType) => {
+        if (!userKey) {
+            console.error(`Unable to store message for unknown userKey`);
+        } else {
+            const newMessage = new MessageObject(uuid.v1().toString(), Date.now(), userKey, newMessageText, messageType);
+            console.debug(`useFirebaseMessages.storeMessage:`, newMessage);
+            set(ref(database, `${pathName}/${newMessage.key}`), newMessage);
+        }
     };
 
     useEffect(() => {

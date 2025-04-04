@@ -6,7 +6,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function useLocalUserKeyStorage() {
     const storageKey = 'localUserKey';
-    const [localUserKey, setLocalUserKey] = useState<string>();
+
+    // string     | null           | undefined 
+    // user found | user not setup | not initialized
+    const [localUserKey, setLocalUserKey] = useState<string | null | undefined>(undefined);
 
     const getLocalUserKey = async () => {
         try {

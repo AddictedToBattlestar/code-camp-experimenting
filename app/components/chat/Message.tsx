@@ -1,17 +1,17 @@
 import MessageObject from "@/app/objects/MessageObject";
-import ImageData from "@/app/objects/ImageData";
 import ImageFromSelf from "@/app/components/chat/message/ImageFromSelf";
 import MessageFromSelf from "@/app/components/chat/message/MessageFromSelf";
 import MessageFromSomeoneElse from "@/app/components/chat/message/MessageFromSomeoneElse";
 import MessageType from "@/app/objects/MessageType";
 import ImageFromSomeoneElse from "@/app/components/chat/message/ImageFromSomeoneElse";
+import UserData from "@/app/objects/UserData";
 
 type Props = {
     userNameForSelf: string;
     message: MessageObject;
-    userProfileImage: string | undefined;
+    userData: UserData | undefined;
 }
-export default function Message({userNameForSelf, message, userProfileImage}: Readonly<Props>) {
+export default function Message({userNameForSelf, message, userData}: Readonly<Props>) {
     if (message.who === userNameForSelf && message.messageType === MessageType.Text) {
         return (<MessageFromSelf content={message.messageText}/>)
     } else if (message.who === userNameForSelf && message.messageType === MessageType.Image) {
@@ -21,7 +21,7 @@ export default function Message({userNameForSelf, message, userProfileImage}: Re
             <MessageFromSomeoneElse
                 content={message.messageText}
                 who={message.who}
-                userProfileImage={userProfileImage}
+                userProfileImage={userData?.profileImage}
             />
         )
     } else if (message.who !== userNameForSelf && message.messageType === MessageType.Image) {
@@ -29,7 +29,7 @@ export default function Message({userNameForSelf, message, userProfileImage}: Re
             <ImageFromSomeoneElse
                 content={message.messageText}
                 who={message.who}
-                userProfileImage={userProfileImage}
+                userProfileImage={userData?.profileImage}
             />
         )
     }

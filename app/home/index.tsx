@@ -4,35 +4,43 @@ import {Constants} from "@/constants/Constants";
 
 import Body from '@/app/components/chat/Body';
 import Footer from '@/app/components/chat/Footer';
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useFocusEffect, useNavigation, useRouter} from "expo-router";
 import MessageType from "@/app/objects/MessageType";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import useUserName from "@/app/hooks/useUserName";
 import useFirebaseMessages from "@/app/hooks/useFirebaseMessages";
-import useFirebaseProfileImages from "@/app/hooks/useFirebaseProfileImages";
+import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
+import useLocalUserKeyStorage from "@/app/hooks/useLocalUserKeyStorage";
+import UserData from "@/app/objects/UserData";
 
 // "Index" is a reserved name to indicate the default route to present in the application
 // This will be providing the main chat screen for this project.
 export default function Index() {
-    const {userName} = useUserName();
-
+    const {userDataListing} = useFirebaseUserData();
     const {messages, storeMessage} = useFirebaseMessages();
+    const {localUserKey} = useLocalUserKeyStorage();
+    const [currentUserData, setCurrentUserData] = useState<UserData>()
 
     const localCreateNewMessage = (newMessageText: string, messageType: MessageType) => {
-        storeMessage(userName, newMessageText, messageType);
+        storeMessage(localUserKey, newMessageText, messageType);
     };
-
-    const {profileImages} = useFirebaseProfileImages();
 
     const navigation = useNavigation();
     const router = useRouter();
+    useEffect(() => {
+        if (localUserKey === null) {
+            router.replace("/"); // Go to login if user is not found
+        } else if (localUserKey && userDataListing) {
+            setCurrentUserData(userDataListing.get(localUserKey))
+        }
+    })
+
     useFocusEffect(
         useCallback(() => {
             navigation.setOptions({
                 headerRight: () => (
-                    <Pressable onPress={() => router.navigate('/profile')} style={styles.profileButton}>
+                    <Pressable onPress={() => router.navigate('/home/profile')} style={styles.profileButton}>
                         <Ionicons name="person" size={18}/>
                     </Pressable>
                 ),
@@ -40,13 +48,15 @@ export default function Index() {
         }, [navigation])
     );
 
+    if (!currentUserData) return (<View></View>);
+
     return (
         <View style={styles.container}>
             <View>
-                <Text style={{color: GreyScaleColorScheme[4]}}>Username: {userName}</Text>
+                <Text style={{color: GreyScaleColorScheme[4]}}>Username: {currentUserData.userName}</Text>
             </View>
-            <Body style={styles.chatBody} userNameForSelf={userName} messages={messages}
-                  userProfileImages={profileImages}/>
+            <Body style={styles.chatBody} userNameForSelf={currentUserData.userName} messages={messages}
+                  userDataListing={userDataListing}/>
             <Footer style={styles.chatFooter} createNewMessage={localCreateNewMessage}/>
         </View>
     );

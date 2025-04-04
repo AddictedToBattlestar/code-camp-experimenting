@@ -2,16 +2,16 @@ import {FlatList, StyleSheet, ViewStyle} from "react-native";
 
 import {Fragment} from "react";
 import MessageObject from "@/app/objects/MessageObject";
-import ImageData from "@/app/objects/ImageData";
 import Message from "@/app/components/chat/Message";
+import UserData from "@/app/objects/UserData";
 
 type Props = {
     style: ViewStyle;
     userNameForSelf: string;
     messages: MessageObject[];
-    userProfileImages: Map<string, string>;
+    userDataListing: Map<string, UserData>;
 };
-export default function Body({style, messages, userNameForSelf, userProfileImages}: Readonly<Props>) {
+export default function Body({style, messages, userNameForSelf, userDataListing}: Readonly<Props>) {
     console.debug(`messages length: ${messages.length}`);
     return (
         <FlatList
@@ -23,7 +23,7 @@ export default function Body({style, messages, userNameForSelf, userProfileImage
                     <Message
                         userNameForSelf={userNameForSelf}
                         message={item}
-                        userProfileImage={userProfileImages.get(item.who)}
+                        userData={userDataListing.get(item.who)}
                     />
                 </Fragment>
             }

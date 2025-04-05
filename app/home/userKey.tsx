@@ -5,34 +5,31 @@ import {Constants} from "@/constants/Constants";
 import Body from '@/app/components/chat/Body';
 import Footer from '@/app/components/chat/Footer';
 import React, {useCallback, useEffect, useState} from "react";
-import {Href, useFocusEffect, useNavigation, useRouter} from "expo-router";
+import {Href, useFocusEffect, useLocalSearchParams, useNavigation, useRouter} from "expo-router";
 import MessageType from "@/app/objects/MessageType";
 
 import useFirebaseMessages from "@/app/hooks/useFirebaseMessages";
 import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
-import useUserKeyInLocalStorage from "@/app/hooks/useUserKeyInLocalStorage";
 import UserData from "@/app/objects/UserData";
 import UserButtonIcon from "@/app/components/button-icons/UserButtonIcon";
 
 // "Index" is a reserved name to indicate the default route to present in the application
 // This will be providing the main chat screen for this project.
 export default function Index() {
-    const {userDataListing} = useFirebaseUserData();
+    const { userKey } = useLocalSearchParams();
+    const {currentUserData, userDataListing} = useFirebaseUserData(userKey);
     const {messages, storeMessage} = useFirebaseMessages();
-    const {userKeyInLocalStorage} = useUserKeyInLocalStorage();
-    const [currentUserData, setCurrentUserData] = useState<UserData>();
 
     const navigation = useNavigation();
     const router = useRouter();
+
     useEffect(() => {
-        console.log('home.useEffect: userKeyFromLocalStorage', userKeyInLocalStorage);
-        if (userKeyInLocalStorage === null) {
+        console.debug('home.useEffect: userKey', userKey);
+        if (!userKey) {
             const loginRoute = "/" as Href;
             router.replace(loginRoute);
-        } else if (userKeyInLocalStorage && userDataListing) {
-            setCurrentUserData(userDataListing.get(userKeyInLocalStorage))
         }
-    })
+    }, [userKey])
 
     useFocusEffect(
         useCallback(() => {

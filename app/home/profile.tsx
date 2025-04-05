@@ -2,7 +2,7 @@ import {StyleSheet, Text, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
-import {Href, useRouter} from "expo-router";
+import {Href, useLocalSearchParams, useRouter} from "expo-router";
 
 import UserNameInput from "@/app/components/profile/UserNameInput";
 import UserProfileImageUpload from "@/app/components/profile/UserProfileImageUpload";
@@ -12,42 +12,28 @@ import UserData from "@/app/objects/UserData";
 import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
 
 export default function Profile() {
-    const [, setUserName] = useState<string>()
-    const [, setProfileImage] = useState<string>()
-    const {userDataListing} = useFirebaseUserData();
-    const {userKeyInLocalStorage} = useUserKeyInLocalStorage();
-    const [currentUserData, setCurrentUserData] = useState<UserData>();
+    const { userKey } = useLocalSearchParams();
+    const {currentUserData} = useFirebaseUserData(userKey);
+    const [userName, setUserName] = useState<string>("")
+    const [profileImage, setProfileImage] = useState<string>()
 
     const router = useRouter();
     useEffect(() => {
-        console.log('Profile.useEffect');
-        console.log('Profile.useEffect: userKeyFromLocalStorage', userKeyInLocalStorage);
-        console.log("Profile.useEffect: userDataListing.keys()", Array.from(userDataListing?.keys()));
-        if (userKeyInLocalStorage === null) {
+        console.log('profile.useEffect: userKey', userKey);
+        console.log("profile.useEffect: currentUserData", currentUserData);
+        if (!userKey) {
             const loginRoute = "/" as Href;
             router.replace(loginRoute);
-        } else if (userKeyInLocalStorage && userDataListing) {
-            setCurrentUserData(userDataListing.get(userKeyInLocalStorage))
-            setUserName(currentUserData?.userName);
-            setProfileImage(currentUserData?.profileImage);
+        } else if (currentUserData) {
+            setUserName(currentUserData.userName);
+            setProfileImage(currentUserData.profileImage);
         }
-    }, []);
+    }, [userKey, currentUserData]);
 
     if (!currentUserData) {
         return (
             <View>
-                <View>
-                    <Text>userKeyFromLocalStorage: {userKeyInLocalStorage}</Text>
-                </View>
-                <View>
-                    <Text>userDataListing.size: {userDataListing?.size}</Text>
-                </View>
-                <View>
-                    <Text>userDataListing keys: {Array.from(userDataListing?.keys())}</Text>
-                </View>
-                <View>
-                    <Text></Text>
-                </View>
+                <Text>Data loading...</Text>
             </View>
         );
     }
@@ -55,9 +41,8 @@ export default function Profile() {
     return (
         <View style={styles.container}>
             <View style={styles.body}>
-                <UserNameInput userName={currentUserData.userName} setUserName={setUserName} />
-                <UserProfileImageUpload userProfileImage={currentUserData.profileImage}
-                                        updateUserProfileImage={setProfileImage}/>
+                <UserNameInput userName={userName} setUserName={setUserName} />
+                <UserProfileImageUpload userProfileImage={profileImage} updateUserProfileImage={setProfileImage}/>
             </View>
         </View>
     );

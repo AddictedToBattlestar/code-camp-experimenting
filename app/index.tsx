@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import {
     NativeSyntheticEvent,
     Pressable,
@@ -10,30 +10,29 @@ import {
 } from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
-import useFirebaseUserData from "./hooks/useFirebaseUserData";
-import useUserKeyLocalStorage from "./hooks/useUserKeyInLocalStorage";
+import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
 import {Href, useFocusEffect, useRouter} from "expo-router";
 
 
 export default function Index() {
     const router = useRouter();
     const [userName, setUserName] = useState<string>('');
-    const {findByUserNameInFirebase, storeUserDataInFirebase} = useFirebaseUserData();
-    const {userKeyInLocalStorage, storeUserKeyInLocalStorage} = useUserKeyLocalStorage();
+    const [userKey, setUserKey] = useState<string>();
+    const {findByUserName, storeUserData} = useFirebaseUserData(null);
     const homeRoute = "/home" as Href;
 
     const storeUserName = async () => {
-        const existingUserData = findByUserNameInFirebase(userName);
+        const existingUserData = findByUserName(userName);
         if (existingUserData) {
             // Something only to be done for demo/training situations
             console.log(`The user name ${userName} already exists.  Assuming identity of that user.`);
-            await storeUserKeyInLocalStorage(existingUserData.key);
+            setUserKey(existingUserData.key);
 
         } else {
-            const newUserData = await storeUserDataInFirebase(userName);
-            await storeUserKeyInLocalStorage(newUserData.key);
+            const newUserData = await storeUserData(userName);
+            setUserKey(newUserData.key);
         }
-        router.replace(homeRoute);
+        router.replace(homeRoute, {userKey: userKey});
     };
 
     const handleKeyPress = async (event: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
@@ -42,23 +41,19 @@ export default function Index() {
         }
     }
 
-    const checkIfLoggedIn = () => {
-        if (userKeyInLocalStorage) {
-            console.info(`Index.checkIfLoggedIn: User already registered and has a user key of: ${userKeyInLocalStorage}`);
-            router.replace(homeRoute);
+    const checkIfLoggedIn = (userKey: string | undefined) => {
+        if (userKey) {
+            console.info(`Index.checkIfLoggedIn: User already registered and has a user key of: ${userKey}`);
+            router.replace(homeRoute, {userKey: userKey});
         } else {
             console.info('Index.checkIfLoggedIn: User NOT setup with a user key');
         }
     }
 
-    useEffect(() => {
-        checkIfLoggedIn();
-    }, [])
-
     useFocusEffect(
         useCallback(() => {
-            checkIfLoggedIn();
-        }, [])
+            checkIfLoggedIn(userKey);
+        }, [userKey])
     );
 
     return (
@@ -108,6 +103,5 @@ const styles = StyleSheet.create({
         padding: Constants.generic.padding,
         display: "flex",
         alignItems: "center",
-
     }
 });

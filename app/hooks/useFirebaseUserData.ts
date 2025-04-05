@@ -4,17 +4,21 @@ import {useEffect, useState} from "react";
 import UserData from "@/app/objects/UserData";
 import uuid from 'react-native-uuid';
 
-export default function useFirebaseUserData() {
+export default function useFirebaseUserData(userKey: string | string[] | null) {
     const pathName = 'user-data';
-    // in memory location for this user data
     const [userDataListing, setUserDataListings] = useState<Map<string, UserData>>(new Map());
+    const [currentUserData, setCurrentUserData] = useState<UserData>();
 
     const database = getDatabase(app);
 
     // Reference to the specific collection in the database
     const collectionRef = ref(database, pathName);
 
-    const fetchData = () => {
+    useEffect(() => {
+        fetchData(userKey === 'string' ? userKey : userKey?.[0]);
+    }, [userKey]);
+
+    const fetchData = (userKey: string | undefined) => {
         // Listen for changes in the collection
         onValue(collectionRef, (snapshot) => {
             const data = snapshot.val();
@@ -36,15 +40,15 @@ export default function useFirebaseUserData() {
                     result.set(key, userData)
                 }
                 setUserDataListings(result);
+                if (userKey && userDataListing.get(userKey)) {
+                    console.debug(`useFirebaseUserData.fetchData: ${userKey} matched.  Setting currentUserData.`)
+                    setCurrentUserData(userDataListing.get(userKey));
+                }
             } else {
                 setUserDataListings(new Map());
             }
         });
     };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
 
     const findByUserName = (userName: string): UserData | undefined => {
         if (!userName) {
@@ -74,5 +78,11 @@ export default function useFirebaseUserData() {
         return newUserData;
     };
 
-    return {userDataListing, findByUserNameInFirebase: findByUserName, findByKey, storeUserDataInFirebase: storeUserData}
+    return { 
+        currentUserData,
+        userDataListing, 
+        storeUserData,
+        findByUserName, 
+        findByKey
+    }
 }

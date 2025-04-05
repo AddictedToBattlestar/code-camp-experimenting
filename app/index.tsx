@@ -13,7 +13,6 @@ import {Constants} from "@/constants/Constants";
 import useFirebaseUserData from "./hooks/useFirebaseUserData";
 import useUserKeyLocalStorage from "./hooks/useLocalUserKeyStorage";
 import {Href, useFocusEffect, useRouter} from "expo-router";
-import MessageType from "@/app/objects/MessageType";
 
 
 export default function Index() {
@@ -104,16 +103,11 @@ const styles = StyleSheet.create({
     continueButton: {
         width: "100%",
         backgroundColor: Colors.default.primaryColor,
-        borderRadius: Constants.generic.borderRadius,
         borderColor: Colors.default.color,
-        color: Colors.default.color,
+        borderRadius: Constants.generic.borderRadius,
         padding: Constants.generic.padding,
         display: "flex",
         alignItems: "center",
 
     }
 });
-function userRouter() {
-    throw new Error("Function not implemented.");
-}
-

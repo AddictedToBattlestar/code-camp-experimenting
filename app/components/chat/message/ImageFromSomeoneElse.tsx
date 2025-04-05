@@ -13,7 +13,7 @@ type Props = {
 export default function ImageFromSomeoneElse({content, who, userProfileImage}: Readonly<Props>) {
     return (
         <View style={styles.container}>
-            <UserButtonIcon who={who} userProfileImage={userProfileImage}/>
+            <UserButtonIcon userName={who} userProfileImage={userProfileImage}/>
             <View style={styles.messageContainer}>
                 <Text style={styles.whoText}>{who}</Text>
                 <Image source={{uri: content}} style={[styles.messageTextContainer, styles.imageContainer]}/>

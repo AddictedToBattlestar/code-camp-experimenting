@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 
@@ -7,12 +7,12 @@ import Footer from '@/app/components/chat/Footer';
 import React, {useCallback, useEffect, useState} from "react";
 import {Href, useFocusEffect, useNavigation, useRouter} from "expo-router";
 import MessageType from "@/app/objects/MessageType";
-import Ionicons from "@expo/vector-icons/Ionicons";
 
 import useFirebaseMessages from "@/app/hooks/useFirebaseMessages";
 import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
 import useLocalUserKeyStorage from "@/app/hooks/useLocalUserKeyStorage";
 import UserData from "@/app/objects/UserData";
+import UserButtonIcon from "@/app/components/button-icons/UserButtonIcon";
 
 // "Index" is a reserved name to indicate the default route to present in the application
 // This will be providing the main chat screen for this project.
@@ -30,7 +30,7 @@ export default function Index() {
     const router = useRouter();
     useEffect(() => {
         if (userKeyFromLocalStorage === null) {
-            router.replace("/"); // Go to login if user is not found
+            router.replace("/"); // Go to log in route if user is not found
         } else if (userKeyFromLocalStorage && userDataListing) {
             setCurrentUserData(userDataListing.get(userKeyFromLocalStorage))
         }
@@ -41,9 +41,15 @@ export default function Index() {
             const profileRoute = '/home/profile' as Href;
             navigation.setOptions({
                 headerRight: () => (
-                    <Pressable onPress={() => router.navigate(profileRoute)} style={styles.profileButton}>
-                        <Ionicons name="person" size={18}/>
-                    </Pressable>
+                    <UserButtonIcon
+                        userName={currentUserData?.key}
+                        userProfileImage={currentUserData?.profileImage}
+                        handleOnPress={() => {
+                            console.log("Home route UserButtonIcon handleOnPress");
+                            router.navigate(profileRoute);
+                        }}
+                        style={styles.profileButton}
+                    />
                 ),
             });
         }, [navigation])
@@ -63,7 +69,6 @@ export default function Index() {
     );
 }
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -74,13 +79,7 @@ const styles = StyleSheet.create({
         marginBottom: 30
     },
     profileButton: {
-        width: 35,
-        height: 35,
-        borderRadius: 17,
         backgroundColor: Colors.default.backgroundColor,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
         marginRight: 10
     },
     chatBody: {

@@ -1,55 +1,64 @@
-import {Pressable, StyleSheet, Text, View} from "react-native";
+import {Pressable, StyleProp, StyleSheet, Text, View, ViewStyle} from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Image} from 'expo-image';
 import React from "react";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 type Props = {
-    who: string;
+    userName: string | undefined;
     userProfileImage: string | undefined;
     handleOnPress?: () => void;
+    style?: StyleProp<ViewStyle>;
 }
-export default function UserButtonIcon({who, userProfileImage, handleOnPress}: Readonly<Props>) {
-    function findFirstTwoUpper(text: string) {
-        const upperLetters = [];
-        for (const element of text) {
-            if (element === element.toUpperCase() && RegExp(/[A-Z]/).exec(element)) {
-                upperLetters.push(element);
-                if (upperLetters.length === 2) {
-                    break;
-                }
-            }
-        }
-        return upperLetters.length === 2 ? upperLetters : text[0];
+export default function UserButtonIcon({userName, userProfileImage, handleOnPress, style}: Readonly<Props>) {
+    const localHandleOnPress = () => {
+        console.log("UserButtonIcon handleOnPress");
+        if (handleOnPress) handleOnPress();
     }
 
-    const initialsToDisplay = findFirstTwoUpper(who);
-
-    return (
-        <View style={styles.container}>
-            <Pressable style={styles.bubble} onPress={() => handleOnPress}>
-                {userProfileImage ? (
-                    <Image source={{uri: userProfileImage}} style={styles.image}/>
-                ) : (
-                    <Text style={styles.text}>{initialsToDisplay}</Text>
-                )}
-
+    if (userProfileImage) {
+        return (
+            <Pressable style={[styles.button, style]} onPress={localHandleOnPress}>
+                <Image source={{uri: userProfileImage}} style={styles.image}/>
             </Pressable>
-        </View>
-    );
+        )
+    }
+
+    const initialsToDisplay = userName ? findFirstTwoUpperCharacters(userName) : null;
+    if (initialsToDisplay) {
+        return (
+            <Pressable style={[styles.button, style]} onPress={localHandleOnPress}>
+                <Text style={styles.text}>{initialsToDisplay}</Text>
+            </Pressable>
+        );
+    } else {
+        return (
+            <Pressable style={[styles.button, style]} onPress={localHandleOnPress}>
+                <Ionicons name="person" size={18}/>
+            </Pressable>
+        );
+    }
 }
 
+const findFirstTwoUpperCharacters = (text: string)=> {
+    const upperLetters = [];
+    for (const element of text) {
+        if (RegExp(/[A-Z]/).exec(element)) {
+            upperLetters.push(element);
+            if (upperLetters.length === 2) {
+                break;
+            }
+        }
+    }
+    return upperLetters.length === 2 ? upperLetters : null;
+};
+
 const styles = StyleSheet.create({
-    container: {
-        display: "flex",
-        flexDirection: "column-reverse",
-    },
-    bubble: {
+    button: {
         width: 35,
         height: 35,
         borderRadius: 17,
-        borderWidth: 1,
-        borderColor: Colors.default.color,
-        backgroundColor: GreyScaleColorScheme[4],
+        backgroundColor: Colors.default.tintColor,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row'

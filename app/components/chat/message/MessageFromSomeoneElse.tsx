@@ -12,7 +12,7 @@ type Props = {
 export default function MessageFromSomeoneElse({content, who, userProfileImage}: Readonly<Props>) {
     return (
         <View style={styles.container}>
-            <MessageAvatarBubble who={who} userProfileImage={userProfileImage}/>
+            <UserButtonIcon userName={who} userProfileImage={userProfileImage}/>
             <View style={styles.messageContainer}>
                 <Text style={styles.whoText}>{who}</Text>
                 <Text style={styles.messageTextContainer}>

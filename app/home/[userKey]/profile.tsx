@@ -19,8 +19,8 @@ export default function Profile() {
 
     const router = useRouter();
     useEffect(() => {
-        console.log('profile.useEffect: userKey', userKey);
-        console.log("profile.useEffect: currentUserData", currentUserData);
+        console.debug("profile.useEffect: currentUserData", currentUserData);
+
         if (!userKey) {
             const loginRoute = "/" as Href;
             router.replace(loginRoute);
@@ -28,7 +28,7 @@ export default function Profile() {
             setUserName(currentUserData.userName);
             setProfileImage(currentUserData.profileImage);
         }
-    }, [userKey, currentUserData]);
+    }, [currentUserData]);
 
     if (!currentUserData) {
         return (

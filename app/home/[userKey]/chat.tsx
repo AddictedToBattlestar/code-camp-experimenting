@@ -23,14 +23,13 @@ export default function Chat() {
     const router = useRouter();
 
     useEffect(() => {
-        console.debug('chat.useEffect: userKey', userKey);
         console.debug('chat.useEffect: currentUserData', currentUserData);
 
         if (currentUserData === null) {
             const loginRoute = "/" as Href;
             router.replace(loginRoute);
         }
-    }, [userKey, currentUserData])
+    }, [currentUserData])
 
     useFocusEffect(
         useCallback(() => {

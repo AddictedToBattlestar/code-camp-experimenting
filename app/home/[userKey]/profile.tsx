@@ -10,24 +10,24 @@ import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
 
 export default function Profile() {
     const { userKey } = useLocalSearchParams();
-    const {currentUserData, storeUserData} = useFirebaseUserData(userKey);
+    const {userDataForSelf, storeUserData} = useFirebaseUserData(userKey);
     const [userName, setUserName] = useState<string>("")
     const [profileImage, setProfileImage] = useState<string>()
     const router = useRouter();
 
     useEffect(() => {
-        console.debug("profile.useEffect: currentUserData", currentUserData);
+        console.debug("profile.useEffect: userDataForSelf", userDataForSelf);
 
         if (!userKey) {
             const loginRoute = "/" as Href;
             router.replace(loginRoute);
-        } else if (currentUserData) {
-            setUserName(currentUserData.userName);
-            setProfileImage(currentUserData.profileImage);
+        } else if (userDataForSelf) {
+            setUserName(userDataForSelf.userName);
+            setProfileImage(userDataForSelf.profileImage);
         }
-    }, [currentUserData]);
+    }, [userDataForSelf]);
 
-    if (!currentUserData) {
+    if (!userDataForSelf) {
         return (
             <View>
                 <Text>Data loading...</Text>
@@ -36,9 +36,9 @@ export default function Profile() {
     }
 
     const saveChanges =  async () => {
-        currentUserData.userName = userName;
-        currentUserData.profileImage = profileImage;
-        storeUserData(currentUserData);
+        userDataForSelf.userName = userName;
+        userDataForSelf.profileImage = profileImage;
+        storeUserData(userDataForSelf);
         if (router.canGoBack()) {
             router.back();
         } else {

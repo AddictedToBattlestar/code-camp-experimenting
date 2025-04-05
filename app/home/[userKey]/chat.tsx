@@ -16,20 +16,20 @@ import UserButtonIcon from "@/app/components/button-icons/UserButtonIcon";
 // This will be providing the main chat screen for this project.
 export default function Chat() {
     const { userKey } = useLocalSearchParams();
-    const {currentUserData, userDataListing} = useFirebaseUserData(userKey);
+    const {userDataForSelf, userDataListing} = useFirebaseUserData(userKey);
     const {messages, storeMessage} = useFirebaseMessages();
 
     const navigation = useNavigation();
     const router = useRouter();
 
     useEffect(() => {
-        console.debug('chat.useEffect: currentUserData', currentUserData);
+        console.debug('chat.useEffect: userDataForSelf', userDataForSelf);
 
-        if (currentUserData === null) {
+        if (userDataForSelf === null) {
             const loginRoute = "/" as Href;
             router.replace(loginRoute);
         }
-    }, [currentUserData])
+    }, [userDataForSelf])
 
     useFocusEffect(
         useCallback(() => {
@@ -37,8 +37,8 @@ export default function Chat() {
             navigation.setOptions({
                 headerRight: () => (
                     <UserButtonIcon
-                        userName={currentUserData?.key}
-                        userProfileImage={currentUserData?.profileImage}
+                        userName={userDataForSelf?.key}
+                        userProfileImage={userDataForSelf?.profileImage}
                         handleOnPress={() => {
                             router.navigate(profileRoute);
                         }}
@@ -46,10 +46,10 @@ export default function Chat() {
                     />
                 ),
             });
-        }, [navigation, currentUserData])
+        }, [navigation, userDataForSelf])
     );
 
-    if (!currentUserData || !messages) {
+    if (!userDataForSelf || !messages) {
         return (
             <View>
                 <Text>Data loading...</Text>
@@ -58,15 +58,15 @@ export default function Chat() {
     }
 
     const localCreateNewMessage = (newMessageText: string, messageType: MessageType) => {
-        storeMessage(currentUserData?.key, newMessageText, messageType);
+        storeMessage(userDataForSelf?.key, newMessageText, messageType);
     };
 
     return (
         <View style={styles.container}>
             <View>
-                <Text style={{color: GreyScaleColorScheme[4]}}>Username: {currentUserData.userName}</Text>
+                <Text style={{color: GreyScaleColorScheme[4]}}>Username: {userDataForSelf.userName}</Text>
             </View>
-            <Body style={styles.chatBody} userNameForSelf={currentUserData.userName} messages={messages}
+            <Body style={styles.chatBody} userNameForSelf={userDataForSelf.userName} messages={messages}
                   userDataListing={userDataListing}/>
             <Footer style={styles.chatFooter} createNewMessage={localCreateNewMessage}/>
         </View>

@@ -1,10 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+    NativeSyntheticEvent,
+    Pressable,
+    StyleSheet,
+    Text,
+    TextInput,
+    TextInputKeyPressEventData,
+    View
+} from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 import useFirebaseUserData from "./hooks/useFirebaseUserData";
 import useUserKeyLocalStorage from "./hooks/useLocalUserKeyStorage";
 import {Href, useFocusEffect, useRouter} from "expo-router";
+import MessageType from "@/app/objects/MessageType";
 
 
 export default function Index() {
@@ -27,6 +36,12 @@ export default function Index() {
         }
         router.replace(homeRoute);
     };
+
+    const handleKeyPress = async (event: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+        if (event.nativeEvent.key === "Enter") {
+            await storeUserName();
+        }
+    }
 
     const checkIfLoggedIn = () => {
         if (userKeyFromLocalStorage) {
@@ -58,6 +73,7 @@ export default function Index() {
                 onChangeText={(text) => {
                     setUserName(text);
                 }}
+                onKeyPress={handleKeyPress}
             />
             <Pressable
                 style={styles.continueButton}

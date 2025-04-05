@@ -12,7 +12,6 @@ type Props = {
     userDataListing: Map<string, UserData>;
 };
 export default function Body({style, messages, userNameForSelf, userDataListing}: Readonly<Props>) {
-    console.debug(`messages length: ${messages.length}`);
     return (
         <FlatList
             inverted // inverting this makes the Flatlist automatically scroll to the bottom

@@ -18,23 +18,19 @@ export default function Index() {
     const router = useRouter();
     const [userName, setUserName] = useState<string>('');
     const {findByUserName, storeUserData} = useFirebaseUserData(null);
-    const homeRoute = "/home" as Href;
 
     const storeUserName = async () => {
         const existingUserData = findByUserName(userName);
         if (existingUserData) {
             // Something only to be done for demo/training situations
-            console.log(`The user name ${userName} already exists.  Assuming identity of that user.`);
-            console.log(`redirecting to the home route with the userKey of ${existingUserData.key}`);
+            console.log(`The user name ${userName} already exists.  Assuming identity of that user. (userKey: ${existingUserData.key})`);
             const homeRoute = `/home/${existingUserData.key}` as Href;
             router.replace(homeRoute);
         } else {
             const newUserData = await storeUserData(userName);
-            console.log(`redirecting to the home route with the userKey of ${newUserData.key}`);
             const homeRoute = `/home/${newUserData.key}` as Href;
             router.replace(homeRoute);
         }
-
     };
 
     const handleKeyPress = async (event: NativeSyntheticEvent<TextInputKeyPressEventData>) => {

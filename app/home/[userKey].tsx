@@ -25,17 +25,16 @@ export default function Index() {
     useEffect(() => {
         console.debug('home.useEffect: userKey', userKey);
         console.debug('home.useEffect: currentUserData', currentUserData);
-        console.debug('home.useEffect: userDataListing.keys()', Array.from(userDataListing.keys()));
 
-        if (!userKey) {
+        if (currentUserData === null) {
             const loginRoute = "/" as Href;
             router.replace(loginRoute);
         }
-    }, [userKey, currentUserData, userDataListing])
+    }, [userKey, currentUserData])
 
     useFocusEffect(
         useCallback(() => {
-            const profileRoute = '/home/profile' as Href;
+            const profileRoute = `/home/${userKey}/profile` as Href;
             navigation.setOptions({
                 headerRight: () => (
                     <UserButtonIcon

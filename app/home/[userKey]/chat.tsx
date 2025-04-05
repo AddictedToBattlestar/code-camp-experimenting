@@ -66,7 +66,7 @@ export default function Chat() {
             <View>
                 <Text style={{color: GreyScaleColorScheme[4]}}>Username: {userDataForSelf.userName}</Text>
             </View>
-            <Body style={styles.chatBody} userNameForSelf={userDataForSelf.userName} messages={messages}
+            <Body style={styles.chatBody} userDataForSelf={userDataForSelf} messages={messages}
                   userDataListing={userDataListing}/>
             <Footer style={styles.chatFooter} createNewMessage={localCreateNewMessage}/>
         </View>

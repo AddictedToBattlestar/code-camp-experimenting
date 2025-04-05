@@ -12,7 +12,9 @@ type Props = {
 export default function MessageFromSomeoneElse({content, who, userProfileImage}: Readonly<Props>) {
     return (
         <View style={styles.container}>
-            <UserButtonIcon userName={who} userProfileImage={userProfileImage}/>
+            <View style={styles.userButtonIconContainer}>
+                <UserButtonIcon userName={who} userProfileImage={userProfileImage}/>
+            </View>
             <View style={styles.messageContainer}>
                 <Text style={styles.whoText}>{who}</Text>
                 <Text style={styles.messageTextContainer}>
@@ -29,6 +31,10 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         gap: Constants.generic.padding,
+    },
+    userButtonIconContainer: {
+        display: 'flex',
+        justifyContent: "flex-end"
     },
     messageContainer: {
         flexBasis: '80%',

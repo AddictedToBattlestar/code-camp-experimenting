@@ -7,29 +7,29 @@ import ImageFromSomeoneElse from "@/app/components/chat/message/ImageFromSomeone
 import UserData from "@/app/objects/UserData";
 
 type Props = {
-    userNameForSelf: string;
+    userDataForSelf: UserData;
     message: MessageObject;
-    userData: UserData | undefined;
+    userDataForMessage: UserData | undefined;
 }
-export default function Message({userNameForSelf, message, userData}: Readonly<Props>) {
-    if (message.who === userNameForSelf && message.messageType === MessageType.Text) {
+export default function Message({userDataForSelf, message, userDataForMessage}: Readonly<Props>) {
+    if (message.who === userDataForSelf.key && message.messageType === MessageType.Text) {
         return (<MessageFromSelf content={message.messageText}/>)
-    } else if (message.who === userNameForSelf && message.messageType === MessageType.Image) {
+    } else if (message.who === userDataForSelf.key && message.messageType === MessageType.Image) {
         return (<ImageFromSelf content={message.messageText}/>)
-    } else if (message.who !== userNameForSelf && message.messageType === MessageType.Text) {
+    } else if (message.who !== userDataForSelf.key && message.messageType === MessageType.Text) {
         return (
             <MessageFromSomeoneElse
                 content={message.messageText}
-                who={message.who}
-                userProfileImage={userData?.profileImage}
+                who={userDataForMessage ? userDataForMessage.userName : message.who}
+                userProfileImage={userDataForMessage?.profileImage}
             />
         )
-    } else if (message.who !== userNameForSelf && message.messageType === MessageType.Image) {
+    } else if (message.who !== userDataForSelf.key && message.messageType === MessageType.Image) {
         return (
             <ImageFromSomeoneElse
                 content={message.messageText}
-                who={message.who}
-                userProfileImage={userData?.profileImage}
+                who={userDataForMessage ? userDataForMessage.userName : message.who}
+                userProfileImage={userDataForMessage?.profileImage}
             />
         )
     }

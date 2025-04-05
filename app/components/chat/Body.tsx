@@ -7,11 +7,11 @@ import UserData from "@/app/objects/UserData";
 
 type Props = {
     style: ViewStyle;
-    userNameForSelf: string;
+    userDataForSelf: UserData;
     messages: MessageObject[];
     userDataListing: Map<string, UserData>;
 };
-export default function Body({style, messages, userNameForSelf, userDataListing}: Readonly<Props>) {
+export default function Body({style, messages, userDataForSelf, userDataListing}: Readonly<Props>) {
     return (
         <FlatList
             inverted // inverting this makes the Flatlist automatically scroll to the bottom
@@ -20,9 +20,9 @@ export default function Body({style, messages, userNameForSelf, userDataListing}
             renderItem={({item}) =>
                 <Fragment key={item.key}>
                     <Message
-                        userNameForSelf={userNameForSelf}
+                        userDataForSelf={userDataForSelf}
                         message={item}
-                        userData={userDataListing.get(item.who)}
+                        userDataForMessage={userDataListing.get(item.who)}
                     />
                 </Fragment>
             }

@@ -52,7 +52,7 @@ export default function Profile() {
             <View style={styles.body}>
                 <UserNameInput userName={userName} setUserName={setUserName} />
                 <UserProfileImageUpload userProfileImage={profileImage} setUserProfileImage={setProfileImage}/>
-                <Pressable onPress={saveChanges}>
+                <Pressable style={styles.continueButton} onPress={saveChanges}>
                     <Text>Save changes</Text>
                 </Pressable>
             </View>
@@ -98,5 +98,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         marginRight: 10
+    },
+    continueButton: {
+        width: "100%",
+        backgroundColor: Colors.default.primaryColor,
+        borderColor: Colors.default.color,
+        borderRadius: Constants.generic.borderRadius,
+        padding: Constants.generic.padding,
+        display: "flex",
+        alignItems: "center",
     }
 });

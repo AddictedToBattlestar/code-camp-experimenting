@@ -58,7 +58,7 @@ export default function Chat() {
     }
 
     const localCreateNewMessage = (newMessageText: string, messageType: MessageType) => {
-        storeMessage(currentUserData?.userName, newMessageText, messageType);
+        storeMessage(currentUserData?.key, newMessageText, messageType);
     };
 
     return (

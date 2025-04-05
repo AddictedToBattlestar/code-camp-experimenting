@@ -52,6 +52,7 @@ export default function Index() {
                     setUserName(text);
                 }}
                 onKeyPress={handleKeyPress}
+                onSubmitEditing={storeUserName}
             />
             <Pressable
                 style={styles.continueButton}

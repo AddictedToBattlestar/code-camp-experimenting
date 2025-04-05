@@ -4,43 +4,41 @@ import {useEffect, useState} from "react";
 // --> https://react-native-async-storage.github.io/async-storage/docs/usage/
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function useUserKeyInLocalStorage() {
-    const storageKey = 'userKeyInLocalStorage';
+export default function useLocalStorage(storageKey: string) {
+    // string      | null           | undefined
+    // value found | no value found | not initialized
+    const [currentValue, setCurrentValue] = useState<string | null | undefined>(undefined);
 
-    // string     | null           | undefined
-    // user found | user not setup | not initialized
-    const [userKeyInLocalStorage, setUserKeyInLocalStorage] = useState<string | null | undefined>(undefined);
-
-    const getUserKeyInLocalStorage = async () => {
+    const getValue = async () => {
         try {
             const result = await AsyncStorage.getItem(storageKey);
-            console.debug(`useUserKeyInLocalStorage.getUserKeyInLocalStorage: retrieved ${storageKey}: ${result}`);
+            console.debug(`useLocalStorage.getUserKeyInLocalStorage: retrieved ${storageKey}: ${result}`);
             return result;
         } catch (ignoredError) {
             return null;
         }
     };
 
-    const storeUserKeyInLocalStorage = async (value: string) => {
-        console.debug(`useUserKeyInLocalStorage.storeUserKeyInLocalStorage Setting ${storageKey} to: ${value}`);
-        setUserKeyInLocalStorage(value);
-        console.debug(`useUserKeyInLocalStorage.storeUserKeyInLocalStorage: Storing ${storageKey} as: ${value}`);
+    const setValue = async (newValue: string) => {
+        console.debug(`useLocalStorage.setValue Setting ${storageKey} to: ${newValue}`);
+        setCurrentValue(newValue);
+        console.debug(`useLocalStorage.setValue: Storing ${storageKey} as: ${newValue}`);
         try {
-            await AsyncStorage.setItem(storageKey, value);
+            await AsyncStorage.setItem(storageKey, newValue);
         } catch (e) {
-            console.error(`useUserKeyInLocalStorage.storeUserKeyInLocalStorage: There was a problem setting ${storageKey}: ${userKeyInLocalStorage}`, e);
-            alert(`useUserKeyInLocalStorage.storeUserKeyInLocalStorage: There was a problem setting ${storageKey}: ${userKeyInLocalStorage}`);
+            console.error(`useLocalStorage.setValue: There was a problem setting ${storageKey}: ${newValue}`, e);
+            alert(`useLocalStorage.setValue: There was a problem setting ${storageKey}: ${newValue}`);
         }
     };
 
     useEffect(() => {
-        getUserKeyInLocalStorage().then((value) => {
+        getValue().then((value) => {
             if (value !== null) {
-                console.debug(`useUserKeyInLocalStorage.useEffect Setting ${storageKey} to: ${value}`);
-                setUserKeyInLocalStorage(value);
+                console.debug(`useLocalStorage.useEffect Setting ${storageKey} to: ${value}`);
+                setCurrentValue(value);
             }
         });
     }, []);
 
-    return {userKeyInLocalStorage, storeUserKeyInLocalStorage};
+    return {value: currentValue, setValue};
 }

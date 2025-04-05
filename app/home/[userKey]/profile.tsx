@@ -6,9 +6,6 @@ import {Href, useLocalSearchParams, useRouter} from "expo-router";
 
 import UserNameInput from "@/app/components/profile/UserNameInput";
 import UserProfileImageUpload from "@/app/components/profile/UserProfileImageUpload";
-
-import useUserKeyInLocalStorage from "@/app/hooks/useUserKeyInLocalStorage";
-import UserData from "@/app/objects/UserData";
 import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
 
 export default function Profile() {

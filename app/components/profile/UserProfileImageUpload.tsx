@@ -25,9 +25,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type Props = {
     userProfileImage: string | undefined | null;
-    updateUserProfileImage: (value: string) => void;
+    setUserProfileImage: (value: string) => void;
 }
-export default function UserImageUpload({userProfileImage, updateUserProfileImage}: Readonly<Props>) {
+export default function UserImageUpload({userProfileImage, setUserProfileImage}: Readonly<Props>) {
     const pickImageAsync = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ['images'],
@@ -37,7 +37,7 @@ export default function UserImageUpload({userProfileImage, updateUserProfileImag
 
         if (!result.canceled) {
             console.log(`Pushing new profile image`);
-            updateUserProfileImage(result.assets[0].uri);
+            setUserProfileImage(result.assets[0].uri);
 
             // const imageData = new ImageData(result.assets[0].uri);
             // userProfileImages.set(userName, imageData);

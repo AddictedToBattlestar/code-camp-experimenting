@@ -18,7 +18,7 @@ import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
 export default function Index() {
     const router = useRouter();
     const [userName, setUserName] = useState<string>('');
-    const {findByUserName, storeUserData} = useFirebaseUserData(null);
+    const {findByUserName, storeNewUserData} = useFirebaseUserData(null);
 
     const storeUserName = async () => {
         const existingUserData = findByUserName(userName);
@@ -28,7 +28,7 @@ export default function Index() {
             const homeRoute = `/home/${existingUserData.key}/chat` as Href;
             router.replace(homeRoute);
         } else {
-            const newUserData = await storeUserData(userName);
+            const newUserData = await storeNewUserData(userName);
             const homeRoute = `/home/${newUserData.key}/chat` as Href;
             router.replace(homeRoute);
         }

@@ -73,7 +73,7 @@ export default function useFirebaseUserData(userKey: string | string[] | null) {
         return userDataListing.get(userKey);
     };
 
-    const storeUserData = async (userName: string, profileImage?: string | undefined) => {
+    const storeNewUserData = async (userName: string, profileImage?: string | undefined) => {
         console.debug(`useFirebaseUserData.storeUserData: Attempting to store data for ${userName}`);
         const newUserData = new UserData(uuid.v1().toString(), userName, profileImage);
         const stringifiedUserData = JSON.stringify(newUserData);
@@ -81,9 +81,15 @@ export default function useFirebaseUserData(userKey: string | string[] | null) {
         return newUserData;
     };
 
+    const storeUserData = async (updatedUserData: UserData) => {
+        const stringifiedUserData = JSON.stringify(updatedUserData);
+        await set(ref(database, `${pathName}/${updatedUserData.key}`), stringifiedUserData);
+    }
+
     return { 
         currentUserData,
         userDataListing, 
+        storeNewUserData,
         storeUserData,
         findByUserName, 
         findByKey

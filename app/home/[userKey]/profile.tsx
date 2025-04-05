@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from "react-native";
+import {Pressable, StyleSheet, Text, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
@@ -10,11 +10,11 @@ import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
 
 export default function Profile() {
     const { userKey } = useLocalSearchParams();
-    const {currentUserData} = useFirebaseUserData(userKey);
+    const {currentUserData, storeUserData} = useFirebaseUserData(userKey);
     const [userName, setUserName] = useState<string>("")
     const [profileImage, setProfileImage] = useState<string>()
-
     const router = useRouter();
+
     useEffect(() => {
         console.debug("profile.useEffect: currentUserData", currentUserData);
 
@@ -35,11 +35,26 @@ export default function Profile() {
         );
     }
 
+    const saveChanges =  async () => {
+        currentUserData.userName = userName;
+        currentUserData.profileImage = profileImage;
+        storeUserData(currentUserData);
+        if (router.canGoBack()) {
+            router.back();
+        } else {
+            const homeRoute = `/home/${userKey}/chat` as Href;
+            router.replace(homeRoute);
+        }
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.body}>
                 <UserNameInput userName={userName} setUserName={setUserName} />
-                <UserProfileImageUpload userProfileImage={profileImage} updateUserProfileImage={setProfileImage}/>
+                <UserProfileImageUpload userProfileImage={profileImage} setUserProfileImage={setProfileImage}/>
+                <Pressable onPress={saveChanges}>
+                    <Text>Save changes</Text>
+                </Pressable>
             </View>
         </View>
     );

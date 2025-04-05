@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import {
     NativeSyntheticEvent,
     Pressable,
@@ -11,13 +11,12 @@ import {
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
-import {Href, useFocusEffect, useRouter} from "expo-router";
+import {Href, useRouter} from "expo-router";
 
 
 export default function Index() {
     const router = useRouter();
     const [userName, setUserName] = useState<string>('');
-    const [userKey, setUserKey] = useState<string>();
     const {findByUserName, storeUserData} = useFirebaseUserData(null);
     const homeRoute = "/home" as Href;
 
@@ -26,13 +25,14 @@ export default function Index() {
         if (existingUserData) {
             // Something only to be done for demo/training situations
             console.log(`The user name ${userName} already exists.  Assuming identity of that user.`);
-            setUserKey(existingUserData.key);
-
+            console.log(`redirecting to the home route with the userKey of ${existingUserData.key}`);
+            router.replace(homeRoute, {userKey: existingUserData.key});
         } else {
             const newUserData = await storeUserData(userName);
-            setUserKey(newUserData.key);
+            console.log(`redirecting to the home route with the userKey of ${newUserData.key}`);
+            router.replace(homeRoute, {userKey: newUserData.key});
         }
-        router.replace(homeRoute, {userKey: userKey});
+
     };
 
     const handleKeyPress = async (event: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
@@ -40,21 +40,6 @@ export default function Index() {
             await storeUserName();
         }
     }
-
-    const checkIfLoggedIn = (userKey: string | undefined) => {
-        if (userKey) {
-            console.info(`Index.checkIfLoggedIn: User already registered and has a user key of: ${userKey}`);
-            router.replace(homeRoute, {userKey: userKey});
-        } else {
-            console.info('Index.checkIfLoggedIn: User NOT setup with a user key');
-        }
-    }
-
-    useFocusEffect(
-        useCallback(() => {
-            checkIfLoggedIn(userKey);
-        }, [userKey])
-    );
 
     return (
         <View style={styles.container}>

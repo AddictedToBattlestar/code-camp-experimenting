@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from "react-native";
+import {Pressable, StyleSheet, Text, View} from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Image} from 'expo-image';
 import React from "react";
@@ -6,8 +6,9 @@ import React from "react";
 type Props = {
     who: string;
     userProfileImage: string | undefined;
+    handleOnPress?: () => void;
 }
-export default function MessageAvatarBubble({who, userProfileImage}: Readonly<Props>) {
+export default function UserButtonIcon({who, userProfileImage, handleOnPress}: Readonly<Props>) {
     function findFirstTwoUpper(text: string) {
         const upperLetters = [];
         for (const element of text) {
@@ -25,14 +26,14 @@ export default function MessageAvatarBubble({who, userProfileImage}: Readonly<Pr
 
     return (
         <View style={styles.container}>
-            <View style={styles.bubble}>
+            <Pressable style={styles.bubble} onPress={() => handleOnPress}>
                 {userProfileImage ? (
                     <Image source={{uri: userProfileImage}} style={styles.image}/>
                 ) : (
                     <Text style={styles.text}>{initialsToDisplay}</Text>
                 )}
 
-            </View>
+            </Pressable>
         </View>
     );
 }
@@ -46,6 +47,8 @@ const styles = StyleSheet.create({
         width: 35,
         height: 35,
         borderRadius: 17,
+        borderWidth: 1,
+        borderColor: Colors.default.color,
         backgroundColor: GreyScaleColorScheme[4],
         alignItems: 'center',
         justifyContent: 'center',

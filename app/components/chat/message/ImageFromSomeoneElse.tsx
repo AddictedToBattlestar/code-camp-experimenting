@@ -1,7 +1,7 @@
 import {Image, StyleSheet, Text, View} from "react-native";
 import {Constants} from "@/constants/Constants";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
-import MessageAvatarBubble from "@/app/components/chat/message/MessageAvatarBubble";
+import UserButtonIcon from "@/app/components/button-icons/UserButtonIcon";
 import ImageData from "@/app/objects/ImageData";
 import React from "react";
 
@@ -13,7 +13,7 @@ type Props = {
 export default function ImageFromSomeoneElse({content, who, userProfileImage}: Readonly<Props>) {
     return (
         <View style={styles.container}>
-            <MessageAvatarBubble who={who} userProfileImage={userProfileImage}/>
+            <UserButtonIcon who={who} userProfileImage={userProfileImage}/>
             <View style={styles.messageContainer}>
                 <Text style={styles.whoText}>{who}</Text>
                 <Image source={{uri: content}} style={[styles.messageTextContainer, styles.imageContainer]}/>

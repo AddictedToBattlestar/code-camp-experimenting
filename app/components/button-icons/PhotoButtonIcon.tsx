@@ -1,10 +1,10 @@
 import {Pressable, StyleSheet} from "react-native";
 import {Colors} from "@/constants/Colors";
-import { useRouter } from 'expo-router';
+import {Href, useRouter} from 'expo-router';
 
 import {FontAwesome} from "@expo/vector-icons";
 /*
-Note: 
+Note:
 The Expo Go <Ionicons/> built-in component uses icons found at:
 https://icons.expo.fyi/Index (FILTER ON "Ionicons")
 
@@ -16,11 +16,12 @@ Reference: https://docs.expo.dev/guides/icons/
 
 export default function PhotoButtonIcon() {
     const router = useRouter();
+    const takePhotoRoute = '/home/take-photo' as Href;
 
     return (
         <Pressable
             style={styles.container}
-            onPress={() => router.navigate('/take-photo')}
+            onPress={() => router.navigate(takePhotoRoute)}
         >
             <FontAwesome name="camera" size={18} style={styles.icon}/>
         </Pressable>

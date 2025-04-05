@@ -5,7 +5,7 @@ import MessageType from "@/app/objects/MessageType";
 
 import {FontAwesome} from "@expo/vector-icons";
 /*
-Note: 
+Note:
 The Expo Go <Ionicons/> built-in component uses icons found at:
 https://icons.expo.fyi/Index (FILTER ON "Ionicons")
 
@@ -27,7 +27,7 @@ export default function ImageButtonIcon({createNewMessage}: Readonly<Props>) {
         });
 
         if (!result.canceled) {
-            console.log(result);
+            console.debug(result);
             createNewMessage(result.assets[0].uri, MessageType.Image);
         } else {
             alert('You did not select any image.');

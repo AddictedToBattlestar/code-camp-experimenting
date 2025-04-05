@@ -49,7 +49,13 @@ export default function Chat() {
         }, [navigation, currentUserData])
     );
 
-    if (!currentUserData) return (<View></View>);
+    if (!currentUserData || !messages) {
+        return (
+            <View>
+                <Text>Data loading...</Text>
+            </View>
+        );
+    }
 
     const localCreateNewMessage = (newMessageText: string, messageType: MessageType) => {
         storeMessage(currentUserData?.userName, newMessageText, messageType);

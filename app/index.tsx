@@ -11,7 +11,7 @@ import {
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 import useFirebaseUserData from "./hooks/useFirebaseUserData";
-import useUserKeyLocalStorage from "./hooks/useLocalUserKeyStorage";
+import useUserKeyLocalStorage from "./hooks/useUserKeyInLocalStorage";
 import {Href, useFocusEffect, useRouter} from "expo-router";
 
 
@@ -19,7 +19,7 @@ export default function Index() {
     const router = useRouter();
     const [userName, setUserName] = useState<string>('');
     const {findByUserNameInFirebase, storeUserDataInFirebase} = useFirebaseUserData();
-    const {userKeyFromLocalStorage, storeUserKeyInLocalStorage} = useUserKeyLocalStorage();
+    const {userKeyInLocalStorage, storeUserKeyInLocalStorage} = useUserKeyLocalStorage();
     const homeRoute = "/home" as Href;
 
     const storeUserName = async () => {
@@ -43,8 +43,8 @@ export default function Index() {
     }
 
     const checkIfLoggedIn = () => {
-        if (userKeyFromLocalStorage) {
-            console.info(`Index.checkIfLoggedIn: User already registered and has a user key of: ${userKeyFromLocalStorage}`);
+        if (userKeyInLocalStorage) {
+            console.info(`Index.checkIfLoggedIn: User already registered and has a user key of: ${userKeyInLocalStorage}`);
             router.replace(homeRoute);
         } else {
             console.info('Index.checkIfLoggedIn: User NOT setup with a user key');

@@ -1,65 +1,63 @@
-import {Pressable, StyleSheet, View} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
-import {useNavigation, useRouter} from "expo-router";
+import {Href, useRouter} from "expo-router";
 
 import UserNameInput from "@/app/components/profile/UserNameInput";
 import UserProfileImageUpload from "@/app/components/profile/UserProfileImageUpload";
-import ImageData from "@/app/objects/ImageData";
-import {Ionicons} from "@expo/vector-icons";
 
-import useUserName from "@/app/hooks/useUserName";
-import useFirebaseProfileImages from "@/app/hooks/useFirebaseProfileImages";
+import useUserKeyInLocalStorage from "@/app/hooks/useUserKeyInLocalStorage";
+import UserData from "@/app/objects/UserData";
+import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
 
 export default function Profile() {
-    const {userName, storeUserName} = useUserName();
+    const [, setUserName] = useState<string>()
+    const [, setProfileImage] = useState<string>()
+    const {userDataListing} = useFirebaseUserData();
+    const {userKeyInLocalStorage} = useUserKeyInLocalStorage();
+    const [currentUserData, setCurrentUserData] = useState<UserData>();
 
-    const localSetUserName = async (value: string) => {
-        console.log(`setting user name: ${value}`);
-        await storeUserName(value);
-        // if (!userProfileImage) {
-        //     setUserProfileImageFromUserName(value);
-        // }
-    }
-
-    const {findProfileImageByUserName, storeProfileImage} = useFirebaseProfileImages();
-
-    // userProfileImage: profile image for the current user
-    const [userProfileImage, setUserProfileImage] = useState<string | undefined | null>(null);
-
-    const updateUserProfileImage = (value: string) => {
-        setUserProfileImage(value);
-        const localUserProfileImage = new ImageData(value);
-        debugger;
-        storeProfileImage(userName, value);
-    }
-
-    const navigation = useNavigation();
     const router = useRouter();
-
     useEffect(() => {
-        //TODO: Need to address userName not having been resolved here during render
-        console.debug(`Setting user profile image for ${userName}`);
-        findProfileImageByUserName(userName).then((result) => {
-            setUserProfileImage(result);
-        });
+        console.log('Profile.useEffect');
+        console.log('Profile.useEffect: userKeyFromLocalStorage', userKeyInLocalStorage);
+        console.log("Profile.useEffect: userDataListing.keys()", Array.from(userDataListing?.keys()));
+        if (userKeyInLocalStorage === null) {
+            const loginRoute = "/" as Href;
+            router.replace(loginRoute);
+        } else if (userKeyInLocalStorage && userDataListing) {
+            setCurrentUserData(userDataListing.get(userKeyInLocalStorage))
+            setUserName(currentUserData?.userName);
+            setProfileImage(currentUserData?.profileImage);
+        }
+    }, []);
 
-        navigation.setOptions({
-            headerRight: () => (
-                <Pressable onPress={() => router.navigate('/')} style={styles.profileButton}>
-                    <Ionicons name="chatbubbles" size={18}/>
-                </Pressable>
-            ),
-        });
-    }, [navigation]);
+    if (!currentUserData) {
+        return (
+            <View>
+                <View>
+                    <Text>userKeyFromLocalStorage: {userKeyInLocalStorage}</Text>
+                </View>
+                <View>
+                    <Text>userDataListing.size: {userDataListing?.size}</Text>
+                </View>
+                <View>
+                    <Text>userDataListing keys: {Array.from(userDataListing?.keys())}</Text>
+                </View>
+                <View>
+                    <Text></Text>
+                </View>
+            </View>
+        );
+    }
 
     return (
         <View style={styles.container}>
             <View style={styles.body}>
-                <UserNameInput userName={userName} setUserName={localSetUserName}/>
-                <UserProfileImageUpload userProfileImage={userProfileImage}
-                                        updateUserProfileImage={updateUserProfileImage}/>
+                <UserNameInput userName={currentUserData.userName} setUserName={setUserName} />
+                <UserProfileImageUpload userProfileImage={currentUserData.profileImage}
+                                        updateUserProfileImage={setProfileImage}/>
             </View>
         </View>
     );

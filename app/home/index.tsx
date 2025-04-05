@@ -10,7 +10,7 @@ import MessageType from "@/app/objects/MessageType";
 
 import useFirebaseMessages from "@/app/hooks/useFirebaseMessages";
 import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
-import useLocalUserKeyStorage from "@/app/hooks/useLocalUserKeyStorage";
+import useUserKeyInLocalStorage from "@/app/hooks/useUserKeyInLocalStorage";
 import UserData from "@/app/objects/UserData";
 import UserButtonIcon from "@/app/components/button-icons/UserButtonIcon";
 
@@ -19,20 +19,18 @@ import UserButtonIcon from "@/app/components/button-icons/UserButtonIcon";
 export default function Index() {
     const {userDataListing} = useFirebaseUserData();
     const {messages, storeMessage} = useFirebaseMessages();
-    const {userKeyFromLocalStorage} = useLocalUserKeyStorage();
-    const [currentUserData, setCurrentUserData] = useState<UserData>()
-
-    const localCreateNewMessage = (newMessageText: string, messageType: MessageType) => {
-        storeMessage(currentUserData?.userName, newMessageText, messageType);
-    };
+    const {userKeyInLocalStorage} = useUserKeyInLocalStorage();
+    const [currentUserData, setCurrentUserData] = useState<UserData>();
 
     const navigation = useNavigation();
     const router = useRouter();
     useEffect(() => {
-        if (userKeyFromLocalStorage === null) {
-            router.replace("/"); // Go to log in route if user is not found
-        } else if (userKeyFromLocalStorage && userDataListing) {
-            setCurrentUserData(userDataListing.get(userKeyFromLocalStorage))
+        console.log('home.useEffect: userKeyFromLocalStorage', userKeyInLocalStorage);
+        if (userKeyInLocalStorage === null) {
+            const loginRoute = "/" as Href;
+            router.replace(loginRoute);
+        } else if (userKeyInLocalStorage && userDataListing) {
+            setCurrentUserData(userDataListing.get(userKeyInLocalStorage))
         }
     })
 
@@ -45,7 +43,6 @@ export default function Index() {
                         userName={currentUserData?.key}
                         userProfileImage={currentUserData?.profileImage}
                         handleOnPress={() => {
-                            console.log("Home route UserButtonIcon handleOnPress");
                             router.navigate(profileRoute);
                         }}
                         style={styles.profileButton}
@@ -56,6 +53,10 @@ export default function Index() {
     );
 
     if (!currentUserData) return (<View></View>);
+
+    const localCreateNewMessage = (newMessageText: string, messageType: MessageType) => {
+        storeMessage(currentUserData?.userName, newMessageText, messageType);
+    };
 
     return (
         <View style={styles.container}>

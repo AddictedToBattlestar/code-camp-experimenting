@@ -10,7 +10,6 @@ import MessageType from "@/app/objects/MessageType";
 
 import useFirebaseMessages from "@/app/hooks/useFirebaseMessages";
 import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
-import UserData from "@/app/objects/UserData";
 import UserButtonIcon from "@/app/components/button-icons/UserButtonIcon";
 
 // "Index" is a reserved name to indicate the default route to present in the application

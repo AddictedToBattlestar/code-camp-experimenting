@@ -8,10 +8,11 @@ import {
     TextInputKeyPressEventData,
     View
 } from "react-native";
+import {Href, useRouter} from "expo-router";
+
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
-import {Href, useRouter} from "expo-router";
 
 
 export default function Index() {

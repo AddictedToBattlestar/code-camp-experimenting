@@ -14,7 +14,7 @@ import UserButtonIcon from "@/app/components/button-icons/UserButtonIcon";
 
 // "Index" is a reserved name to indicate the default route to present in the application
 // This will be providing the main chat screen for this project.
-export default function Index() {
+export default function Chat() {
     const { userKey } = useLocalSearchParams();
     const {currentUserData, userDataListing} = useFirebaseUserData(userKey);
     const {messages, storeMessage} = useFirebaseMessages();
@@ -23,8 +23,8 @@ export default function Index() {
     const router = useRouter();
 
     useEffect(() => {
-        console.debug('home.useEffect: userKey', userKey);
-        console.debug('home.useEffect: currentUserData', currentUserData);
+        console.debug('chat.useEffect: userKey', userKey);
+        console.debug('chat.useEffect: currentUserData', currentUserData);
 
         if (currentUserData === null) {
             const loginRoute = "/" as Href;

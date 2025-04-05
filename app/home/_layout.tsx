@@ -13,7 +13,7 @@ export default function RootLayout() {
                     headerTintColor: Colors.default.color
                 }}
             >
-                <Stack.Screen name="[userKey]" options={{title: 'Technology Camp Chat'}}/>
+                <Stack.Screen name="[userKey]/chat" options={{title: 'Technology Camp Chat'}}/>
                 <Stack.Screen name="[userKey]/profile" options={{title: 'User Profile'}}/>
                 <Stack.Screen name="[userKey]/take-photo" options={{title: 'Take Photo'}}/>
             </Stack>

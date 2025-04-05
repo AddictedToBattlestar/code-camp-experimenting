@@ -26,11 +26,13 @@ export default function Index() {
             // Something only to be done for demo/training situations
             console.log(`The user name ${userName} already exists.  Assuming identity of that user.`);
             console.log(`redirecting to the home route with the userKey of ${existingUserData.key}`);
-            router.replace(homeRoute, {userKey: existingUserData.key});
+            const homeRoute = `/home/${existingUserData.key}` as Href;
+            router.replace(homeRoute);
         } else {
             const newUserData = await storeUserData(userName);
             console.log(`redirecting to the home route with the userKey of ${newUserData.key}`);
-            router.replace(homeRoute, {userKey: newUserData.key});
+            const homeRoute = `/home/${newUserData.key}` as Href;
+            router.replace(homeRoute);
         }
 
     };

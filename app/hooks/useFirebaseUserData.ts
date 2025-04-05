@@ -15,10 +15,11 @@ export default function useFirebaseUserData(userKey: string | string[] | null) {
     const collectionRef = ref(database, pathName);
 
     useEffect(() => {
-        fetchData(userKey === 'string' ? userKey : userKey?.[0]);
+        console.debug(`useFirebaseUserData.useEffect: userKey`, userKey);
+        fetchData(Array.isArray(userKey) ? userKey[0] : userKey);
     }, [userKey]);
 
-    const fetchData = (userKey: string | undefined) => {
+    const fetchData = (userKey: string | null) => {
         // Listen for changes in the collection
         onValue(collectionRef, (snapshot) => {
             const data = snapshot.val();
@@ -40,9 +41,9 @@ export default function useFirebaseUserData(userKey: string | string[] | null) {
                     result.set(key, userData)
                 }
                 setUserDataListings(result);
-                if (userKey && userDataListing.get(userKey)) {
+                if (userKey && result.get(userKey)) {
                     console.debug(`useFirebaseUserData.fetchData: ${userKey} matched.  Setting currentUserData.`)
-                    setCurrentUserData(userDataListing.get(userKey));
+                    setCurrentUserData(result.get(userKey));
                 }
             } else {
                 setUserDataListings(new Map());

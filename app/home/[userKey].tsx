@@ -24,11 +24,14 @@ export default function Index() {
 
     useEffect(() => {
         console.debug('home.useEffect: userKey', userKey);
+        console.debug('home.useEffect: currentUserData', currentUserData);
+        console.debug('home.useEffect: userDataListing.keys()', Array.from(userDataListing.keys()));
+
         if (!userKey) {
             const loginRoute = "/" as Href;
             router.replace(loginRoute);
         }
-    }, [userKey])
+    }, [userKey, currentUserData, userDataListing])
 
     useFocusEffect(
         useCallback(() => {
@@ -45,7 +48,7 @@ export default function Index() {
                     />
                 ),
             });
-        }, [navigation])
+        }, [navigation, currentUserData])
     );
 
     if (!currentUserData) return (<View></View>);

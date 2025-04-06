@@ -40,7 +40,9 @@ export default function UserImageUpload({userProfileImage, setUserProfileImage}:
     return (
         <View>
             <Pressable
-                style={styles.button} onPress={pickImageAsync}>
+                style={styles.button} 
+                onPress={pickImageAsync}
+            >
                 <FontAwesome name="picture-o" size={18} color="#25292e" style={styles.buttonIcon}/>
                 <Text style={styles.buttonText}>
                     {userProfileImage ? "Change your profile image" : "Choose a profile image"}
@@ -56,7 +58,7 @@ export default function UserImageUpload({userProfileImage, setUserProfileImage}:
 
 const styles = StyleSheet.create({
     button: {
-        height: 35,
+        // height: 45,
         borderWidth: 1,
         borderRadius: Constants.generic.borderRadius,
         borderColor: Colors.default.color,
@@ -75,7 +77,6 @@ const styles = StyleSheet.create({
         color: Colors.default.backgroundColor,
     },
     imageContainer: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
     },

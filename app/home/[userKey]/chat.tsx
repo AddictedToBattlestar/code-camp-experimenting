@@ -61,12 +61,12 @@ export default function Chat() {
     };
 
     return (
-        <KeyboardAvoidingView 
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
-            style={styles.container}
-            keyboardVerticalOffset={headerHeight}
-        >
-            <Pressable onPress={Keyboard.dismiss}>
+        // <KeyboardAvoidingView 
+        //     behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+        //     style={styles.container}
+        //     keyboardVerticalOffset={headerHeight}
+        // >
+        //     <Pressable onPress={Keyboard.dismiss}>
                 <View style={styles.innerContainer}>
                     <View>
                         <Text style={{color: GreyScaleColorScheme[4]}}>Username: {userDataForSelf.userName}</Text>
@@ -75,8 +75,8 @@ export default function Chat() {
                         userDataListing={userDataListing}/>
                     <Footer style={styles.chatFooter} createNewMessage={localCreateNewMessage}/>
                 </View>
-            </Pressable>
-        </KeyboardAvoidingView>
+        //     </Pressable>
+        // </KeyboardAvoidingView>
     );
 }
 

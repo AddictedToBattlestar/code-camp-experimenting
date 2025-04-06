@@ -18,7 +18,7 @@ export default function Profile() {
     const headerHeight = useHeaderHeight()
 
     useEffect(() => {
-        console.debug("profile.useEffect: userDataForSelf", userDataForSelf);
+        console.debug(`profile.useEffect: userDataForSelf loaded? ${userDataForSelf ? "yes" : "no"}`);
 
         if (!userKey) {
             const loginRoute = "/" as Href;
@@ -52,18 +52,16 @@ export default function Profile() {
     return (
         <KeyboardAvoidingView 
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
-            style={styles.container}
+            style={styles.keyboardContainer}
             keyboardVerticalOffset={headerHeight}
         >
-            <Pressable onPress={Keyboard.dismiss}>
-                <View style={styles.container}>
-                    <View style={styles.body}>
-                        <UserNameInput userName={userName} setUserName={setUserName} />
-                        <UserProfileImageUpload userProfileImage={profileImage} setUserProfileImage={setProfileImage}/>
-                        <Pressable style={styles.continueButton} onPress={saveChanges}>
-                            <Text>Save changes</Text>
-                        </Pressable>
-                    </View>
+            <Pressable onPress={Keyboard.dismiss} style={styles.keyboardContainer}>
+                <View style={styles.innerContainer}>
+                    <UserNameInput userName={userName} setUserName={setUserName} />
+                    <UserProfileImageUpload userProfileImage={profileImage} setUserProfileImage={setProfileImage}/>
+                    <Pressable style={styles.saveChangesButton} onPress={saveChanges}>
+                        <Text>Save changes</Text>
+                    </Pressable>
                 </View>
             </Pressable>
         </KeyboardAvoidingView>
@@ -71,46 +69,18 @@ export default function Profile() {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    keyboardContainer: {
+        flex: 1
+    },
+    innerContainer: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
         backgroundColor: Colors.default.backgroundColor,
-        color: Colors.default.color
+        color: Colors.default.color,
+        paddingLeft: Constants.generic.padding,
+        paddingRight: Constants.generic.padding,
+        gap: Constants.generic.padding
     },
-    body: {
-        flex: 1,
-        width: '100%',
-        padding: Constants.generic.padding,
-        gap: 10
-    },
-    imageUploadButton: {
-        width: 200,
-        height: 35,
-        borderWidth: 1,
-        borderRadius: Constants.generic.borderRadius,
-        borderColor: Colors.default.color,
-        padding: Constants.generic.padding,
-        backgroundColor: Colors.default.color,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row'
-    },
-    imageUploadButtonText: {
-        color: Colors.default.backgroundColor,
-    },
-    profileButton: {
-        width: 35,
-        height: 35,
-        borderRadius: 17,
-        backgroundColor: Colors.default.backgroundColor,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
-        marginRight: 10
-    },
-    continueButton: {
-        width: "100%",
+    saveChangesButton: {
         backgroundColor: Colors.default.primaryColor,
         borderColor: Colors.default.color,
         borderRadius: Constants.generic.borderRadius,

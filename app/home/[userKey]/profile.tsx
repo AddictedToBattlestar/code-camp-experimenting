@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, Text, View} from "react-native";
+import {Keyboard, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
@@ -7,6 +7,7 @@ import {Href, useLocalSearchParams, useRouter} from "expo-router";
 import UserNameInput from "@/app/components/profile/UserNameInput";
 import UserProfileImageUpload from "@/app/components/profile/UserProfileImageUpload";
 import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 export default function Profile() {
     const { userKey } = useLocalSearchParams();
@@ -14,6 +15,7 @@ export default function Profile() {
     const [userName, setUserName] = useState<string>("")
     const [profileImage, setProfileImage] = useState<string>()
     const router = useRouter();
+    const headerHeight = useHeaderHeight()
 
     useEffect(() => {
         console.debug("profile.useEffect: userDataForSelf", userDataForSelf);
@@ -48,15 +50,23 @@ export default function Profile() {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.body}>
-                <UserNameInput userName={userName} setUserName={setUserName} />
-                <UserProfileImageUpload userProfileImage={profileImage} setUserProfileImage={setProfileImage}/>
-                <Pressable style={styles.continueButton} onPress={saveChanges}>
-                    <Text>Save changes</Text>
-                </Pressable>
-            </View>
-        </View>
+        <KeyboardAvoidingView 
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+            style={styles.container}
+            keyboardVerticalOffset={headerHeight}
+        >
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.container}>
+                    <View style={styles.body}>
+                        <UserNameInput userName={userName} setUserName={setUserName} />
+                        <UserProfileImageUpload userProfileImage={profileImage} setUserProfileImage={setProfileImage}/>
+                        <Pressable style={styles.continueButton} onPress={saveChanges}>
+                            <Text>Save changes</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     );
 }
 

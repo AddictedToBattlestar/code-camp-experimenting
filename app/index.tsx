@@ -49,28 +49,28 @@ export default function Index() {
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.innerContainer}>
-                <Text style={styles.welcomeText}>Welcome! Please enter a user name to proceed.</Text>
-                <TextInput
-                    style={styles.input}
-                    value={userName}
-                    placeholder={"Enter your desired user name here"}
-                    placeholderTextColor={GreyScaleColorScheme[4]}
-                    onChangeText={(text) => {
-                        setUserName(text);
-                    }}
-                    onKeyPress={handleKeyPress}
-                    onSubmitEditing={storeUserName}
-                />
-                <Pressable
-                    style={styles.continueButton}
-                    onPress={storeUserName}
-                >
-                    <Text>Continue</Text>
-                </Pressable>
-            </View>
-        </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.innerContainer}>
+                    <Text style={styles.welcomeText}>Welcome! Please enter a user name to proceed.</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={userName}
+                        placeholder={"Enter your desired user name here"}
+                        placeholderTextColor={GreyScaleColorScheme[4]}
+                        onChangeText={(text) => {
+                            setUserName(text);
+                        }}
+                        onKeyPress={handleKeyPress}
+                        onSubmitEditing={storeUserName}
+                    />
+                    <Pressable
+                        style={styles.continueButton}
+                        onPress={storeUserName}
+                    >
+                        <Text>Continue</Text>
+                    </Pressable>
+                </View>
+            </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
     )
 }

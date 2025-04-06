@@ -2,7 +2,7 @@ import {CameraType, CameraView, useCameraPermissions} from 'expo-camera';
 import {useRef, useState} from "react";
 import {Button, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import useFirebaseMessages from '@/app/hooks/useFirebaseMessages';
 import useFirebaseUserData from '@/app/hooks/useFirebaseUserData';
 import MessageType from '@/app/objects/MessageType';
@@ -19,6 +19,7 @@ export default function Photo() {
     const { userKey } = useLocalSearchParams();
     const {userDataForSelf} = useFirebaseUserData(userKey);
     const {storeMessage} = useFirebaseMessages();
+    const router = useRouter();
 
     if (!permission) {
         // Camera permissions are still loading.
@@ -45,7 +46,7 @@ export default function Photo() {
                 storeMessage(userDataForSelf.key, "data:image/png;base64,"+base64Img, MessageType.Image);
             }
         }
-        console.debug(photo);
+        router.back();
     };
 
     function toggleCameraFacing() {

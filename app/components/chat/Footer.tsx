@@ -2,6 +2,7 @@ import {
     NativeSyntheticEvent,
     Pressable,
     StyleSheet,
+    Text,
     TextInput,
     TextInputKeyPressEventData,
     View,
@@ -72,8 +73,14 @@ export default function Footer({style, createNewMessage}: Readonly<Props>) {
             
             </View>
             <ActionPicker isVisible={isModalVisible} onClose={onModalClose}>
-                <PhotoButtonIcon onPress={onModalClose}/>
-                <ImageButtonIcon createNewMessage={handleImageSubmit}/>
+                <View style={styles.modalActionRow}>
+                    <PhotoButtonIcon onPress={onModalClose}/>
+                    <Text>Take a photo</Text>
+                </View>
+                <View style={styles.modalActionRow}>
+                    <ImageButtonIcon createNewMessage={handleImageSubmit}/>
+                    <Text>Upload an image</Text>
+                </View>
             </ActionPicker>
         </View>
     )
@@ -120,5 +127,11 @@ const styles = StyleSheet.create({
     },
     inputSubmitIcon: {
         color: Colors.default.color
+    },
+    modalActionRow: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'baseline',
+        gap: Constants.generic.padding
     }
 });

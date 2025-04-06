@@ -1,11 +1,9 @@
 import {Platform, StyleSheet} from "react-native";
-import {Colors} from "@/constants/Colors";
 import * as ImagePicker from "expo-image-picker";
 import MessageType from "@/app/objects/MessageType";
 import * as FileSystem from 'expo-file-system';
 
 import FontAwesomeButtonIcon from "@/app/components/button-icons/FontAwesomeButtonIcon";
-
 
 type Props = {
     label?: string;

@@ -58,7 +58,6 @@ export default function UserImageUpload({userProfileImage, setUserProfileImage}:
 
 const styles = StyleSheet.create({
     button: {
-        // height: 45,
         borderWidth: 1,
         borderRadius: Constants.generic.borderRadius,
         borderColor: Colors.default.color,
@@ -81,8 +80,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     image: {
-        width: 320,
+        width: "90%",
         height: 440,
-        borderRadius: 18,
+        borderRadius: Constants.generic.borderRadius
     },
 });

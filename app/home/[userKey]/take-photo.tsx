@@ -2,7 +2,6 @@ import {CameraType, CameraView, useCameraPermissions} from 'expo-camera';
 import {useRef, useState} from "react";
 import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import ImageData from "@/app/objects/ImageData";
 
 // https://docs.expo.dev/versions/latest/sdk/camera/
 // npx expo install expo-camera
@@ -32,7 +31,6 @@ export default function Photo() {
         const photo = await ref.current?.takePictureAsync();
         if (photo?.uri) {
             setUri(photo?.uri);
-            // const imageData = new ImageData(photo?.uri);
             // TODO store imageData to messages for the given userName.
         }
 

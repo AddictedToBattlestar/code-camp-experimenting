@@ -1,11 +1,9 @@
 import {Pressable, StyleSheet, Text, View} from "react-native";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 import * as ImagePicker from 'expo-image-picker';
 import {Image} from 'expo-image';
-import InitialUserProfileImages from "@/constants/InitialUserProfileImages";
-import ImageData from "@/app/objects/ImageData";
 
 import {FontAwesome} from "@expo/vector-icons";
 /*
@@ -18,10 +16,6 @@ https://icons.expo.fyi/Index (FILTER ON "FontAwesome")
 
 Reference: https://docs.expo.dev/guides/icons/
 */
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
-// https://docs.expo.dev/develop/user-interface/store-data/
-// --> https://react-native-async-storage.github.io/async-storage/docs/usage/
 
 type Props = {
     userProfileImage: string | undefined | null;
@@ -38,12 +32,6 @@ export default function UserImageUpload({userProfileImage, setUserProfileImage}:
         if (!result.canceled) {
             console.log(`Pushing new profile image`);
             setUserProfileImage(result.assets[0].uri);
-
-            // const imageData = new ImageData(result.assets[0].uri);
-            // userProfileImages.set(userName, imageData);
-            // const temp: Map<string, ImageData> = userProfileImages;
-            // setUserProfileImages(temp);
-            // console.log('userProfileImages.size', userProfileImages.size);
         } else {
             alert('You did not select any image.');
         }

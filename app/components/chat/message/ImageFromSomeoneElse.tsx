@@ -2,7 +2,6 @@ import {Image, StyleSheet, Text, View} from "react-native";
 import {Constants} from "@/constants/Constants";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import UserButtonIcon from "@/app/components/button-icons/UserButtonIcon";
-import ImageData from "@/app/objects/ImageData";
 import React from "react";
 
 type Props = {

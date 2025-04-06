@@ -1,6 +1,8 @@
-import {StyleSheet, Text, View} from "react-native";
+import {Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
+import { useHeaderHeight } from '@react-navigation/elements'
+
 
 import Body from '@/app/components/chat/Body';
 import Footer from '@/app/components/chat/Footer';
@@ -18,6 +20,7 @@ export default function Chat() {
     const { userKey } = useLocalSearchParams();
     const {userDataForSelf, userDataListing} = useFirebaseUserData(userKey);
     const {messages, storeMessage} = useFirebaseMessages();
+    const headerHeight = useHeaderHeight()
 
     const navigation = useNavigation();
     const router = useRouter();
@@ -62,19 +65,30 @@ export default function Chat() {
     };
 
     return (
-        <View style={styles.container}>
-            <View>
-                <Text style={{color: GreyScaleColorScheme[4]}}>Username: {userDataForSelf.userName}</Text>
-            </View>
-            <Body style={styles.chatBody} userDataForSelf={userDataForSelf} messages={messages}
-                  userDataListing={userDataListing}/>
-            <Footer style={styles.chatFooter} createNewMessage={localCreateNewMessage}/>
-        </View>
+        <KeyboardAvoidingView 
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+            style={styles.container}
+            keyboardVerticalOffset={headerHeight}
+        >
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.innerContainer}>
+                    <View>
+                        <Text style={{color: GreyScaleColorScheme[4]}}>Username: {userDataForSelf.userName}</Text>
+                    </View>
+                    <Body style={styles.chatBody} userDataForSelf={userDataForSelf} messages={messages}
+                        userDataListing={userDataListing}/>
+                    <Footer style={styles.chatFooter} createNewMessage={localCreateNewMessage}/>
+                </View>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1
+    },
+    innerContainer: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",

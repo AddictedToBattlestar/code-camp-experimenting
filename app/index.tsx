@@ -1,11 +1,15 @@
 import { useState } from "react";
 import {
+    Keyboard,
+    KeyboardAvoidingView,
     NativeSyntheticEvent,
+    Platform,
     Pressable,
     StyleSheet,
     Text,
     TextInput,
     TextInputKeyPressEventData,
+    TouchableWithoutFeedback,
     View
 } from "react-native";
 import {Href, useRouter} from "expo-router";
@@ -21,6 +25,9 @@ export default function Index() {
     const {findByUserName, storeNewUserData} = useFirebaseUserData(null);
 
     const storeUserName = async () => {
+        if (!userName) {
+            return;
+        }
         const existingUserData = findByUserName(userName);
         if (existingUserData) {
             // Something only to be done for demo/training situations
@@ -41,31 +48,38 @@ export default function Index() {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.welcomeText}>Welcome! Please enter a user name to proceed.</Text>
-            <TextInput
-                style={styles.input}
-                value={userName}
-                placeholder={"Enter your desired user name here"}
-                placeholderTextColor={GreyScaleColorScheme[4]}
-                onChangeText={(text) => {
-                    setUserName(text);
-                }}
-                onKeyPress={handleKeyPress}
-                onSubmitEditing={storeUserName}
-            />
-            <Pressable
-                style={styles.continueButton}
-                onPress={storeUserName}
-            >
-                <Text>Continue</Text>
-            </Pressable>
-        </View>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.innerContainer}>
+                <Text style={styles.welcomeText}>Welcome! Please enter a user name to proceed.</Text>
+                <TextInput
+                    style={styles.input}
+                    value={userName}
+                    placeholder={"Enter your desired user name here"}
+                    placeholderTextColor={GreyScaleColorScheme[4]}
+                    onChangeText={(text) => {
+                        setUserName(text);
+                    }}
+                    onKeyPress={handleKeyPress}
+                    onSubmitEditing={storeUserName}
+                />
+                <Pressable
+                    style={styles.continueButton}
+                    onPress={storeUserName}
+                >
+                    <Text>Continue</Text>
+                </Pressable>
+            </View>
+        </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+    },
+    innerContainer: {
         flex: 1,
         padding: Constants.generic.padding,
         gap: 25

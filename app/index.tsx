@@ -9,7 +9,6 @@ import {
     Text,
     TextInput,
     TextInputKeyPressEventData,
-    TouchableWithoutFeedback,
     View
 } from "react-native";
 import {Href, useRouter} from "expo-router";

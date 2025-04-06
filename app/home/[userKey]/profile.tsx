@@ -1,4 +1,4 @@
-import {Keyboard, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
+import {Keyboard, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
@@ -55,7 +55,7 @@ export default function Profile() {
             style={styles.container}
             keyboardVerticalOffset={headerHeight}
         >
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <Pressable onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
                     <View style={styles.body}>
                         <UserNameInput userName={userName} setUserName={setUserName} />
@@ -65,7 +65,7 @@ export default function Profile() {
                         </Pressable>
                     </View>
                 </View>
-            </TouchableWithoutFeedback>
+            </Pressable>
         </KeyboardAvoidingView>
     );
 }

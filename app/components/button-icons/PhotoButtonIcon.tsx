@@ -16,7 +16,7 @@ Reference: https://docs.expo.dev/guides/icons/
 
 export default function PhotoButtonIcon() {
     const router = useRouter();
-    const takePhotoRoute = '/home/take-photo' as Href;
+    const takePhotoRoute = './take-photo' as Href;
 
     return (
         <Pressable

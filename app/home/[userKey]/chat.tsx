@@ -3,7 +3,6 @@ import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 import { useHeaderHeight } from '@react-navigation/elements'
 
-
 import Body from '@/app/components/chat/Body';
 import Footer from '@/app/components/chat/Footer';
 import React, {useCallback, useEffect, useState} from "react";
@@ -14,8 +13,6 @@ import useFirebaseMessages from "@/app/hooks/useFirebaseMessages";
 import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
 import UserButtonIcon from "@/app/components/button-icons/UserButtonIcon";
 
-// "Index" is a reserved name to indicate the default route to present in the application
-// This will be providing the main chat screen for this project.
 export default function Chat() {
     const { userKey } = useLocalSearchParams();
     const {userDataForSelf, userDataListing} = useFirebaseUserData(userKey);
@@ -27,7 +24,6 @@ export default function Chat() {
 
     useEffect(() => {
         console.debug('chat.useEffect: userDataForSelf', userDataForSelf);
-
         if (userDataForSelf === null) {
             const loginRoute = "/" as Href;
             router.replace(loginRoute);

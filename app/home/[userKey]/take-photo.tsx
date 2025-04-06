@@ -1,7 +1,12 @@
 import {CameraType, CameraView, useCameraPermissions} from 'expo-camera';
 import {useRef, useState} from "react";
-import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Button, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import { useLocalSearchParams } from 'expo-router';
+import useFirebaseMessages from '@/app/hooks/useFirebaseMessages';
+import useFirebaseUserData from '@/app/hooks/useFirebaseUserData';
+import MessageType from '@/app/objects/MessageType';
+import * as FileSystem from 'expo-file-system';
 
 // https://docs.expo.dev/versions/latest/sdk/camera/
 // npx expo install expo-camera
@@ -10,7 +15,10 @@ export default function Photo() {
     const [facing, setFacing] = useState<CameraType>('back');
     const [permission, requestPermission] = useCameraPermissions();
     const ref = useRef<CameraView>(null);
-    const [uri, setUri] = useState<string | undefined>(undefined);
+
+    const { userKey } = useLocalSearchParams();
+    const {userDataForSelf} = useFirebaseUserData(userKey);
+    const {storeMessage} = useFirebaseMessages();
 
     if (!permission) {
         // Camera permissions are still loading.
@@ -29,12 +37,15 @@ export default function Photo() {
 
     const takePicture = async () => {
         const photo = await ref.current?.takePictureAsync();
-        if (photo?.uri) {
-            setUri(photo?.uri);
-            // TODO store imageData to messages for the given userName.
+        if (photo?.uri && userDataForSelf) {
+            if (Platform.OS === 'web') {
+                storeMessage(userDataForSelf.key, photo.uri, MessageType.Image);
+            } else {
+                const base64Img = await FileSystem.readAsStringAsync(photo.uri, { encoding: FileSystem.EncodingType?.Base64 });
+                storeMessage(userDataForSelf.key, "data:image/png;base64,"+base64Img, MessageType.Image);
+            }
         }
-
-        console.log(photo);
+        console.debug(photo);
     };
 
     function toggleCameraFacing() {

@@ -49,7 +49,7 @@ export default function Index() {
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <Pressable onPress={Keyboard.dismiss}>
                 <View style={styles.innerContainer}>
                     <Text style={styles.welcomeText}>Welcome! Please enter a user name to proceed.</Text>
                     <TextInput
@@ -70,7 +70,7 @@ export default function Index() {
                         <Text>Continue</Text>
                     </Pressable>
                 </View>
-            </TouchableWithoutFeedback>
+            </Pressable>
         </KeyboardAvoidingView>
     )
 }

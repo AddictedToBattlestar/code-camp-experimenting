@@ -1,11 +1,11 @@
-import {Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
+import {Keyboard, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, View} from "react-native";
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 import { useHeaderHeight } from '@react-navigation/elements'
 
 import Body from '@/app/components/chat/Body';
 import Footer from '@/app/components/chat/Footer';
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import {Href, useFocusEffect, useLocalSearchParams, useNavigation, useRouter} from "expo-router";
 import MessageType from "@/app/objects/MessageType";
 
@@ -66,7 +66,7 @@ export default function Chat() {
             style={styles.container}
             keyboardVerticalOffset={headerHeight}
         >
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <Pressable onPress={Keyboard.dismiss}>
                 <View style={styles.innerContainer}>
                     <View>
                         <Text style={{color: GreyScaleColorScheme[4]}}>Username: {userDataForSelf.userName}</Text>
@@ -75,7 +75,7 @@ export default function Chat() {
                         userDataListing={userDataListing}/>
                     <Footer style={styles.chatFooter} createNewMessage={localCreateNewMessage}/>
                 </View>
-            </TouchableWithoutFeedback>
+            </Pressable>
         </KeyboardAvoidingView>
     );
 }

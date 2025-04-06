@@ -61,6 +61,7 @@ export default function Chat() {
     };
 
     return (
+        // Need to figure how to do this without trashing scrolling on mobile and text input on the web.
         // <KeyboardAvoidingView 
         //     behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
         //     style={styles.container}
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: Colors.default.backgroundColor,
         color: Colors.default.color,
-        marginBottom: 30
+        paddingBottom: 30
     },
     profileButton: {
         backgroundColor: Colors.default.backgroundColor,

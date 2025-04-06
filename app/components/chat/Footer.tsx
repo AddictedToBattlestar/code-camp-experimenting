@@ -14,6 +14,7 @@ import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {useState} from "react";
 import MessageType from "@/app/objects/MessageType";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import ImageButtonIcon from "@/app/components/button-icons/ImageButtonIcon";
 
 type Props = {
     style: ViewStyle;
@@ -37,7 +38,8 @@ export default function Footer({style, createNewMessage}: Readonly<Props>) {
     return (
         <View style={[styles.container, style]}>
             <View style={styles.actionButtonContainer}>
-                <PhotoButtonIcon/>
+                {/* <PhotoButtonIcon/> */}
+                <ImageButtonIcon createNewMessage={createNewMessage}/>
             </View>
             <TextInput
                 style={styles.input}

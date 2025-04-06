@@ -1,7 +1,8 @@
-import {Pressable, StyleSheet} from "react-native";
+import {Platform, Pressable, StyleSheet} from "react-native";
 import {Colors} from "@/constants/Colors";
 import * as ImagePicker from "expo-image-picker";
 import MessageType from "@/app/objects/MessageType";
+import * as FileSystem from 'expo-file-system';
 
 import {FontAwesome} from "@expo/vector-icons";
 /*
@@ -27,8 +28,12 @@ export default function ImageButtonIcon({createNewMessage}: Readonly<Props>) {
         });
 
         if (!result.canceled) {
-            console.debug(result);
-            createNewMessage(result.assets[0].uri, MessageType.Image);
+            if (Platform.OS === 'web') {
+                createNewMessage(result.assets[0].uri, MessageType.Image);
+            } else {
+                const base64Img = await FileSystem.readAsStringAsync(result.assets[0].uri, { encoding: FileSystem.EncodingType?.Base64 });
+                createNewMessage("data:image/png;base64,"+base64Img, MessageType.Image);
+            }
         } else {
             alert('You did not select any image.');
         }

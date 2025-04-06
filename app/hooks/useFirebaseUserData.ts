@@ -57,7 +57,7 @@ export default function useFirebaseUserData(userKey: string | string[] | null) {
         if (!userName) {
             return undefined;
         }
-        const matchingUserData = userDataListing.values().find(userData => {
+        const matchingUserData = Array.from(userDataListing.values()).find(userData => {
             if (userData.userName === userName) {
                 console.debug(`useFirebaseUserData.findByUserName: The userName of ${userName} was found`);
                 return true;

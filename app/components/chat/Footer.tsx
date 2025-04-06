@@ -14,16 +14,18 @@ import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {useState} from "react";
 import MessageType from "@/app/objects/MessageType";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import PlusButtonIcon from "@/app/components/button-icons/PlusButtonIcon";
-import ImageButtonIcon from "@/app/components/button-icons/ImageButtonIcon";
-import PhotoButtonIcon from "@/app/components/button-icons/PhotoButtonIcon";
+import CaptureImageButtonIcon from "@/app/components/button-icons/CaptureImageButtonIcon";
+import TakePhotoButtonIcon from "@/app/components/button-icons/TakePhotoButtonIcon";
 import ActionPicker from "@/app/components/chat/ActionPicker";
+import FontAwesomeButtonIcon from "../button-icons/FontAwesomeButtonIcon";
+import UserData from "@/app/objects/UserData";
 
 type Props = {
     style: ViewStyle;
+    userDataForSelf: UserData;
     createNewMessage: (messageText: string, messageType: MessageType) => void;
 }
-export default function Footer({style, createNewMessage}: Readonly<Props>) {
+export default function Footer({style, userDataForSelf, createNewMessage}: Readonly<Props>) {
     const [message, setMessage] = useState<string>('');
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
@@ -53,7 +55,7 @@ export default function Footer({style, createNewMessage}: Readonly<Props>) {
         <View style={styles.container}>
             <View style={[styles.inputContainer, style]}>
                 <View style={styles.actionButtonContainer}>
-                    <PlusButtonIcon onPress={() => setIsModalVisible(true)} />
+                    <FontAwesomeButtonIcon name="plus" onPress={() => setIsModalVisible(true)} />
                 </View>
                 <TextInput
                     style={styles.input}
@@ -73,14 +75,8 @@ export default function Footer({style, createNewMessage}: Readonly<Props>) {
             
             </View>
             <ActionPicker isVisible={isModalVisible} onClose={onModalClose}>
-                <View style={styles.modalActionRow}>
-                    <PhotoButtonIcon onPress={onModalClose}/>
-                    <Text>Take a photo</Text>
-                </View>
-                <View style={styles.modalActionRow}>
-                    <ImageButtonIcon createNewMessage={handleImageSubmit}/>
-                    <Text>Upload an image</Text>
-                </View>
+                <TakePhotoButtonIcon userKey={userDataForSelf.key} onPress={onModalClose} label="Take a photo"/>
+                <CaptureImageButtonIcon createNewMessage={handleImageSubmit} label="Upload an image"/>
             </ActionPicker>
         </View>
     )

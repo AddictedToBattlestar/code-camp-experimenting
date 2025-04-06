@@ -74,7 +74,7 @@ export default function Chat() {
                     </View>
                     <Body style={styles.chatBody} userDataForSelf={userDataForSelf} messages={messages}
                         userDataListing={userDataListing}/>
-                    <Footer style={styles.chatFooter} createNewMessage={localCreateNewMessage}/>
+                    <Footer style={styles.chatFooter} userDataForSelf={userDataForSelf} createNewMessage={localCreateNewMessage}/>
                 </View>
         //     </Pressable>
         // </KeyboardAvoidingView>

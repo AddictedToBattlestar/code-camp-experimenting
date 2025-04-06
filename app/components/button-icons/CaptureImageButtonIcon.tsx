@@ -1,25 +1,17 @@
-import {Platform, Pressable, StyleSheet} from "react-native";
+import {Platform, StyleSheet} from "react-native";
 import {Colors} from "@/constants/Colors";
 import * as ImagePicker from "expo-image-picker";
 import MessageType from "@/app/objects/MessageType";
 import * as FileSystem from 'expo-file-system';
 
-import {FontAwesome} from "@expo/vector-icons";
-/*
-Note:
-The Expo Go <Ionicons/> built-in component uses icons found at:
-https://icons.expo.fyi/Index (FILTER ON "Ionicons")
+import FontAwesomeButtonIcon from "@/app/components/button-icons/FontAwesomeButtonIcon";
 
-The Expo Go <FontAwesome/> built-in component uses icons found at:
-https://icons.expo.fyi/Index (FILTER ON "FontAwesome")
-
-Reference: https://docs.expo.dev/guides/icons/
-*/
 
 type Props = {
+    label?: string;
     createNewMessage: (messageText: string, messageType: MessageType) => void;
 }
-export default function ImageButtonIcon({createNewMessage}: Readonly<Props>) {
+export default function CaptureImageButtonIcon({label, createNewMessage}: Readonly<Props>) {
     const pickImageAsync = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ['images'],
@@ -39,29 +31,7 @@ export default function ImageButtonIcon({createNewMessage}: Readonly<Props>) {
         }
     };
 
-
     return (
-        <Pressable
-            style={styles.container}
-            onPress={pickImageAsync}
-        >
-            <FontAwesome name="image" size={18} style={styles.icon}/>
-        </Pressable>
+        <FontAwesomeButtonIcon name="image" onPress={pickImageAsync} label={label}/>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        width: 35,
-        height: 35,
-        borderRadius: 17,
-        borderWidth: 1,
-        borderColor: Colors.default.color,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row'
-    },
-    icon: {
-        color: Colors.default.color
-    }
-});

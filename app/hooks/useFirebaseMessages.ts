@@ -30,15 +30,15 @@ export default function useFirebaseMessages() {
                 const messages = rawData.map((rawItem) => {
                     return new MessageObject(
                         // @ts-ignore
-                        rawItem.key,
-                        // @ts-ignore
-                        rawItem.time,
-                        // @ts-ignore
                         rawItem.who,
                         // @ts-ignore
                         rawItem.messageText,
                         // @ts-ignore
-                        rawItem.messageType
+                        rawItem.messageType,
+                        // @ts-ignore
+                        rawItem.time,
+                        // @ts-ignore
+                        rawItem.key,
                     );
                 })
                 setMessages(messages);
@@ -50,11 +50,15 @@ export default function useFirebaseMessages() {
         if (!userKey) {
             console.error(`Unable to store message for unknown userKey`);
         } else {
-            const newMessage = new MessageObject(uuid.v1().toString(), Date.now(), userKey, newMessageText, messageType);
+            const newMessage = new MessageObject(userKey, newMessageText, messageType);
             console.debug(`useFirebaseMessages.storeMessage:`, newMessage);
             set(ref(database, `${pathName}/${newMessage.key}`), newMessage);
         }
     };
+
+    const getNewMessageKey = (userKey: string) => {
+        return `${(new Date).getTime()}-${userKey}`;
+    }
 
     useEffect(() => {
         fetchData();

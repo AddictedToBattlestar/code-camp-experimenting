@@ -1,9 +1,10 @@
-import {Pressable, StyleSheet, Text, View} from "react-native";
+import {Platform, Pressable, StyleSheet, Text, View} from "react-native";
 import React from "react";
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 import * as ImagePicker from 'expo-image-picker';
 import {Image} from 'expo-image';
+import * as FileSystem from 'expo-file-system';
 
 import {FontAwesome} from "@expo/vector-icons";
 /*
@@ -32,6 +33,13 @@ export default function UserImageUpload({userProfileImage, setUserProfileImage}:
         if (!result.canceled) {
             console.log(`Pushing new profile image`);
             setUserProfileImage(result.assets[0].uri);
+
+            if (Platform.OS === 'web') {
+                setUserProfileImage(result.assets[0].uri);
+            } else {
+                const base64Img = await FileSystem.readAsStringAsync(result.assets[0].uri, { encoding: FileSystem.EncodingType?.Base64 });
+                setUserProfileImage("data:image/png;base64,"+base64Img);
+            }
         } else {
             alert('You did not select any image.');
         }

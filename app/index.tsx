@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {
     NativeSyntheticEvent,
     Pressable,
@@ -8,32 +8,44 @@ import {
     TextInputKeyPressEventData,
     View
 } from "react-native";
-import {Href, useRouter} from "expo-router";
+import {Href, useFocusEffect, useRouter} from "expo-router";
 
 import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 export default function Index() {
     const router = useRouter();
+    const [userKeyInLocalStorage, setUserKeyInLocalStorage] = useLocalStorage('userKey');
     const [userName, setUserName] = useState<string>('');
     const {findByUserName, storeNewUserData} = useFirebaseUserData(null);
+
+    useFocusEffect(
+        useCallback(() => {
+            if (userKeyInLocalStorage) {
+                console.log(`Index.useFocusEffect: userKey found in local storage.  Redirecting to the chat screen.  (userKey: ${userKeyInLocalStorage})`);
+                const homeRoute = `/home/${userKeyInLocalStorage}/chat` as Href;
+                router.replace(homeRoute);
+            }
+        }, [userKeyInLocalStorage])
+    );
 
     const storeUserName = async () => {
         if (!userName) {
             return;
         }
         const existingUserData = findByUserName(userName);
+        let userData;
         if (existingUserData) {
-            // Something only to be done for demo/training situations
             console.log(`The user name ${userName} already exists.  Assuming identity of that user. (userKey: ${existingUserData.key})`);
-            const homeRoute = `/home/${existingUserData.key}/chat` as Href;
-            router.replace(homeRoute);
+            userData = existingUserData;
         } else {
-            const newUserData = await storeNewUserData(userName);
-            const homeRoute = `/home/${newUserData.key}/chat` as Href;
-            router.replace(homeRoute);
+            userData = await storeNewUserData(userName);
         }
+        setUserKeyInLocalStorage(userData.key);
+        const homeRoute = `/home/${userData.key}/chat` as Href;
+        router.replace(homeRoute);
     };
 
     const handleKeyPress = async (event: NativeSyntheticEvent<TextInputKeyPressEventData>) => {

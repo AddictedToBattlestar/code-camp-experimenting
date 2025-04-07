@@ -1,10 +1,10 @@
-import {useEffect, useState} from "react";
+import {Dispatch, SetStateAction, useEffect, useState} from "react";
 
 // https://docs.expo.dev/develop/user-interface/store-data/
 // --> https://react-native-async-storage.github.io/async-storage/docs/usage/
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function useLocalStorage(storageKey: string) {
+export default function useLocalStorage(storageKey: string): [string | null | undefined, (value: string | null) => void] {
     // string      | null           | undefined
     // value found | no value found | not initialized
     const [currentValue, setCurrentValue] = useState<string | null | undefined>(undefined);
@@ -19,12 +19,16 @@ export default function useLocalStorage(storageKey: string) {
         }
     };
 
-    const setValue = async (newValue: string) => {
+    const setValue = async (newValue: string | null) => {
         console.debug(`useLocalStorage.setValue Setting ${storageKey} to: ${newValue}`);
         setCurrentValue(newValue);
         console.debug(`useLocalStorage.setValue: Storing ${storageKey} as: ${newValue}`);
         try {
-            await AsyncStorage.setItem(storageKey, newValue);
+            if (newValue) {
+                await AsyncStorage.setItem(storageKey, newValue);
+            } else {
+                await AsyncStorage.removeItem(storageKey);
+            }
         } catch (e) {
             console.error(`useLocalStorage.setValue: There was a problem setting ${storageKey}: ${newValue}`, e);
             alert(`useLocalStorage.setValue: There was a problem setting ${storageKey}: ${newValue}`);
@@ -40,5 +44,5 @@ export default function useLocalStorage(storageKey: string) {
         });
     }, []);
 
-    return {value: currentValue, setValue};
+    return [currentValue, setValue];
 }

@@ -1,6 +1,6 @@
 import {Keyboard, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, View} from "react-native";
 import React, {useEffect, useState} from "react";
-import {Colors} from "@/constants/Colors";
+import {Colors, GreyScaleColorScheme} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
 import {Href, useLocalSearchParams, useRouter} from "expo-router";
 
@@ -8,6 +8,7 @@ import UserNameInput from "@/app/components/profile/UserNameInput";
 import UserProfileImageUpload from "@/app/components/profile/UserProfileImageUpload";
 import useFirebaseUserData from "@/app/hooks/useFirebaseUserData";
 import { useHeaderHeight } from "@react-navigation/elements";
+import useLocalStorage from "@/app/hooks/useLocalStorage";
 
 export default function Profile() {
     const { userKey } = useLocalSearchParams();
@@ -16,10 +17,9 @@ export default function Profile() {
     const [profileImage, setProfileImage] = useState<string>()
     const router = useRouter();
     const headerHeight = useHeaderHeight()
+    const [userKeyInLocalStorage, setUserKeyInLocalStorage] = useLocalStorage('userKey');
 
     useEffect(() => {
-        console.debug(`profile.useEffect: userDataForSelf loaded? ${userDataForSelf ? "yes" : "no"}`);
-
         if (!userKey) {
             const loginRoute = "/" as Href;
             router.replace(loginRoute);
@@ -49,6 +49,12 @@ export default function Profile() {
         }
     };
 
+    const logout = async () => {
+        await setUserKeyInLocalStorage(null);
+        const loginRoute = "/" as Href;
+        router.replace(loginRoute);
+    };
+
     return (
         <KeyboardAvoidingView 
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
@@ -61,6 +67,9 @@ export default function Profile() {
                     <UserProfileImageUpload userProfileImage={profileImage} setUserProfileImage={setProfileImage}/>
                     <Pressable style={styles.saveChangesButton} onPress={saveChanges}>
                         <Text>Save changes</Text>
+                    </Pressable>
+                    <Pressable style={styles.logoutButton} onPress={logout}>
+                        <Text style={styles.logoutButtonText}>Log out</Text>
                     </Pressable>
                 </View>
             </Pressable>
@@ -81,11 +90,25 @@ const styles = StyleSheet.create({
         gap: Constants.generic.padding
     },
     saveChangesButton: {
+        height: 60,
         backgroundColor: Colors.default.primaryColor,
         borderColor: Colors.default.color,
         borderRadius: Constants.generic.borderRadius,
         padding: Constants.generic.padding,
         display: "flex",
+        justifyContent: "center",
         alignItems: "center",
+    },
+    logoutButton: {
+        marginTop: 20,
+        backgroundColor: Colors.dangerColor,
+        borderColor: Colors.default.color,
+        borderRadius: Constants.generic.borderRadius,
+        padding: Constants.generic.padding,
+        display: "flex",
+        alignItems: "center",
+    },
+    logoutButtonText: {
+        color: GreyScaleColorScheme[0],
     }
 });

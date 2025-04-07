@@ -4,7 +4,7 @@ import {Dispatch, SetStateAction, useEffect, useState} from "react";
 // --> https://react-native-async-storage.github.io/async-storage/docs/usage/
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function useLocalStorage(storageKey: string): [string | null | undefined, (value: string | null) => void] {
+export default function useLocalStorage(storageKey: string): [string | null | undefined, (value: string | null) => Promise<void>] {
     // string      | null           | undefined
     // value found | no value found | not initialized
     const [currentValue, setCurrentValue] = useState<string | null | undefined>(undefined);

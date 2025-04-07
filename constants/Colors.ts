@@ -30,7 +30,7 @@ const Colors = {
         tintColor: GreyScaleColorScheme[2],
         primaryColor: PrimaryColorScheme[5],
     },
-    dangerColor: '#D90429'
+    dangerColor: '#D90429' // #D90429
 };
 
 export {PrimaryColorScheme, GreyScaleColorScheme, Colors};

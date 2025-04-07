@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: "90%",
-        height: 440,
+        height: 300,
         borderRadius: Constants.generic.borderRadius
     },
 });

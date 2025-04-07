@@ -2,7 +2,7 @@ import { Modal, View, Text, StyleSheet } from 'react-native';
 import { PropsWithChildren } from 'react';
 import {Colors} from "@/constants/Colors";
 import {Constants} from "@/constants/Constants";
-import MaterialButtonIcon from '../button-icons/FontAwesomeButtonIcon';
+import FontAwesomeButtonIcon from '@/app/components/button-icons/FontAwesomeButtonIcon';
 
 type Props = PropsWithChildren<{
   isVisible: boolean;
@@ -16,7 +16,7 @@ export default function ActionPicker({ isVisible, children, onClose }: Props) {
       <View style={styles.modalContent}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Choose an action</Text>
-          <MaterialButtonIcon name="close" onPress={onClose}/>
+          <FontAwesomeButtonIcon name="close" onPress={onClose}/>
         </View>
         <View style={styles.bodyContainer}>
             {children}

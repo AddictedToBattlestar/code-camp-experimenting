@@ -17,7 +17,7 @@ type Props = {
   label?: string;
 };
 
-export default function MaterialButtonIcon({ name, label, onPress }: Props) {
+export default function FontAwesomeButtonIcon({ name, label, onPress }: Props) {
   if (label) {
     return (
       <Pressable style={styles.container} onPress={onPress}>

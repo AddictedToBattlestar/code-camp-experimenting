@@ -51,6 +51,7 @@ export default function Profile() {
 
     const logout = async () => {
         await setUserKeyInLocalStorage(null);
+        router.dismissAll();
         const loginRoute = "/" as Href;
         router.replace(loginRoute);
     };

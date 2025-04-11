@@ -20,7 +20,19 @@ const GreyScaleColorScheme = [
     '#495057', // 6 #495057
     '#343A40', // 7 #343A40
     '#212529', // 8 #212529
-]
+];
+
+const PinkColorScheme = [
+    '#FF0A54', // 0 #FF0A54
+    '#FF477E', // 1 #FF477E
+    '#FF5C8A', // 2 #FF5C8A
+    '#FF7096', // 3 #FF7096
+    '#FF85A1', // 4 #FF85A1
+    '#FF99AC', // 5 #FF99AC
+    '#FBB1BD', // 6 #FBB1BD
+    '#F9BEC7', // 7 #F9BEC7
+    '#FAE0E4'  // 8 #FAE0E4
+];
 
 const Colors = {
     default: {
@@ -60,14 +72,3 @@ const BlueColorScheme = [
     '#CAF0F8'  // 8 #CAF0F8
 ];
 
-const PinkColorScheme = [
-    '#FF0A54', // 0 #FF0A54
-    '#FF477E', // 1 #FF477E
-    '#FF5C8A', // 2 #FF5C8A
-    '#FF7096', // 3 #FF7096
-    '#FF85A1', // 4 #FF85A1
-    '#FF99AC', // 5 #FF99AC
-    '#FBB1BD', // 6 #FBB1BD
-    '#F9BEC7', // 7 #F9BEC7
-    '#FAE0E4'  // 8 #FAE0E4
-];

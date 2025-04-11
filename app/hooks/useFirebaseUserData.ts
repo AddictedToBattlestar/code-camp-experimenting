@@ -6,7 +6,7 @@ import uuid from 'react-native-uuid';
 
 export default function useFirebaseUserData(userKey: string | string[] | null) {
     const pathName = 'user-data';
-    const [userDataListing, setUserDataListings] = useState<Map<string, UserData>>(new Map());
+    const [userDataListing, setUserDataListing] = useState<Map<string, UserData>>(new Map());
     const [userDataForSelf, setuserDataForSelf] = useState<UserData | null>();
 
     const database = getDatabase(app);
@@ -40,7 +40,7 @@ export default function useFirebaseUserData(userKey: string | string[] | null) {
                     // @ts-ignore
                     result.set(key, userData)
                 }
-                setUserDataListings(result);
+                setUserDataListing(result);
                 if (userKey && result.get(userKey)) {
                     console.debug(`useFirebaseUserData.fetchData: ${userKey} matched.  Setting userDataForSelf.`)
                     setuserDataForSelf(result.get(userKey));
@@ -48,7 +48,7 @@ export default function useFirebaseUserData(userKey: string | string[] | null) {
                     setuserDataForSelf(null);
                 }
             } else {
-                setUserDataListings(new Map());
+                setUserDataListing(new Map());
             }
         });
     };
